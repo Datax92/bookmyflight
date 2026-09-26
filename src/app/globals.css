@@ -1,0 +1,384 @@
+@import 'tailwindcss';
+
+/* ============================================================
+   BookMyFlight — Premium Design System
+   Deep charcoal / black + warm champagne/gold + white/ivory
+   ============================================================ */
+
+@theme {
+  /* Brand Colors */
+  --color-charcoal: #1a1a1a;
+  --color-charcoal-light: #2a2a2a;
+  --color-charcoal-lighter: #3a3a3a;
+  --color-champagne: #C9A96E;
+  --color-champagne-light: #D4B87E;
+  --color-champagne-dark: #B8954F;
+  --color-gold: #D4A947;
+  --color-gold-light: #E6C770;
+  --color-ivory: #FAF8F5;
+  --color-ivory-dark: #F0EDE8;
+  --color-warm-gray: #8A8278;
+  --color-warm-gray-light: #B8B2A8;
+  --color-warm-gray-dark: #5A554D;
+
+  /* WhatsApp Brand */
+  --color-whatsapp: #25D366;
+  --color-whatsapp-dark: #128C7E;
+
+  /* Fonts */
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  /* Spacing */
+  --spacing-section: clamp(60px, 8vw, 120px);
+  --spacing-section-mobile: 60px;
+}
+
+/* ============================================================
+   Base Styles
+   ============================================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-charcoal);
+  background-color: var(--color-ivory);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   Typography
+   ============================================================ */
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-heading);
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* ============================================================
+   Premium Scrollbar
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-ivory);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-warm-gray-light);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-warm-gray);
+}
+
+/* ============================================================
+   Selection Color
+   ============================================================ */
+::selection {
+  background-color: var(--color-champagne);
+  color: var(--color-charcoal);
+}
+
+/* ============================================================
+   Premium Button Styles
+   ============================================================ */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  background: var(--color-champagne);
+  color: var(--color-charcoal);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 0.1, 0, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transition: left 0.6s ease;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:hover {
+  background: var(--color-champagne-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(201, 169, 110, 0.35);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  background: transparent;
+  color: white;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 0.1, 0, 1);
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-champagne);
+  color: var(--color-champagne);
+  transform: translateY(-2px);
+}
+
+.btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  background: var(--color-whatsapp);
+  color: white;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  border: none;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 0.1, 0, 1);
+  border-radius: 2px;
+}
+
+.btn-whatsapp:hover {
+  background: var(--color-whatsapp-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(37, 211, 102, 0.35);
+}
+
+/* ============================================================
+   Premium Section Label
+   ============================================================ */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-champagne);
+  margin-bottom: 20px;
+}
+
+.section-label::before {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--color-champagne);
+}
+
+/* ============================================================
+   Image Reveal Animation
+   ============================================================ */
+.image-reveal {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-reveal img {
+  transition: transform 0.8s cubic-bezier(0.25, 0.1, 0, 1);
+}
+
+.image-reveal:hover img {
+  transform: scale(1.05);
+}
+
+/* ============================================================
+   Floating WhatsApp Button
+   ============================================================ */
+.whatsapp-float {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--color-whatsapp);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
+}
+
+.whatsapp-float svg {
+  width: 30px;
+  height: 30px;
+  fill: white;
+}
+
+/* ============================================================
+   Mobile WhatsApp Bar
+   ============================================================ */
+@media (max-width: 768px) {
+  .whatsapp-float {
+    display: none;
+  }
+
+  .mobile-whatsapp-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 998;
+    padding: 12px 16px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    background: var(--color-whatsapp);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  .mobile-whatsapp-bar a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Add bottom padding to body when mobile bar is visible */
+  body {
+    padding-bottom: 76px;
+  }
+
+  /* Prevent automatic iOS Safari input zoom */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .btn-primary, .btn-secondary, .btn-whatsapp {
+    padding: 14px 20px;
+    font-size: 14px;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-whatsapp-bar {
+    display: none;
+  }
+}
+
+/* ============================================================
+   Glass Effect (subtle, not excessive)
+   ============================================================ */
+.glass-subtle {
+  background: rgba(26, 26, 26, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ============================================================
+   Premium Divider
+   ============================================================ */
+.premium-divider {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-champagne), var(--color-gold));
+  margin: 24px 0;
+}
+
+/* ============================================================
+   Container
+   ============================================================ */
+.container-premium {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+@media (min-width: 640px) {
+  .container-premium {
+    padding: 0 24px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container-premium {
+    padding: 0 40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-premium {
+    padding: 0 60px;
+  }
+}
+
+/* ============================================================
+   Interactive Cards
+   ============================================================ */
+.card-interactive {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: all 0.35s cubic-bezier(0.25, 0.1, 0, 1);
+}
+
+.card-interactive:hover {
+  border-color: var(--color-champagne);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+}
+
+
