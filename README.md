@@ -1,6 +1,6 @@
 # BookMyFlight
 
-Live Production: [https://bookmyflight-jade.vercel.app](https://bookmyflight-jade.vercel.app)  
+Live Production: [https://bookmyflight-jade.vercel.app](https://bookmyflight-jade.vercel.app)  /
 Official Domain: [https://bookmyflight.pk](https://bookmyflight.pk)
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
