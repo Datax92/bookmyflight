@@ -2,193 +2,94 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { AnimateIn } from '@/components/AnimateIn';
-import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { ContactInquiryForm } from '@/components/ContactInquiryForm';
+import { CheckCircle2 } from 'lucide-react';
+import { PageHero } from '@/components/sections/PageHero';
+import { WhatsAppIcon } from '@/components/ui/icons';
 import { campaignOffers } from '@/lib/offers-data';
 import { getWhatsAppUrl } from '@/lib/whatsapp';
+import styles from '@/components/sections/Page.module.css';
 
 interface Props {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateStaticParams() {
-  return campaignOffers.map((o) => ({
-    slug: o.slug,
-  }));
+export function generateStaticParams() {
+  return campaignOffers.map((o) => ({ slug: o.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const offer = campaignOffers.find((o) => o.slug === slug);
-
-  if (!offer) {
-    return { title: 'Offer Not Found — BookMyFlight' };
-  }
-
+  const o = campaignOffers.find((x) => x.slug === slug);
+  if (!o) return { title: 'Offer not found | BookMyFlight' };
   return {
-    title: `${offer.title} | BookMyFlight`,
-    description: offer.description,
-    // Ad campaign landing pages have index: false to avoid cannibalizing primary organic landing pages
-    robots: {
-      index: false,
-      follow: true,
-    },
-    alternates: {
-      canonical: `https://bookmyflight.pk/offers/${offer.slug}`,
-    },
+    title: `${o.title} | BookMyFlight`,
+    description: o.description,
+    alternates: { canonical: `/offers/${o.slug}` },
+    robots: { index: false, follow: true },
   };
 }
 
-export default async function CampaignOfferPage({ params }: Props) {
+export default async function OfferPage({ params }: Props) {
   const { slug } = await params;
-  const offer = campaignOffers.find((o) => o.slug === slug);
-
-  if (!offer) {
-    notFound();
-  }
+  const o = campaignOffers.find((x) => x.slug === slug);
+  if (!o) notFound();
+  const others = campaignOffers.filter((x) => x.slug !== o.slug);
 
   return (
     <>
-      {/* Campaign Focused Hero */}
-      <section
-        style={{
-          background: 'var(--color-charcoal)',
-          paddingTop: 'clamp(100px, 14vw, 150px)',
-          paddingBottom: 'clamp(50px, 8vw, 80px)',
-          position: 'relative',
-        }}
-      >
-        <div className="container-premium" style={{ maxWidth: 960 }}>
-          <Breadcrumbs
-            items={[
-              { label: 'Home', href: '/' },
-              { label: 'Offers', href: '/offers' },
-              { label: offer.badge },
-            ]}
-          />
-
-          <AnimateIn>
-            <div style={{ textAlign: 'center', maxWidth: 800, margin: '0 auto' }}>
-              <div
-                style={{
-                  display: 'inline-block',
-                  background: 'rgba(201,169,110,0.15)',
-                  color: 'var(--color-champagne)',
-                  fontSize: 11,
-                  fontWeight: 600,
-                  letterSpacing: '0.12em',
-                  textTransform: 'uppercase',
-                  padding: '5px 14px',
-                  borderRadius: 2,
-                  marginBottom: 16,
-                }}
-              >
-                {offer.badge}
-              </div>
-              <h1
-                style={{
-                  fontFamily: 'var(--font-heading)',
-                  fontSize: 'clamp(32px, 5vw, 52px)',
-                  color: 'white',
-                  fontWeight: 600,
-                  lineHeight: 1.15,
-                  marginBottom: 16,
-                }}
-              >
-                {offer.title}
-              </h1>
-              <p
-                style={{
-                  fontSize: 'clamp(16px, 2.5vw, 20px)',
-                  color: 'var(--color-champagne)',
-                  fontFamily: 'var(--font-heading)',
-                  fontStyle: 'italic',
-                  marginBottom: 20,
-                }}
-              >
-                {offer.subtitle}
-              </p>
-              <p
-                style={{
-                  fontSize: 16,
-                  color: 'rgba(255,255,255,0.7)',
-                  lineHeight: 1.8,
-                  marginBottom: 32,
-                  maxWidth: 720,
-                  margin: '0 auto 32px',
-                }}
-              >
-                {offer.description}
-              </p>
-              <a
-                href={getWhatsAppUrl(offer.whatsappMessage)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-whatsapp"
-                style={{ fontSize: 16, padding: '16px 36px', display: 'inline-flex' }}
-              >
-                {offer.ctaText}
+      <PageHero
+        title={o.title}
+        subtitle={o.subtitle}
+        breadcrumbs={[
+          { label: 'Home', href: '/' },
+          { label: 'Offers', href: '/offers' },
+          { label: o.badge },
+        ]}
+      />
+      <div className={`bpk-container ${styles.body}`}>
+        <div className={styles.split}>
+          <div style={{ position: 'relative', aspectRatio: '4 / 3', borderRadius: '0.75rem', overflow: 'hidden' }}>
+            <Image src={o.image} alt={o.title} fill priority sizes="(max-width: 1024px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
+          </div>
+          <div>
+            <span className={`${styles.badge} ${styles.badgeBlue}`}>{o.badge}</span>
+            <p className="text-body-longform" style={{ marginTop: '1rem' }}>
+              {o.description}
+            </p>
+            <ul style={{ listStyle: 'none', display: 'grid', gap: '0.75rem', marginTop: '1.5rem' }}>
+              {o.benefits.map((b) => (
+                <li key={b} style={{ display: 'flex', gap: '0.75rem' }}>
+                  <CheckCircle2 size={20} color="#0c838a" aria-hidden style={{ flexShrink: 0, marginTop: 2 }} />
+                  <span className="text-body">{b}</span>
+                </li>
+              ))}
+            </ul>
+            <div className={styles.ctaRow}>
+              <a href={getWhatsAppUrl(o.whatsappMessage)} target="_blank" rel="noopener noreferrer" className="bpk-btn bpk-btn--whatsapp bpk-btn--large">
+                <WhatsAppIcon size={20} /> {o.ctaText}
               </a>
             </div>
-          </AnimateIn>
-        </div>
-      </section>
-
-      {/* Benefits & Fast Inquiry Grid */}
-      <section style={{ background: 'var(--color-ivory)', padding: 'var(--spacing-section) 0' }}>
-        <div className="container-premium" style={{ maxWidth: 960 }}>
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
-              gap: 'clamp(32px, 5vw, 48px)',
-              marginBottom: 64,
-            }}
-          >
-            {/* Left: What This Package Includes */}
-            <AnimateIn>
-              <div
-                style={{
-                  background: 'white',
-                  border: '1px solid rgba(0,0,0,0.06)',
-                  padding: 'clamp(24px, 4vw, 40px)',
-                  height: '100%',
-                }}
-              >
-                <div className="section-label">Key Advantages</div>
-                <h2
-                  style={{
-                    fontFamily: 'var(--font-heading)',
-                    fontSize: 24,
-                    color: 'var(--color-charcoal)',
-                    fontWeight: 600,
-                    marginBottom: 20,
-                  }}
-                >
-                  Transparent Service & Benefits
-                </h2>
-                <div className="premium-divider" />
-                <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 16, padding: 0 }}>
-                  {offer.benefits.map((benefit) => (
-                    <li key={benefit} style={{ display: 'flex', alignItems: 'flex-start', gap: 12, fontSize: 14, color: 'var(--color-warm-gray-dark)', lineHeight: 1.7 }}>
-                      <span style={{ color: 'var(--color-champagne)', fontSize: 18, lineHeight: 1 }}>✓</span>
-                      {benefit}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </AnimateIn>
-
-            {/* Right: Instant WhatsApp Lead Form */}
-            <AnimateIn delay={0.15}>
-              <div>
-                <ContactInquiryForm defaultService={offer.serviceCategory === 'Umrah' ? 'umrah' : 'flight'} />
-              </div>
-            </AnimateIn>
           </div>
         </div>
-      </section>
+
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle} style={{ marginBottom: '1rem' }}>
+            More offers
+          </h2>
+          <ul className={styles.grid3}>
+            {others.map((x) => (
+              <li key={x.slug}>
+                <Link href={`/offers/${x.slug}`} className="bpk-card bpk-card--padded" style={{ display: 'block', height: '100%' }}>
+                  <span className={styles.cardTitle}>{x.title}</span>
+                  <span className={styles.cardMeta} style={{ display: 'block' }}>
+                    {x.subtitle}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
     </>
   );
 }

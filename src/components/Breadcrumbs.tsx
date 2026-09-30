@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
 import { JsonLd } from './JsonLd';
 
 export interface BreadcrumbItem {
@@ -6,7 +7,8 @@ export interface BreadcrumbItem {
   href?: string;
 }
 
-export function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
+/** Backpack-style breadcrumb with BreadcrumbList schema. */
+export function Breadcrumbs({ items, onDark = true }: { items: BreadcrumbItem[]; onDark?: boolean }) {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -18,53 +20,35 @@ export function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
     })),
   };
 
+  const color = onDark ? '#fff' : '#161616';
+
   return (
     <>
       <JsonLd schema={schema} />
-      <nav aria-label="Breadcrumbs" style={{ marginBottom: 24 }}>
+      <nav aria-label="Breadcrumb" style={{ marginBottom: onDark ? '1rem' : 0 }}>
         <ol
           style={{
             listStyle: 'none',
             display: 'flex',
             flexWrap: 'wrap',
             alignItems: 'center',
-            gap: 8,
-            fontSize: 13,
-            color: 'rgba(255, 255, 255, 0.6)',
-            padding: 0,
-            margin: 0,
+            gap: '0.25rem',
+            fontSize: '0.875rem',
+            lineHeight: '1.25rem',
+            color,
           }}
         >
           {items.map((item, index) => {
             const isLast = index === items.length - 1;
             return (
-              <li
-                key={item.label}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 8,
-                }}
-              >
-                {index > 0 && (
-                  <span style={{ color: 'var(--color-champagne)', opacity: 0.6, fontSize: 11 }}>
-                    /
-                  </span>
-                )}
+              <li key={item.label} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
+                {index > 0 && <ChevronRight size={14} aria-hidden style={{ opacity: 0.7 }} />}
                 {isLast || !item.href ? (
-                  <span style={{ color: 'var(--color-champagne)', fontWeight: 500 }} aria-current="page">
+                  <span aria-current={isLast ? 'page' : undefined} style={{ opacity: isLast ? 0.8 : 1 }}>
                     {item.label}
                   </span>
                 ) : (
-                  <Link
-                    href={item.href}
-                    style={{
-                      color: 'rgba(255, 255, 255, 0.75)',
-                      textDecoration: 'none',
-                      transition: 'color 0.2s ease',
-                    }}
-                    className="hover:underline"
-                  >
+                  <Link href={item.href} className="bpk-link-implicit" style={{ color }}>
                     {item.label}
                   </Link>
                 )}

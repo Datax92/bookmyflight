@@ -1,33 +1,87 @@
 import type { Metadata } from 'next';
-import { AnimateIn } from '@/components/AnimateIn';
+import { LegalPage } from '@/components/sections/LegalPage';
 import { siteConfig } from '@/lib/config';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy — BookMyFlight',
-  description: 'Privacy policy for BookMyFlight — powered by O.S Travel & Tours.',
+  title: 'Privacy Policy | BookMyFlight',
+  description: 'How BookMyFlight and O.S Travel & Tours collect, use and protect your personal information when you search, enquire and book travel.',
+  alternates: { canonical: '/privacy' },
 };
 
 export default function PrivacyPage() {
+  const { contact, address } = siteConfig;
   return (
-    <section style={{ background: 'var(--color-ivory)', paddingTop: 'clamp(100px, 15vw, 140px)', paddingBottom: 'var(--spacing-section)' }}>
-      <div className="container-premium" style={{ maxWidth: 800 }}>
-        <AnimateIn>
-          <div className="section-label">Legal</div>
-          <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(28px, 4vw, 44px)', color: 'var(--color-charcoal)', fontWeight: 600, marginBottom: 24 }}>Privacy Policy</h1>
-          <div className="premium-divider" style={{ marginBottom: 40 }} />
-          <div style={{ fontSize: 15, color: 'var(--color-warm-gray)', lineHeight: 1.9 }}>
-            <p style={{ marginBottom: 24 }}>
-              BookMyFlight (powered by O.S Travel & Tours) is committed to protecting your privacy. This policy outlines how we collect, use, and safeguard your personal information.
-            </p>
-            <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 22, color: 'var(--color-charcoal)', fontWeight: 600, marginBottom: 12, marginTop: 32 }}>Information We Collect</h2>
-            <p style={{ marginBottom: 16 }}>When you submit a travel inquiry through our website or WhatsApp, we may collect your name, contact details, travel dates, destination preferences, and passenger information. This information is used solely to process your travel inquiry and provide you with relevant fare and package options.</p>
-            <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 22, color: 'var(--color-charcoal)', fontWeight: 600, marginBottom: 12, marginTop: 32 }}>How We Use Your Information</h2>
-            <p style={{ marginBottom: 16 }}>Your information is used to process travel inquiries, provide fare quotes, arrange bookings, and communicate with you about your travel plans. We do not sell your personal information to third parties.</p>
-            <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 22, color: 'var(--color-charcoal)', fontWeight: 600, marginBottom: 12, marginTop: 32 }}>Contact</h2>
-            <p>For questions about this privacy policy, please contact us at <a href={`mailto:${siteConfig.contact.email}`} style={{ color: 'var(--color-champagne-dark)' }}>{siteConfig.contact.email}</a>.</p>
-          </div>
-        </AnimateIn>
-      </div>
-    </section>
+    <LegalPage
+      title="Privacy policy"
+      updated="29 September 2026"
+      intro="BookMyFlight, operated with O.S Travel & Tours, respects your privacy. This policy explains what information we collect when you use this website or contact us, how we use it and the choices you have."
+      sections={[
+        {
+          heading: 'Information we collect',
+          bullets: [
+            'Trip details you enter in the search or inquiry forms: airports, dates, travellers, cabin and preferences.',
+            'Contact details you give us: name, phone or WhatsApp number and email address.',
+            'Passenger details needed to book: names as in passports, dates of birth, passport or CNIC numbers, and visa information.',
+            'Messages you send us on WhatsApp, by phone or by email.',
+            'Basic technical data such as browser type and pages visited, if website analytics are enabled.',
+          ],
+        },
+        {
+          heading: 'How our forms work',
+          paragraphs: [
+            'Our search and inquiry forms do not store your details on this website. When you press send, your message opens in WhatsApp so that you can review it and send it to our official number yourself.',
+          ],
+        },
+        {
+          heading: 'How we use your information',
+          bullets: [
+            'To prepare fare quotes and travel options you ask for.',
+            'To make reservations and issue tickets, hotel vouchers, visas and insurance.',
+            'To contact you about your booking, including schedule changes by airlines.',
+            'To process changes, refunds and after-sales requests.',
+            'To meet legal, tax and regulatory obligations in Pakistan.',
+          ],
+        },
+        {
+          heading: 'Who we share information with',
+          paragraphs: [
+            'We share passenger information only as needed to deliver your booking: with airlines and their reservation systems (such as Amadeus and Sabre), hotels, insurers, embassies and visa processing centres, and payment providers. We do not sell your personal information.',
+          ],
+        },
+        {
+          heading: 'Payments',
+          paragraphs: [
+            'We never ask for card details on WhatsApp. Payment options are confirmed by your consultant before any ticket is issued.',
+          ],
+        },
+        {
+          heading: 'How long we keep information',
+          paragraphs: [
+            'We keep booking records for as long as needed to provide the service, handle refunds and changes, and meet accounting and legal requirements, after which they are deleted or anonymised.',
+          ],
+        },
+        {
+          heading: 'Your choices',
+          bullets: [
+            'Ask us for a copy of the personal information we hold about you.',
+            'Ask us to correct inaccurate details.',
+            'Ask us to delete information we no longer need, subject to legal requirements.',
+            'Ask us to stop sending you travel offers at any time.',
+          ],
+        },
+        {
+          heading: 'External links',
+          paragraphs: [
+            'This website links to other sites, including airline websites and ostravels.com. Their own privacy policies apply when you visit them.',
+          ],
+        },
+        {
+          heading: 'Contact',
+          paragraphs: [
+            `For privacy questions, email ${contact.email}, call ${contact.phone[0]} or write to O.S Travel & Tours, ${address.street}, ${address.area}, ${address.city}.`,
+          ],
+        },
+      ]}
+    />
   );
 }

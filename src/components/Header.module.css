@@ -1,0 +1,460 @@
+/* Header: mirrors Skyscanner's Header / SecondaryNav / PrimaryNav */
+.header {
+  position: relative;
+  z-index: 120;
+  background-color: #05203c;
+  color: #fff;
+  padding-top: 1.5rem;
+}
+
+.wrapper {
+  position: relative;
+}
+
+.logoRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 5.25rem;
+  padding: 1.5rem 0;
+}
+
+/* ---------- Logo ---------- */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 1.875rem;
+  color: #fff;
+}
+
+.logoMark {
+  width: auto;
+  height: 1.875rem;
+}
+
+.logoText {
+  font-size: 1.625rem;
+  font-weight: 700;
+  line-height: 1.875rem;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+
+/* ---------- Secondary nav ---------- */
+.secondaryNav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+.helpLink {
+  display: inline-block;
+  margin-inline-end: 0.5rem;
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.3;
+  background: linear-gradient(currentcolor, currentcolor) no-repeat 0 100% / 0 1px;
+  padding-bottom: 0.0625rem;
+  transition: background-size 0.2s ease;
+}
+
+.helpLink:hover {
+  background-size: 100% 1px;
+}
+
+.cultureButton {
+  display: flex;
+  align-items: center;
+  height: 2.25rem;
+  padding: 0.375rem 1rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background-color: #ffffff1a;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1rem;
+  white-space: nowrap;
+}
+
+.cultureButton:hover,
+.cultureButton[aria-expanded='true'] {
+  background-color: #04182d;
+}
+
+.flag {
+  display: inline-block;
+  width: 1rem;
+  height: 0.625rem;
+  margin-left: 0.5rem;
+  margin-right: 0.25rem;
+  border-radius: 1px;
+}
+
+.currency {
+  margin-left: 0.5rem;
+}
+
+.iconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 2.25rem;
+  color: #fff;
+  border-radius: 0.5rem;
+}
+
+.iconButton:hover {
+  color: #c1c7cf;
+}
+
+.quoteButton {
+  display: inline-flex;
+  align-items: center;
+  height: 2.25rem;
+  padding: 0.375rem 1rem;
+  border-radius: 0.5rem;
+  background-color: #e0e4e9;
+  color: #161616;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+  white-space: nowrap;
+}
+
+.quoteButton:hover {
+  background-color: #c1c7cf;
+}
+
+/* ---------- Primary nav (tab pills) ---------- */
+.primaryNav {
+  margin-top: -0.25rem;
+  padding-bottom: 0;
+}
+
+.tabScroll {
+  display: flex;
+  margin-inline-start: -0.25rem;
+  padding-block: 0.25rem;
+  padding-inline: 0.25rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  white-space: nowrap;
+  list-style: none;
+}
+
+.tabScroll::-webkit-scrollbar {
+  display: none;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  height: 2.25rem;
+  margin-inline-end: 0.25rem;
+  padding: 0 1rem;
+  border: none;
+  border-radius: 6.25rem;
+  background-color: transparent;
+  box-shadow: inset 0 0 0 1px #c1c7cf;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.tab:hover {
+  background-color: #154679;
+  box-shadow: inset 0 0 0 1px #154679;
+}
+
+.tabSelected,
+.tabSelected:hover {
+  background-color: #0062e3;
+  box-shadow: inset 0 0 0 1px #0062e3;
+}
+
+.tabIcon {
+  width: 1rem;
+  height: 1rem;
+  margin-inline-end: 0.5rem;
+  flex-shrink: 0;
+}
+
+.tabChevron {
+  width: 1rem;
+  height: 1rem;
+  margin-inline-start: 0.375rem;
+  margin-inline-end: -0.25rem;
+  transition: transform 0.2s ease;
+}
+
+.tabChevronOpen {
+  transform: scaleY(-1);
+}
+
+/* ---------- Airlines mega menu ---------- */
+.menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  z-index: 200;
+  width: 46rem;
+  max-width: 100%;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  background: #fff;
+  color: #161616;
+  box-shadow: 0 4px 14px 0 #25201f40;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-0.25rem);
+  transition:
+    opacity 0.2s ease-in-out,
+    transform 0.2s ease-in-out,
+    visibility 0s linear 0.2s;
+}
+
+.menuOpen {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition:
+    opacity 0.2s ease-in-out,
+    transform 0.2s ease-in-out,
+    visibility 0s;
+}
+
+.menuGrid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 1.5rem;
+}
+
+.menuHeading {
+  margin-bottom: 0.5rem;
+  color: #626971;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.menuList {
+  display: grid;
+  gap: 0.125rem;
+  list-style: none;
+}
+
+.menuListTwoCol {
+  grid-template-columns: 1fr 1fr;
+  column-gap: 0.5rem;
+}
+
+.menuLink {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.menuLink:hover {
+  background-color: #eff3f8;
+}
+
+.menuLinkName {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.25rem;
+}
+
+.menuLinkMeta {
+  display: block;
+  color: #626971;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.menuFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e4e9;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.menuFooter a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: #0062e3;
+  font-weight: 700;
+}
+
+/* ---------- Culture / contact popover ---------- */
+.cultureWrap {
+  position: relative;
+}
+
+.popover {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  z-index: 200;
+  width: 20rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background: #fff;
+  color: #161616;
+  box-shadow: 0 4px 14px 0 #25201f40;
+  animation: bpk-fade-in 0.2s ease-in-out;
+}
+
+.popoverTitle {
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+}
+
+.popoverRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.popoverRow svg {
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+  color: #626971;
+}
+
+.popoverRow a {
+  color: #0062e3;
+  font-weight: 700;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 80rem) {
+  .menu {
+    width: 42rem;
+  }
+}
+
+@media (max-width: 64rem) {
+  .helpLink,
+  .currency {
+    display: none;
+  }
+}
+
+@media (max-width: 48rem) {
+  .menu {
+    left: 0 !important;
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .menuGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .menuListTwoCol {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 43.75rem) {
+  .cultureButton {
+    height: auto;
+    padding: 0;
+    background: none;
+  }
+
+  .cultureButton:hover,
+  .cultureButton[aria-expanded='true'] {
+    background: none;
+    text-decoration: underline;
+  }
+
+  .cultureLocale {
+    display: none;
+  }
+}
+
+@media (max-width: 37.5rem) {
+  .header {
+    padding-top: 0;
+  }
+
+  .logoRow {
+    min-height: 3.25rem;
+    padding: 0.5rem 0;
+  }
+
+  .logo {
+    height: 1.25rem;
+  }
+
+  .logoMark {
+    height: 1.5rem;
+  }
+
+  .logoText {
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+  }
+
+  .primaryNav {
+    margin-inline: -1rem;
+    margin-top: 0;
+  }
+
+  .tabScroll {
+    margin-inline-start: 0;
+    padding-inline: 1rem;
+  }
+
+  .quoteButton {
+    display: none;
+  }
+
+  .popover {
+    right: -0.5rem;
+    width: calc(100vw - 1.5rem);
+    max-width: 20rem;
+  }
+
+  .menuListTwoCol {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Very small phones (320–380px): keep logo, WhatsApp and menu only */
+@media (max-width: 23.75rem) {
+  .cultureWrap {
+    display: none;
+  }
+
+  .logoText {
+    font-size: 1.125rem;
+  }
+}

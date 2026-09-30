@@ -1,204 +1,72 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import { AnimateIn } from '@/components/AnimateIn';
-import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { JsonLd } from '@/components/JsonLd';
-import { ContactInquiryForm } from '@/components/ContactInquiryForm';
-import { getWhatsAppUrl } from '@/lib/whatsapp';
+import { LandingPage, type LandingData } from '@/components/sections/LandingPage';
 
 export const metadata: Metadata = {
-  title: 'International Flights from Pakistan — Outbound Routes & Airline Booking | BookMyFlight',
+  title: 'International Airports in Pakistan: Where You Can Fly From | BookMyFlight',
   description:
-    'Complete guide and booking service for international flights from Pakistan. Departures from Islamabad, Lahore, and Karachi to UAE, Saudi Arabia, UK, Europe, Far East, and North America.',
-  alternates: {
-    canonical: 'https://bookmyflight.pk/international-flights-pakistan',
-  },
-  openGraph: {
-    title: 'International Flights Pakistan | BookMyFlight',
-    description:
-      'IATA-accredited international flight booking across Pakistan. Professional consultation and transparent airfares on WhatsApp.',
-    url: 'https://bookmyflight.pk/international-flights-pakistan',
-    type: 'website',
-  },
+    'Guide to Pakistan’s international departure airports: Islamabad (ISB), Lahore (LHE), Karachi (KHI), Peshawar, Multan, Sialkot and Faisalabad, with airlines and non-stop destinations.',
+  alternates: { canonical: '/international-flights-pakistan' },
 };
 
-const departureHubs = [
-  {
-    airport: 'Islamabad International Airport (ISB)',
-    focus: 'Direct flights to Dubai, Doha, Riyadh, Jeddah, Dammam, Istanbul, Baku, Bangkok, and connecting services worldwide.',
+const data: LandingData = {
+  hero: {
+    title: 'International flights from Pakistan',
+    subtitle: 'Where you can fly from each Pakistani airport, and which airlines fly there.',
+    search: true,
+    breadcrumb: 'International flights from Pakistan',
   },
-  {
-    airport: 'Allama Iqbal International Airport Lahore (LHE)',
-    focus: 'Major international hub for Punjab with frequent services to GCC, Europe, Central Asia, and Southeast Asia.',
-  },
-  {
-    airport: 'Jinnah International Airport Karachi (KHI)',
-    focus: 'Southern commercial gateway with dense frequencies to Middle Eastern transit hubs and Asian destinations.',
-  },
-  {
-    airport: 'Regional Outbound Airports',
-    focus: 'Direct international Middle Eastern flights from Peshawar (PEW), Sialkot (SKT), Multan (MUX), and Faisalabad (LYP).',
-  },
-];
+  blocks: [
+    {
+      type: 'table',
+      title: 'International airports in Pakistan',
+      intro: 'Major departure airports and a selection of their non-stop international destinations.',
+      columns: ['Airport', 'Non-stop destinations include', 'Airlines include'],
+      rows: [
+        ['Islamabad (ISB)', 'Dubai, Doha, Abu Dhabi, Jeddah, Madinah, Riyadh, Istanbul, Baku, Bangkok, Kuala Lumpur, London, Manchester, Paris, Toronto', 'PIA, Emirates, Qatar Airways, Etihad, Saudia, Turkish, British Airways, Thai, Gulf Air, flydubai'],
+        ['Lahore (LHE)', 'Dubai, Doha, Abu Dhabi, Jeddah, Riyadh, Dammam, Istanbul, Baku, Bangkok, Kuala Lumpur, London, Manchester', 'PIA, Emirates, Qatar Airways, Etihad, Turkish, Thai, Airblue, AirSial, Fly Jinnah'],
+        ['Karachi (KHI)', 'Dubai, Doha, Abu Dhabi, Sharjah, Muscat, Jeddah, Madinah, Riyadh, Istanbul, Bangkok, Colombo, Toronto', 'PIA, Emirates, Qatar Airways, Etihad, Saudia, Oman Air, Turkish, Thai, flynas, flyadeal'],
+        ['Peshawar (PEW)', 'Dubai, Sharjah, Abu Dhabi, Doha, Jeddah, Riyadh, Muscat', 'PIA, Emirates, flydubai, Qatar Airways, Etihad, Saudia, Air Arabia, flyadeal, SalamAir'],
+        ['Multan (MUX)', 'Dubai, Sharjah, Abu Dhabi, Doha, Jeddah, Madinah, Muscat', 'PIA, flydubai, Qatar Airways, Air Arabia, Airblue, AirSial, Saudia, SalamAir'],
+        ['Sialkot (SKT)', 'Dubai, Sharjah, Abu Dhabi, Doha, Jeddah, Riyadh, Dammam, Muscat, Kuwait', 'PIA, Emirates, flydubai, Qatar Airways, Air Arabia, AirSial, flyadeal, SalamAir'],
+      ],
+      note: 'Based on current airport schedules; routes change seasonally. We confirm availability for your dates.',
+    },
+    {
+      type: 'cards',
+      title: 'Tips for flying abroad from Pakistan',
+      cols: 3,
+      items: [
+        { title: 'Compare departure cities', body: 'Fares from Lahore, Sialkot or Peshawar can be cheaper than Islamabad on some Gulf routes, and vice versa.' },
+        { title: 'Check who flies non-stop', body: 'Secondary airports have fewer airlines; a short domestic hop to a major airport can open more options.' },
+        { title: 'Keep documents together', body: 'Passport, visa, return ticket, hotel booking and Protector (for workers) are checked before departure.' },
+      ],
+    },
+    {
+      type: 'links',
+      title: 'Related',
+      items: [
+        { label: 'Explore everywhere', href: '/explore' },
+        { label: 'Airlines', href: '/airlines' },
+        { label: 'International flights', href: '/international-flights' },
+        { label: 'Islamabad office', href: '/flight-booking-islamabad' },
+      ],
+    },
+  ],
+  faqTitle: 'International departures FAQs',
+  faqs: [
+    { question: 'Which Pakistani airport has the most international flights?', answer: 'Islamabad, Lahore and Karachi have the widest choice of airlines and non-stop destinations.' },
+    { question: 'Can I fly abroad from Multan, Sialkot or Peshawar?', answer: 'Yes. These airports have non-stop flights to the Gulf and Saudi Arabia, and one-stop connections worldwide.' },
+    { question: 'Does Faisalabad have international flights?', answer: 'Faisalabad (LYP) has limited services; Fly Jinnah flies to Karachi, where you can connect to international flights. Check current options with us.' },
+    { question: 'Which airport is best for flights to the UK?', answer: 'Islamabad and Lahore have non-stop PIA flights to London and Manchester, and Islamabad has British Airways to Gatwick.' },
+    { question: 'Which airport is best for Umrah flights?', answer: 'Islamabad, Lahore, Karachi, Multan and Peshawar all have non-stop flights to Jeddah; Madinah is served non-stop from several cities by PIA and from Karachi by flynas.' },
+    { question: 'Is it cheaper to fly from Lahore than Islamabad?', answer: 'Sometimes. It depends on the route and date, so we compare both when you tick “Add nearby airports”.' },
+    { question: 'Can I start my journey from a different city than I return to?', answer: 'Yes. Open-jaw tickets such as Karachi → Dubai → Lahore are possible on many airlines.' },
+    { question: 'Where do I complete immigration?', answer: 'FIA immigration is completed at your international departure airport after check-in and before security.' },
+    { question: 'Are there direct flights from Pakistan to the USA?', answer: 'No non-stop flights currently operate; travellers connect via the Gulf, Istanbul or Europe.' },
+    { question: 'Can overseas Pakistanis book flights into smaller airports?', answer: 'Yes. Flying into Sialkot, Multan, Peshawar or Faisalabad via the Gulf can bring you closer to home.' },
+  ],
+};
 
 export default function InternationalFlightsPakistanPage() {
-  return (
-    <>
-      {/* Hero */}
-      <section
-        style={{
-          background: 'var(--color-charcoal)',
-          paddingTop: 'clamp(100px, 14vw, 150px)',
-          paddingBottom: 'clamp(50px, 8vw, 80px)',
-          position: 'relative',
-        }}
-      >
-        <div className="container-premium">
-          <Breadcrumbs
-            items={[
-              { label: 'Home', href: '/' },
-              { label: 'Flights', href: '/flights' },
-              { label: 'International Flights Pakistan' },
-            ]}
-          />
-
-          <AnimateIn>
-            <div style={{ maxWidth: 760 }}>
-              <div className="section-label">Outbound Pakistan Air Travel</div>
-              <h1
-                style={{
-                  fontFamily: 'var(--font-heading)',
-                  fontSize: 'clamp(32px, 5vw, 54px)',
-                  color: 'white',
-                  fontWeight: 600,
-                  lineHeight: 1.15,
-                  marginBottom: 20,
-                }}
-              >
-                Comprehensive <span style={{ color: 'var(--color-champagne)' }}>International Flights</span>
-                <br />From Across Pakistan
-              </h1>
-              <p
-                style={{
-                  fontSize: 17,
-                  color: 'rgba(255,255,255,0.7)',
-                  lineHeight: 1.8,
-                  marginBottom: 32,
-                }}
-              >
-                Whether departing from Islamabad, Lahore, Karachi, or regional international terminals, BookMyFlight connects you with global airline networks through experienced travel consultants.
-              </p>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
-                <a
-                  href={getWhatsAppUrl('Hello BookMyFlight, I would like to book an international flight from Pakistan.')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-primary"
-                  style={{ fontSize: 14 }}
-                >
-                  Request International Quote
-                </a>
-                <Link href="/cheap-flights" className="btn-secondary" style={{ fontSize: 14 }}>
-                  Tips for Cheaper Fares
-                </Link>
-              </div>
-            </div>
-          </AnimateIn>
-        </div>
-      </section>
-
-      {/* Departure Hubs Section */}
-      <section style={{ background: 'var(--color-ivory)', padding: 'var(--spacing-section) 0' }}>
-        <div className="container-premium">
-          <AnimateIn>
-            <div style={{ maxWidth: 720, marginBottom: 48 }}>
-              <div className="section-label">Departure Gateways</div>
-              <h2
-                style={{
-                  fontFamily: 'var(--font-heading)',
-                  fontSize: 'clamp(26px, 3.5vw, 38px)',
-                  color: 'var(--color-charcoal)',
-                  fontWeight: 600,
-                  marginBottom: 16,
-                }}
-              >
-                International Departure Terminals in Pakistan
-              </h2>
-              <div className="premium-divider" />
-              <p style={{ fontSize: 16, color: 'var(--color-warm-gray)', lineHeight: 1.8 }}>
-                Learn about departure facilities and major airline networks operating from Pakistan&apos;s primary international airports.
-              </p>
-            </div>
-          </AnimateIn>
-
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
-              gap: 'clamp(20px, 3vw, 28px)',
-              marginBottom: 64,
-            }}
-          >
-            {departureHubs.map((hub, idx) => (
-              <AnimateIn key={hub.airport} delay={idx * 0.08}>
-                <div
-                  className="card-interactive"
-                  style={{
-                    padding: 'clamp(24px, 4vw, 36px)',
-                    background: 'white',
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                  }}
-                >
-                  <h3
-                    style={{
-                      fontFamily: 'var(--font-heading)',
-                      fontSize: 20,
-                      fontWeight: 600,
-                      color: 'var(--color-charcoal)',
-                      marginBottom: 10,
-                    }}
-                  >
-                    {hub.airport}
-                  </h3>
-                  <p style={{ fontSize: 14, color: 'var(--color-warm-gray)', lineHeight: 1.7, flex: 1 }}>
-                    {hub.focus}
-                  </p>
-                </div>
-              </AnimateIn>
-            ))}
-          </div>
-
-          {/* Quick Inquiry Form */}
-          <div style={{ maxWidth: 880, margin: '0 auto' }}>
-            <ContactInquiryForm defaultService="flight" />
-          </div>
-        </div>
-      </section>
-
-      {/* Internal Links */}
-      <section style={{ background: 'var(--color-charcoal)', padding: '60px 0', borderTop: '1px solid rgba(201,169,110,0.15)' }}>
-        <div className="container-premium" style={{ textAlign: 'center' }}>
-          <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: 24, color: 'white', marginBottom: 12 }}>
-            Connected Services
-          </h3>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, justifyContent: 'center' }}>
-            <Link href="/cheap-flights" className="btn-secondary" style={{ fontSize: 13, padding: '10px 20px' }}>
-              Cheap Flights
-            </Link>
-            <Link href="/international-flights" className="btn-secondary" style={{ fontSize: 13, padding: '10px 20px' }}>
-              Global Routes
-            </Link>
-            <Link href="/flight-booking-islamabad" className="btn-secondary" style={{ fontSize: 13, padding: '10px 20px' }}>
-              Islamabad Office
-            </Link>
-            <Link href="/destinations" className="btn-secondary" style={{ fontSize: 13, padding: '10px 20px' }}>
-              Destinations
-            </Link>
-          </div>
-        </div>
-      </section>
-    </>
-  );
+  return <LandingPage data={data} />;
 }

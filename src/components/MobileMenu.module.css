@@ -1,0 +1,241 @@
+.trigger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-inline-end: -0.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.trigger:hover {
+  background: #154679;
+}
+
+@media (max-width: 64rem) {
+  .trigger {
+    display: inline-flex;
+  }
+}
+
+/* ---------- Drawer ---------- */
+.root {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  background: #00000080;
+  animation: menu-fade 0.2s ease-out;
+}
+
+.drawer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  width: min(22rem, 88vw);
+  overflow-y: auto;
+  background: #fff;
+  color: #161616;
+  box-shadow: 0 4px 14px 0 #25201f40;
+  animation: menu-slide 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+  overscroll-behavior: contain;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.top {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 3.5rem;
+  padding: 0.5rem 1rem;
+  background: #05203c;
+  color: #fff;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #fff;
+}
+
+.logoMark {
+  width: auto;
+  height: 1.5rem;
+}
+
+.logoText {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.close:hover {
+  background: #154679;
+}
+
+.list {
+  padding: 0.5rem 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  min-height: 3.25rem;
+  padding: 0 1.25rem;
+  border: none;
+  background: none;
+  color: #161616;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+  text-align: start;
+}
+
+.item:hover {
+  background: #eff3f8;
+}
+
+.item svg {
+  flex-shrink: 0;
+  color: #626971;
+}
+
+.itemActive {
+  box-shadow: inset 0.25rem 0 0 #0062e3;
+  color: #0062e3;
+}
+
+.itemActive svg {
+  color: #0062e3;
+}
+
+.label {
+  flex: 1;
+}
+
+.chevron {
+  transition: transform 0.2s ease;
+}
+
+.chevronOpen {
+  transform: scaleY(-1);
+}
+
+.sub {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.25s ease;
+}
+
+.subOpen {
+  grid-template-rows: 1fr;
+}
+
+.subInner {
+  overflow: hidden;
+}
+
+.airlineGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.25rem;
+  padding: 0.25rem 1rem 0.5rem;
+  list-style: none;
+}
+
+.airline {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.25rem;
+}
+
+.airline:hover {
+  background: #eff3f8;
+}
+
+.allAirlines {
+  display: block;
+  padding: 0.5rem 1.5rem 1rem;
+  color: #0062e3;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.contact {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: auto;
+  padding: 1.25rem;
+  border-top: 1px solid #e0e4e9;
+  background: #eff3f8;
+}
+
+.contactRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  overflow-wrap: anywhere;
+}
+
+.contactRow svg {
+  flex-shrink: 0;
+  color: #626971;
+}
+
+@keyframes menu-slide {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes menu-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

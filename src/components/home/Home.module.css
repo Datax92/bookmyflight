@@ -1,0 +1,358 @@
+/* ---------- Hero / search area (Homepage_searchControlsContainer) ---------- */
+.hero {
+  background-color: #05203c;
+  color: #fff;
+  padding-bottom: 2.5rem;
+}
+
+.heroTitle {
+  padding-top: 1.5rem;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 2.5rem;
+}
+
+/* ---------- Page body stack ---------- */
+.body {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2.5rem;
+  padding-block: 3rem 4rem;
+}
+
+@media (max-width: 48rem) {
+  .body {
+    row-gap: 1.5rem;
+    padding-block: 1.5rem 3rem;
+  }
+}
+
+/* ---------- Global navigation tiles ---------- */
+.tiles {
+  display: flex;
+  gap: 1rem;
+  margin-inline: -0.25rem;
+}
+
+.tileWrap {
+  display: flex;
+  flex-basis: 0;
+  flex-grow: 1;
+  padding: 0.25rem;
+}
+
+.tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  min-width: 8.75rem;
+  min-height: 6.75rem;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background-color: #05203c;
+  color: #fff;
+  box-shadow: 0 1px 3px 0 #25201f4d;
+  isolation: isolate;
+}
+
+.tile::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  box-shadow: 0 4px 14px 0 #25201f40;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.tile:hover::after {
+  opacity: 1;
+}
+
+.tileIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-top: -0.5rem;
+  margin-inline-start: -0.5rem;
+  flex-shrink: 0;
+}
+
+.tileLabel {
+  padding: 0.125rem 0;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25rem;
+}
+
+@media (min-width: 80.0625rem) {
+  .tile {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: 13.375rem;
+    min-height: 4.5rem;
+    padding-inline-end: 1.5rem;
+  }
+
+  .tileIcon {
+    margin: 0;
+    margin-inline-end: 0.5rem;
+  }
+}
+
+@media (max-width: 48rem) {
+  .tiles {
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin-inline: -1rem;
+    padding-inline: 0.75rem;
+  }
+
+  .tiles::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tileWrap {
+    flex: 0 0 9.5rem;
+  }
+}
+
+/* ---------- Explore banner ---------- */
+.banner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 28.75rem;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background-color: #05203c;
+  color: #fff;
+}
+
+.bannerImage {
+  object-fit: cover;
+  object-position: 60% 50%;
+}
+
+.bannerShade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #05203ccc 0%, #05203c66 45%, #05203c00 75%);
+}
+
+.bannerContent {
+  position: relative;
+  max-width: 26rem;
+  padding: 4rem;
+}
+
+.bannerKicker {
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.bannerTitle {
+  margin-bottom: 2.5rem;
+  font-size: 3rem;
+  font-weight: 900;
+  line-height: 3rem;
+  letter-spacing: -0.04em;
+}
+
+@media (max-width: 48rem) {
+  .banner {
+    align-items: flex-end;
+    min-height: 26rem;
+  }
+
+  .bannerShade {
+    background: linear-gradient(0deg, #05203ce6 0%, #05203c80 50%, #05203c00 80%);
+  }
+
+  .bannerContent {
+    padding: 1.5rem;
+  }
+
+  .bannerTitle {
+    margin-bottom: 1.5rem;
+    font-size: 2.5rem;
+    line-height: 2.5rem;
+  }
+}
+
+/* ---------- Associated sites (Our international sites) ---------- */
+.sitesGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  padding-top: 0.5rem;
+}
+
+.sitesGrid .siteCard {
+  color: #161616;
+  text-decoration: none;
+}
+
+.siteCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1rem;
+}
+
+.siteName {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25rem;
+}
+
+.siteNote {
+  color: #626971;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.sitesIntro {
+  max-width: 50rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 64rem) {
+  .sitesGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 32rem) {
+  .sitesGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Internal links ("Start planning your adventure") ---------- */
+.linksHeader {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.25rem;
+}
+
+.linkTabs {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+  margin-left: -0.25rem;
+  margin-bottom: -0.25rem;
+}
+
+.linkTab {
+  margin: 0.25rem;
+}
+
+.carousel {
+  position: relative;
+  margin-top: 1.5rem;
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  transition: transform 0.4s ease;
+}
+
+.slide {
+  flex: 0 0 100%;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-auto-rows: min-content;
+  gap: 1rem 1.5rem;
+}
+
+.slideLink {
+  overflow: hidden;
+  font-size: 0.875rem;
+  line-height: 1.0625rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.slideLink a {
+  background: linear-gradient(currentcolor, currentcolor) no-repeat 0 100% / 0 1px;
+  padding-bottom: 0.0625rem;
+  transition: background-size 0.2s ease;
+}
+
+.slideLink a:hover {
+  background-size: 100% 1px;
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.pagerArrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+  height: 2.25rem;
+  padding: 0.375rem 0;
+  border: none;
+  border-radius: 0.5rem;
+  background: none;
+  color: #161616;
+  cursor: pointer;
+}
+
+.pagerArrow:disabled {
+  color: #0003;
+  cursor: default;
+}
+
+.dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dot {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-inline: 0.25rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: #c1c7cf;
+  cursor: pointer;
+}
+
+.dotActive {
+  background-color: #626971;
+  pointer-events: none;
+}
+
+@media (max-width: 64rem) {
+  .slide {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 32rem) {
+  .slide {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

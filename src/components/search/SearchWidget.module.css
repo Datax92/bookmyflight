@@ -1,0 +1,926 @@
+/* ===========================================================
+   Search controls (Skyscanner SearchControls clone)
+   =========================================================== */
+.root {
+  position: relative;
+  width: 100%;
+  color: #161616;
+}
+
+.dropdowns {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.chipWrap {
+  position: relative;
+}
+
+.grid {
+  position: relative;
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr) minmax(0, 1fr) minmax(6rem, 12.5rem) minmax(6rem, 12.5rem) minmax(6rem, 14rem)
+    auto;
+  column-gap: 0.25rem;
+  margin-top: 0.5rem;
+}
+
+/* Leave room for the swap button (DesktopDestinationLabelV2) */
+.destination .fieldButton {
+  padding-left: 2rem;
+}
+
+/* ---------- Field buttons ---------- */
+.field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  height: 4.5rem;
+  background-color: #fff;
+}
+
+.field:focus-within,
+.fieldActive {
+  z-index: 2;
+  box-shadow: 0 0 0 0.125rem #fff;
+  outline: 0.25rem solid #0062e3;
+  outline-offset: -0.1875rem;
+}
+
+.fieldError {
+  z-index: 2;
+  outline: 0.25rem solid #e70866;
+  outline-offset: -0.1875rem;
+}
+
+.origin {
+  border-radius: 0.75rem 0 0 0.75rem;
+}
+
+.traveller {
+  border-radius: 0 0.75rem 0.75rem 0;
+}
+
+.fieldButton {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 1rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: start;
+  outline: none;
+  border-radius: inherit;
+}
+
+.fieldLabel {
+  width: 100%;
+  overflow: hidden;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.25rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fieldValue,
+.fieldPlaceholder {
+  width: 100%;
+  overflow: hidden;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fieldPlaceholder {
+  color: #626971;
+}
+
+.fieldInput {
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #161616;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  outline: none;
+  text-overflow: ellipsis;
+}
+
+.fieldInput::placeholder {
+  color: #626971;
+  opacity: 1;
+}
+
+.clearButton {
+  display: flex;
+  align-items: center;
+  margin-inline-end: 1rem;
+  padding: 0;
+  border: none;
+  background: #fff;
+  color: #626971;
+  cursor: pointer;
+}
+
+.clearButton:active {
+  color: #05203c;
+}
+
+/* ---------- Swap button ---------- */
+.swap {
+  position: absolute;
+  top: 50%;
+  right: -1.375rem;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 0.15rem solid #05203c;
+  border-radius: 50%;
+  background: #fff;
+  color: #05203c;
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: background-color 0.2s ease;
+}
+
+.swap:hover {
+  background-color: #eff3f8;
+}
+
+.swap svg {
+  transition: transform 0.4s ease;
+}
+
+.swapSpun svg {
+  transform: rotate(180deg);
+}
+
+/* ---------- CTA ---------- */
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 4.5rem;
+  margin-left: 0.25rem;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 0.75rem;
+  background-color: #0062e3;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+  white-space: nowrap;
+}
+
+.cta:hover {
+  background-color: #024daf;
+}
+
+.cta:focus-visible {
+  outline: 0.25rem solid #fff;
+  outline-offset: 0.125rem;
+}
+
+/* ---------- Checkboxes under the fields ---------- */
+.checks {
+  display: contents;
+}
+
+.check {
+  margin-top: 0.5rem;
+}
+
+.checkFrom {
+  grid-column: 1;
+}
+
+.checkTo {
+  grid-column: 2;
+}
+
+.checkStay {
+  grid-column: 5 / span 2;
+}
+
+.checkDirect {
+  grid-column: 1 / span 2;
+  margin-top: 1rem;
+}
+
+.checkLabel {
+  position: relative;
+  display: inline-block;
+  padding-left: 1.75rem;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.checkLabel input {
+  appearance: none;
+  position: absolute;
+  top: 0.125rem;
+  left: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0;
+  border: 0.1875rem solid #626971;
+  border-radius: 0.25rem;
+  background: #fff;
+  cursor: pointer;
+}
+
+.checkLabel input:checked {
+  background-color: #0062e3;
+  border-color: #0062e3;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='9' fill='none' viewBox='0 0 13 9'%3E%3Cpath stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M2.354 3.646 5.5 7.5l6-6'/%3E%3C/svg%3E");
+  background-position: 50%;
+  background-repeat: no-repeat;
+}
+
+.checkLabel input:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* ---------- Error bubble ---------- */
+.error {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  z-index: 5;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  background: #e70866;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.25rem;
+  white-space: nowrap;
+  animation: bpk-fade-in 0.2s ease-in-out;
+}
+
+.error::before {
+  content: '';
+  position: absolute;
+  top: -0.375rem;
+  left: 1rem;
+  border: 0.375rem solid transparent;
+  border-top: 0;
+  border-bottom-color: #e70866;
+}
+
+/* ===========================================================
+   Popovers
+   =========================================================== */
+.popover {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  z-index: 50;
+  min-width: 100%;
+  border-radius: 0.5rem;
+  background: #fff;
+  color: #161616;
+  box-shadow: 0 4px 14px 0 #25201f40;
+  animation: bpk-fade-in 0.2s ease-in-out;
+}
+
+.popoverRight {
+  left: auto;
+  right: 0;
+}
+
+/* Calendar hangs below the 4.5rem field row, not below the checkbox rows */
+.datesPopover {
+  top: 5rem;
+  min-width: 0;
+}
+
+.sheetHeader,
+.backdrop {
+  display: none;
+}
+
+/* Autosuggest */
+.suggestions {
+  width: 30.875rem;
+  max-height: 22rem;
+  padding: 0.5rem 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.suggestionHeading {
+  padding: 0.5rem 1.5rem;
+  color: #626971;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1rem;
+}
+
+.suggestion {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 4rem;
+  padding: 0 1.5rem;
+  cursor: pointer;
+}
+
+.suggestion svg {
+  flex-shrink: 0;
+  color: #626971;
+}
+
+.suggestionActive,
+.suggestion:hover {
+  background-color: #eff3f8;
+}
+
+.suggestionTitle {
+  display: block;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.suggestionTitle strong {
+  font-weight: 700;
+}
+
+.suggestionSub {
+  display: block;
+  color: #626971;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.noResults {
+  padding: 1rem 1.5rem;
+  color: #626971;
+  font-size: 0.875rem;
+}
+
+/* Chip dropdown list (trip type) */
+.chipList {
+  padding: 1rem;
+  list-style: none;
+}
+
+.chipOption {
+  display: flex;
+  align-items: center;
+  column-gap: 1rem;
+  width: 18.3125rem;
+  padding: 0.5rem 0 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.chipOption:hover {
+  background: #eff3f8;
+}
+
+.radio {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 0.1875rem solid #626971;
+  border-radius: 50%;
+}
+
+.radioOn {
+  border: 0.375rem solid #0062e3;
+}
+
+/* Travellers + bags */
+.panel {
+  width: 23rem;
+  padding: 1.5rem;
+}
+
+.panelSection + .panelSection {
+  margin-top: 2rem;
+}
+
+.panelTitle {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+}
+
+.panelNote {
+  margin-top: 1rem;
+  color: #626971;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.nudgerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.nudgerRow + .nudgerRow {
+  margin-top: 1.5rem;
+}
+
+.nudgerLabel {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.nudgerSub {
+  display: block;
+  color: #626971;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.nudger {
+  display: flex;
+  align-items: center;
+}
+
+.nudgerButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: #e0e4e9;
+  color: #161616;
+  cursor: pointer;
+}
+
+.nudgerButton:hover:not(:disabled) {
+  background: #c1c7cf;
+}
+
+.nudgerButton:disabled {
+  color: #0003;
+  cursor: not-allowed;
+}
+
+.nudgerValue {
+  width: 2.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25rem;
+  text-align: center;
+}
+
+.panelDone {
+  width: 100%;
+  min-height: 3rem;
+  margin-top: 1.5rem;
+}
+
+/* ===========================================================
+   Calendar (BpkCalendar clone)
+   =========================================================== */
+.calendar {
+  width: 50rem;
+  max-width: calc(100vw - 2rem);
+  padding: 1.5rem 1.5rem 1rem;
+}
+
+.calendarTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.calendarTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+}
+
+.calendarNav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.calendarNavButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: none;
+  border-radius: 50%;
+  background: #e0e4e9;
+  color: #161616;
+  cursor: pointer;
+}
+
+.calendarNavButton:hover:not(:disabled) {
+  background: #c1c7cf;
+}
+
+.calendarNavButton:disabled {
+  color: #0003;
+  cursor: not-allowed;
+}
+
+.months {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.monthName {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+  text-align: center;
+}
+
+.weekdays,
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.weekdays {
+  height: 2.25rem;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 1px 0 0 #c1c7cf;
+  color: #161616;
+  font-size: 0.875rem;
+  line-height: 2.25rem;
+  text-align: center;
+}
+
+.days {
+  row-gap: 0.25rem;
+}
+
+.dayCell {
+  display: flex;
+  justify-content: center;
+}
+
+.dayCellMiddle {
+  background-color: #e3f0ff;
+}
+
+.dayCellStart {
+  background: linear-gradient(90deg, transparent 50%, #e3f0ff 50%);
+}
+
+.dayCellEnd {
+  background: linear-gradient(90deg, #e3f0ff 50%, transparent 50%);
+}
+
+.day {
+  width: 2.75rem;
+  height: 2.75rem;
+  border: none;
+  border-radius: 1.5rem;
+  background-color: transparent;
+  color: #161616;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+}
+
+.day:hover:not(:disabled):not(.daySelected) {
+  box-shadow: inset 0 0 0 2px #0062e3;
+  color: #0062e3;
+}
+
+.day:disabled {
+  color: #0003;
+  cursor: not-allowed;
+}
+
+.dayToday {
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
+}
+
+.daySelected {
+  background-color: #0062e3;
+  color: #fff;
+  cursor: default;
+}
+
+.calendarFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e4e9;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+/* ===========================================================
+   Multi-city
+   =========================================================== */
+.legs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.legRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(8rem, 13rem) 2.5rem;
+  column-gap: 0.25rem;
+  align-items: center;
+}
+
+.legRemove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.legRemove:hover {
+  background: #154679;
+}
+
+.legDate {
+  border-radius: 0 0.75rem 0.75rem 0;
+}
+
+.multiFooter {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(6rem, 13rem) auto;
+  column-gap: 0.25rem;
+  align-items: stretch;
+  margin-top: 0.5rem;
+}
+
+.addLeg {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  align-self: center;
+  padding: 0.375rem 0;
+  border: none;
+  background: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+}
+
+.addLeg:disabled {
+  color: #ffffff80;
+  cursor: not-allowed;
+}
+
+.multiTraveller {
+  border-radius: 0.75rem;
+}
+
+/* ===========================================================
+   Responsive
+   =========================================================== */
+@media (max-width: 64rem) {
+  .grid {
+    grid-template-columns:
+      minmax(0, 1fr) minmax(0, 1fr) minmax(6rem, 10rem) minmax(6rem, 10rem) minmax(6rem, 10rem)
+      auto;
+  }
+
+  .calendar {
+    width: 44rem;
+  }
+}
+
+@media (max-width: 48rem) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      'origin origin'
+      'destination destination'
+      'depart return'
+      'traveller traveller';
+    gap: 0.125rem;
+  }
+
+  .field {
+    height: 3.5rem;
+  }
+
+  .fieldButton {
+    padding: 0 1rem;
+  }
+
+  .fieldLabel {
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+
+  .destination .fieldButton {
+    padding-left: 1rem;
+  }
+
+  .origin {
+    grid-area: origin;
+    border-radius: 0.75rem 0.75rem 0 0;
+  }
+
+  .destination {
+    grid-area: destination;
+  }
+
+  .depart {
+    grid-area: depart;
+  }
+
+  .return {
+    grid-area: return;
+  }
+
+  .traveller {
+    grid-area: traveller;
+    border-radius: 0 0 0.75rem 0.75rem;
+  }
+
+  .swap {
+    top: 100%;
+    right: 1rem;
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .swap svg {
+    transform: rotate(90deg);
+  }
+
+  .swapSpun svg {
+    transform: rotate(270deg);
+  }
+
+  .cta {
+    order: 10;
+    grid-column: 1 / -1;
+    width: 100%;
+    height: 3rem;
+    margin: 1rem 0 0;
+  }
+
+  .checks {
+    order: 9;
+    display: flex;
+    flex-wrap: wrap;
+    grid-column: 1 / -1;
+    gap: 0.5rem 1rem;
+    margin-top: 1rem;
+  }
+
+  .checkTo {
+    display: none;
+  }
+
+  .check,
+  .checkDirect {
+    margin-top: 0;
+  }
+
+  .legRow {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.125rem;
+  }
+
+  .legRow > :nth-child(3) {
+    grid-column: 1 / 2;
+  }
+
+  .legDate {
+    border-radius: 0 0 0 0.75rem;
+  }
+
+  .multiFooter {
+    grid-template-columns: 1fr;
+    row-gap: 0.5rem;
+  }
+
+  /* Let bottom sheets escape the field's stacking context */
+  .field:focus-within,
+  .fieldActive,
+  .fieldError {
+    z-index: auto;
+  }
+
+  .backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1090;
+    display: block;
+    background: #00000066;
+    animation: bpk-fade-in 0.2s ease-in-out;
+  }
+
+  /* Popovers become bottom sheets */
+  .popover {
+    position: fixed;
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1100;
+    max-height: 85vh;
+    overflow-y: auto;
+    border-radius: 0.75rem 0.75rem 0 0;
+    animation: sheet-up 0.25s ease-out;
+  }
+
+  .sheetHeader {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #e0e4e9;
+    background: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+  }
+
+  .sheetHeader button {
+    display: inline-flex;
+    padding: 0.25rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+
+  .suggestions,
+  .panel,
+  .chipOption {
+    width: 100%;
+  }
+
+  .calendar {
+    width: 100%;
+    max-width: none;
+  }
+
+  .months {
+    grid-template-columns: 1fr;
+  }
+
+  .day {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+
+@keyframes sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}

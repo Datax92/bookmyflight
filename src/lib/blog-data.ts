@@ -1,8 +1,10 @@
+import { posts2026 } from './blog-posts-2026';
+
 export interface BlogPost {
   slug: string;
   title: string;
   excerpt: string;
-  category: 'Flights' | 'Destinations' | 'Travel Advice' | 'Umrah';
+  category: 'Flights' | 'Airlines' | 'Destinations' | 'Travel Advice' | 'Umrah';
   readTime: string;
   publishDate: string;
   author: string;
@@ -21,7 +23,7 @@ export interface BlogPost {
   faqs?: { question: string; answer: string }[];
 }
 
-export const blogPosts: BlogPost[] = [
+const originalPosts: BlogPost[] = [
   {
     slug: 'how-to-find-cheap-flights-from-pakistan',
     title: 'How to Find Cheap Flights from Pakistan: 8 Practical Strategies',
@@ -40,7 +42,7 @@ export const blogPosts: BlogPost[] = [
         {
           heading: '1. Target Mid-Week Departures (Tuesdays & Wednesdays)',
           paragraphs: [
-            'Flight demand peaks heavily on Friday afternoons, Saturdays, and Sundays when corporate travelers return home and leisure vacationers begin their trips. Flights departing mid-week (particularly Tuesday and Wednesday mornings) typically have lower load factors, resulting in airfares that can be 15% to 25% lower on major international corridors like Dubai, Istanbul, and London.',
+            'Flight demand peaks heavily on Friday afternoons, Saturdays, and Sundays when corporate travelers return home and leisure vacationers begin their trips. Flights departing mid-week (particularly Tuesday and Wednesday mornings) typically have lower load factors, so fares are often lower on major international corridors like Dubai, Istanbul, and London.',
             'When searching for fares with a BookMyFlight consultant, mention that your dates have a flexibility margin of +/- 2 days so we can compare adjacent days across multiple carriers.',
           ],
         },
@@ -356,7 +358,7 @@ export const blogPosts: BlogPost[] = [
         },
       ],
       conclusion:
-        'With decades of dedicated pilgrimage service through O.S Travel & Tours, BookMyFlight curates customized Umrah packages with verified visas, direct flights, and markazia hotels.',
+        'With more than 10 years of pilgrimage service through O.S Travel & Tours, BookMyFlight curates customized Umrah packages with verified visas, direct flights, and markazia hotels.',
     },
     faqs: [
       {
@@ -366,3 +368,6 @@ export const blogPosts: BlogPost[] = [
     ],
   },
 ];
+
+// Newest articles first
+export const blogPosts: BlogPost[] = [...posts2026, ...originalPosts];

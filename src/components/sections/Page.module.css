@@ -1,0 +1,397 @@
+/* ---------- Dark page hero (continues the header) ---------- */
+.hero {
+  background-color: #05203c;
+  color: #fff;
+  padding: 1.5rem 0 2.5rem;
+}
+
+.heroTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 3rem;
+}
+
+.heroSubtitle {
+  max-width: 48rem;
+  margin-top: 0.5rem;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.heroSearch {
+  margin-top: 1.5rem;
+}
+
+.heroChildren {
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 48rem) {
+  .heroTitle {
+    font-size: 2rem;
+    line-height: 2.5rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+}
+
+/* ---------- Page body ---------- */
+.body {
+  display: flex;
+  flex-direction: column;
+  row-gap: 3rem;
+  padding-block: 1.5rem 4rem;
+}
+
+.section {
+  scroll-margin-top: 1rem;
+}
+
+.sectionTitle {
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 2.5rem;
+}
+
+.sectionIntro {
+  max-width: 50rem;
+  margin-bottom: 1.5rem;
+  color: #161616;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.subTitle {
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.75rem;
+}
+
+@media (max-width: 48rem) {
+  .body {
+    row-gap: 2rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.5rem;
+    line-height: 1.75rem;
+  }
+}
+
+/* ---------- USP list (Skyscanner airline page) ---------- */
+.usps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem 1.5rem;
+  list-style: none;
+}
+
+.usp {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.uspIcon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: #e3f0ff;
+  color: #0062e3;
+}
+
+@media (max-width: 48rem) {
+  .usps {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- In-page nav chips ---------- */
+.inPageNav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e0e4e9;
+}
+
+@media (max-width: 48rem) {
+  .inPageNav {
+    flex-wrap: nowrap;
+    margin-inline: -1rem;
+    padding-inline: 1rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .inPageNav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .inPageNav > * {
+    flex-shrink: 0;
+  }
+}
+
+/* ---------- Card grids ---------- */
+.grid2,
+.grid3,
+.grid4 {
+  display: grid;
+  gap: 1rem;
+  list-style: none;
+}
+
+.grid2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+@media (max-width: 64rem) {
+  .grid4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .grid3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 40rem) {
+  .grid2,
+  .grid3,
+  .grid4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cardTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+}
+
+.cardMeta {
+  margin-top: 0.25rem;
+  color: #626971;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.cardBody {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.25rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  height: 1.5rem;
+  padding: 0 0.5rem;
+  border-radius: 0.25rem;
+  background: #eff3f8;
+  color: #161616;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1rem;
+  white-space: nowrap;
+}
+
+.badgeSuccess {
+  background: #0c838a;
+  color: #fff;
+}
+
+.badgeBlue {
+  background: #0062e3;
+  color: #fff;
+}
+
+/* ---------- Stat tiles (airline information) ---------- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  list-style: none;
+}
+
+.stat {
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  background: #eff3f8;
+}
+
+.statLabel {
+  color: #161616;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.statValue {
+  margin-top: 0.25rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.75rem;
+}
+
+@media (max-width: 64rem) {
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 32rem) {
+  .stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Tip blocks ---------- */
+.tips {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem 3rem;
+}
+
+.tipTitle {
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+}
+
+.tipBody {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+@media (max-width: 48rem) {
+  .tips {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* ---------- Tinted panel ---------- */
+.panel {
+  padding: 2rem;
+  border-radius: 0.75rem;
+  background: #eff3f8;
+}
+
+.panelDark {
+  padding: 2.5rem;
+  border-radius: 0.75rem;
+  background: #05203c;
+  color: #fff;
+}
+
+@media (max-width: 48rem) {
+  .panel,
+  .panelDark {
+    padding: 1.5rem;
+  }
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 64rem) {
+  .split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.bullets {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  list-style: none;
+}
+
+.bullets li {
+  position: relative;
+  padding-left: 1.75rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.bullets li::before {
+  content: '';
+  position: absolute;
+  top: 0.4rem;
+  left: 0.25rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: #0062e3;
+}
+
+.sources {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #626971;
+}
+
+.sources a {
+  color: #0062e3;
+  text-decoration: underline;
+}
+
+.chipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.stats3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 32rem) {
+  .stats3 {
+    grid-template-columns: 1fr;
+  }
+}

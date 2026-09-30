@@ -1,138 +1,53 @@
-import { MetadataRoute } from 'next';
+import type { MetadataRoute } from 'next';
 import { destinations } from '@/lib/config';
 import { blogPosts } from '@/lib/blog-data';
+import { airlines } from '@/lib/airlines';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://bookmyflight.pk';
   const lastModified = new Date();
 
-  // Core High-Value Commercial & Informational Routes
+  const page = (path: string, priority: number, changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency'] = 'weekly') => ({
+    url: `${baseUrl}${path}`,
+    lastModified,
+    changeFrequency,
+    priority,
+  });
+
   const staticRoutes: MetadataRoute.Sitemap = [
-    {
-      url: `${baseUrl}`,
-      lastModified,
-      changeFrequency: 'daily',
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/flights`,
-      lastModified,
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/cheap-flights`,
-      lastModified,
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/flight-booking`,
-      lastModified,
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/international-flights`,
-      lastModified,
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/domestic-flights`,
-      lastModified,
-      changeFrequency: 'daily',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/flight-booking-islamabad`,
-      lastModified,
-      changeFrequency: 'weekly',
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/international-flights-pakistan`,
-      lastModified,
-      changeFrequency: 'weekly',
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/umrah`,
-      lastModified,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/visa`,
-      lastModified,
-      changeFrequency: 'weekly',
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/holidays`,
-      lastModified,
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/hotels`,
-      lastModified,
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/destinations`,
-      lastModified,
-      changeFrequency: 'weekly',
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/blog`,
-      lastModified,
-      changeFrequency: 'daily',
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/privacy`,
-      lastModified,
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/terms`,
-      lastModified,
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
+    page('', 1.0, 'daily'),
+    page('/ticketing', 0.9),
+    page('/airlines', 0.9),
+    page('/explore', 0.8),
+    page('/partners', 0.7, 'monthly'),
+    page('/blog', 0.8, 'daily'),
+    page('/about', 0.6, 'monthly'),
+    page('/contact', 0.7, 'monthly'),
+    page('/flights', 0.8),
+    page('/cheap-flights', 0.9),
+    page('/flight-booking', 0.8),
+    page('/flight-booking-islamabad', 0.8),
+    page('/international-flights', 0.8),
+    page('/international-flights-pakistan', 0.7),
+    page('/domestic-flights', 0.8),
+    page('/umrah', 0.9),
+    page('/visa', 0.8),
+    page('/hotels', 0.7),
+    page('/holidays', 0.7),
+    page('/destinations', 0.7),
+    page('/privacy', 0.2, 'yearly'),
+    page('/terms', 0.2, 'yearly'),
+    page('/credits', 0.1, 'yearly'),
   ];
 
-  // Dynamic Destination Landing Pages
-  const destinationRoutes: MetadataRoute.Sitemap = destinations.map((dest) => ({
-    url: `${baseUrl}/destinations/${dest.id}`,
-    lastModified,
-    changeFrequency: 'weekly',
-    priority: 0.8,
-  }));
-
-  // Dynamic Editorial Travel Knowledge Hub Guides
+  const airlineRoutes = airlines.map((a) => page(`/airlines/${a.slug}`, 0.8));
+  const destinationRoutes = destinations.map((d) => page(`/destinations/${d.id}`, 0.7));
   const blogRoutes: MetadataRoute.Sitemap = blogPosts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: new Date(post.publishDate),
     changeFrequency: 'monthly',
-    priority: 0.75,
+    priority: 0.6,
   }));
 
-  return [...staticRoutes, ...destinationRoutes, ...blogRoutes];
+  return [...staticRoutes, ...airlineRoutes, ...destinationRoutes, ...blogRoutes];
 }

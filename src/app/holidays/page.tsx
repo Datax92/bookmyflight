@@ -1,77 +1,68 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
-import { AnimateIn } from '@/components/AnimateIn';
+import { LandingPage, type LandingData } from '@/components/sections/LandingPage';
 import { destinations } from '@/lib/config';
-import { getDestinationWhatsAppUrl, getWhatsAppUrl } from '@/lib/whatsapp';
 
 export const metadata: Metadata = {
-  title: 'Holiday Packages — BookMyFlight | Curated Travel Experiences',
-  description: 'Discover curated holiday packages to Dubai, Istanbul, London, Bangkok, Paris, Baku, and more. Personalized travel solutions from BookMyFlight.',
+  title: 'Holiday Packages from Pakistan: Dubai, Baku, Istanbul, Malaysia & More | BookMyFlight',
+  description:
+    'Holiday packages from Pakistan with flights, hotels, visas and tours: Dubai, Istanbul, Baku, Kuala Lumpur, Bangkok, London, Paris and Doha. Custom family and honeymoon trips.',
+  alternates: { canonical: '/holidays' },
+};
+
+const data: LandingData = {
+  hero: {
+    title: 'Holiday packages',
+    subtitle: 'Flights, hotels, visas and tours in one plan, designed around your dates and budget.',
+    breadcrumb: 'Holidays',
+  },
+  blocks: [
+    {
+      type: 'cards',
+      title: 'Popular holidays',
+      cols: 3,
+      items: destinations
+        .filter((d) => d.id !== 'makkah' && d.id !== 'jeddah' && d.id !== 'riyadh')
+        .map((d) => ({
+          title: d.name,
+          meta: `${d.country} · ${d.travelType}`,
+          body: d.tagline,
+          image: d.image,
+          href: `/destinations/${d.id}`,
+          cta: 'Destination guide',
+        })),
+    },
+    {
+      type: 'steps',
+      title: 'How we plan your holiday',
+      items: [
+        { title: 'Tell us your idea', body: 'Destination (or ask us to suggest one), dates, travellers, budget and interests.' },
+        { title: 'Get a custom plan', body: 'Flights, hotels, visa and optional tours and transfers in one quote.' },
+        { title: 'Travel with support', body: 'Vouchers, tickets and visa in hand, with our team a WhatsApp message away.' },
+      ],
+    },
+    {
+      type: 'cta',
+      title: 'Don’t see your destination?',
+      body: 'We plan holidays to most destinations worldwide, including honeymoons, family trips and group tours.',
+      whatsapp: 'Hello BookMyFlight, I would like to plan a holiday. Destination and dates:',
+      button: 'Plan my holiday',
+    },
+  ],
+  faqTitle: 'Holiday package FAQs',
+  faqs: [
+    { question: 'What is included in a holiday package?', answer: 'Typically return flights, hotels and visa assistance, with optional transfers, tours and travel insurance.' },
+    { question: 'Which holidays are easiest for Pakistani passport holders?', answer: 'Destinations with e-visas or simpler visa processes such as Azerbaijan, Malaysia, Sri Lanka, the Maldives and Türkiye (with eligible visas) are popular.' },
+    { question: 'Can I customise a package?', answer: 'Yes. Every holiday is built around your dates, budget, hotel style and activities.' },
+    { question: 'Do you plan honeymoons?', answer: 'Yes. Popular honeymoons include the Maldives, Baku, Istanbul with Cappadocia, Bali and Malaysia.' },
+    { question: 'Do you arrange family holidays?', answer: 'Yes, with family rooms, halal-friendly food options and child-friendly activities.' },
+    { question: 'How early should I book a holiday?', answer: '6 to 10 weeks ahead is ideal, and earlier if a visa is needed or you travel in peak season.' },
+    { question: 'Can you arrange group tours?', answer: 'Yes, for families, friends, schools and companies, with group fares and shared transport.' },
+    { question: 'Is travel insurance included?', answer: 'It can be added, and it is mandatory for Schengen trips.' },
+    { question: 'Can I pay in instalments?', answer: 'Payment terms depend on the airline and hotel conditions; ask your consultant about deposit options for your package.' },
+    { question: 'What if my visa is refused?', answer: 'We recommend refundable or reservation-only bookings until the visa is approved, to limit your costs.' },
+  ],
 };
 
 export default function HolidaysPage() {
-  return (
-    <>
-      <section style={{ background: 'var(--color-charcoal)', paddingTop: 'clamp(100px, 15vw, 140px)', paddingBottom: 'clamp(50px, 8vw, 80px)' }}>
-        <div className="container-premium">
-          <AnimateIn>
-            <div style={{ maxWidth: 600 }}>
-              <div className="section-label">Holiday Packages</div>
-              <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(32px, 5vw, 52px)', color: 'white', fontWeight: 600, lineHeight: 1.1, marginBottom: 24 }}>
-                Curated Travel
-                <br /><span style={{ color: 'var(--color-champagne)' }}>Experiences</span>
-              </h1>
-              <p style={{ fontSize: 17, color: 'rgba(255,255,255,0.6)', lineHeight: 1.7 }}>
-                Explore carefully curated holiday packages to the world&apos;s most sought-after destinations. Let our travel experts design the perfect getaway for you.
-              </p>
-            </div>
-          </AnimateIn>
-        </div>
-      </section>
-
-      <section style={{ background: 'var(--color-ivory)', padding: 'var(--spacing-section) 0' }}>
-        <div className="container-premium">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))', gap: 'clamp(16px, 3vw, 24px)' }}>
-            {destinations.map((dest, i) => (
-              <AnimateIn key={dest.id} delay={i * 0.06}>
-                <div className="image-reveal" style={{ position: 'relative', aspectRatio: '4/5', overflow: 'hidden', cursor: 'pointer' }}>
-                  <Image src={dest.image} alt={`${dest.name} holiday — BookMyFlight`} fill style={{ objectFit: 'cover' }} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 30%, rgba(26,26,26,0.85) 100%)' }} />
-                  <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: 'clamp(20px, 4vw, 32px)' }}>
-                    <p style={{ fontSize: 11, fontWeight: 500, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-champagne)', marginBottom: 8 }}>{dest.travelType}</p>
-                    <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(22px, 3vw, 26px)', fontWeight: 600, color: 'white', marginBottom: 4 }}>{dest.name}</h3>
-                    <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)', marginBottom: 16 }}>{dest.country}</p>
-                    <a
-                      href={getDestinationWhatsAppUrl(dest.name, dest.travelType)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '12px 24px', background: 'var(--color-whatsapp)', color: 'white', fontSize: 13, fontWeight: 600, textDecoration: 'none', borderRadius: 2, width: '100%' }}
-                    >
-                      Plan My Holiday →
-                    </a>
-                  </div>
-                </div>
-              </AnimateIn>
-            ))}
-          </div>
-
-          <AnimateIn delay={0.3}>
-            <div style={{ textAlign: 'center', marginTop: 64 }}>
-              <p style={{ fontSize: 16, color: 'var(--color-warm-gray)', marginBottom: 24 }}>
-                Don&apos;t see your destination? Our team can arrange holidays to any destination worldwide.
-              </p>
-              <a
-                href={getWhatsAppUrl('Hello BookMyFlight, I would like to plan a holiday. Please help me with options.')}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary"
-              >
-                Plan a Custom Holiday →
-              </a>
-            </div>
-          </AnimateIn>
-        </div>
-      </section>
-    </>
-  );
+  return <LandingPage data={data} />;
 }

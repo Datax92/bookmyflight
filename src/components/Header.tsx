@@ -1,269 +1,284 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronDown, ChevronRight, Clock, Mail, MapPin, Phone } from 'lucide-react';
 import { navigation, siteConfig } from '@/lib/config';
+import { internationalAirlines, pakistaniAirlines } from '@/lib/airlines';
 import { getWhatsAppUrl } from '@/lib/whatsapp';
+import { AirlineBadge } from '@/components/ui/AirlineBadge';
+import { Logo } from '@/components/ui/Logo';
+import { NavGlyph, PakistanFlag, WhatsAppIcon } from '@/components/ui/icons';
+import { MobileMenu } from './MobileMenu';
+import styles from './Header.module.css';
+
+function isActive(pathname: string, href: string) {
+  if (href === '/') return pathname === '/';
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
 export function Header() {
   const pathname = usePathname();
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  // Menus remember the path they were opened on, so they close automatically on navigation.
+  const [menuPath, setMenuPath] = useState<string | null>(null);
+  const [culturePath, setCulturePath] = useState<string | null>(null);
+  const [menuLeft, setMenuLeft] = useState(0);
+  const menuOpen = menuPath === pathname;
+  const cultureOpen = culturePath === pathname;
+  const setMenuOpen = useCallback((v: boolean) => setMenuPath(v ? pathname : null), [pathname]);
+  const setCultureOpen = useCallback((v: boolean) => setCulturePath(v ? pathname : null), [pathname]);
 
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const airlinesTabRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const cultureRef = useRef<HTMLLIElement>(null);
+  const hoverTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const positionMenu = useCallback(() => {
+    const wrapper = wrapperRef.current;
+    const tab = airlinesTabRef.current;
+    const menu = menuRef.current;
+    if (!wrapper || !tab || !menu) return;
+    const wrapperBox = wrapper.getBoundingClientRect();
+    const tabBox = tab.getBoundingClientRect();
+    const maxLeft = Math.max(0, wrapperBox.width - menu.offsetWidth);
+    setMenuLeft(Math.min(Math.max(0, tabBox.left - wrapperBox.left), maxLeft));
   }, []);
 
+  const openMenu = useCallback(() => {
+    positionMenu();
+    setMenuOpen(true);
+  }, [positionMenu, setMenuOpen]);
+
+  // Escape + outside click
   useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => { document.body.style.overflow = ''; };
-  }, [isMobileMenuOpen]);
+    if (!menuOpen && !cultureOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setMenuOpen(false);
+        setCultureOpen(false);
+      }
+    };
+    const onPointer = (e: PointerEvent) => {
+      const target = e.target as Node;
+      if (
+        menuOpen &&
+        !menuRef.current?.contains(target) &&
+        !airlinesTabRef.current?.contains(target)
+      ) {
+        setMenuOpen(false);
+      }
+      if (cultureOpen && !cultureRef.current?.contains(target)) {
+        setCultureOpen(false);
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    window.addEventListener('pointerdown', onPointer);
+    window.addEventListener('resize', positionMenu);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      window.removeEventListener('pointerdown', onPointer);
+      window.removeEventListener('resize', positionMenu);
+    };
+  }, [menuOpen, cultureOpen, positionMenu, setMenuOpen, setCultureOpen]);
+
+  const hoverCapable = () =>
+    typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  const onMenuEnter = () => {
+    if (!hoverCapable()) return;
+    if (hoverTimer.current) clearTimeout(hoverTimer.current);
+    hoverTimer.current = setTimeout(openMenu, 120);
+  };
+
+  const onMenuLeave = () => {
+    if (!hoverCapable()) return;
+    if (hoverTimer.current) clearTimeout(hoverTimer.current);
+    hoverTimer.current = setTimeout(() => setMenuOpen(false), 200);
+  };
 
   return (
-    <>
-      <header
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 1000,
-          transition: 'all 0.4s cubic-bezier(0.25, 0.1, 0, 1)',
-          background: isScrolled ? 'rgba(26, 26, 26, 0.95)' : 'transparent',
-          backdropFilter: isScrolled ? 'blur(20px)' : 'none',
-          WebkitBackdropFilter: isScrolled ? 'blur(20px)' : 'none',
-          borderBottom: isScrolled ? '1px solid rgba(201, 169, 110, 0.1)' : '1px solid transparent',
-        }}
-      >
-        <div className="container-premium" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: isScrolled ? 72 : 88, transition: 'height 0.4s ease' }}>
-          {/* Logo */}
-          <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0 }}>
-            <div style={{ width: 40, height: 40, borderRadius: '50%', overflow: 'hidden', border: '1.5px solid rgba(201, 169, 110, 0.5)' }}>
-              <img src="/images/brand/logo.jpg" alt="BookMyFlight" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
-            <div>
-              <div style={{ fontFamily: 'var(--font-heading)', fontSize: 20, fontWeight: 600, color: 'white', letterSpacing: '-0.01em', lineHeight: 1.2 }}>
-                BookMyFlight
-              </div>
-              <div style={{ fontSize: 9, fontWeight: 500, color: 'var(--color-champagne)', letterSpacing: '0.12em', textTransform: 'uppercase', lineHeight: 1, opacity: 0.85 }}>
-                {siteConfig.parent.relationship}
-              </div>
-            </div>
-          </Link>
+    <header className={styles.header}>
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
+      <div className={`bpk-container ${styles.wrapper}`} ref={wrapperRef}>
+        <div className={styles.logoRow}>
+          <Logo className={styles.logo} markClassName={styles.logoMark} textClassName={styles.logoText} />
 
-          {/* Desktop Navigation */}
-          <nav style={{ alignItems: 'center', gap: 'clamp(12px, 1.3vw, 24px)' }} className="hidden xl:flex">
-            {navigation.map((item) => {
-              const isActive =
-                item.href === '/'
-                  ? pathname === '/'
-                  : pathname === item.href || pathname.startsWith(item.href + '/');
-
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  style={{
-                    color: isActive ? 'var(--color-champagne)' : 'rgba(255, 255, 255, 0.75)',
-                    textDecoration: 'none',
-                    fontSize: 'clamp(11px, 0.9vw, 12.5px)',
-                    fontWeight: isActive ? 600 : 500,
-                    letterSpacing: '0.04em',
-                    textTransform: 'uppercase',
-                    transition: 'all 0.3s ease',
-                    position: 'relative',
-                    paddingBottom: 4,
-                    whiteSpace: 'nowrap',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = 'var(--color-champagne)';
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isActive) {
-                      e.currentTarget.style.color = 'rgba(255, 255, 255, 0.75)';
-                    }
-                  }}
-                >
-                  {item.label}
-                  {isActive && (
-                    <motion.div
-                      layoutId="activeNavIndicator"
-                      style={{
-                        position: 'absolute',
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        height: 2,
-                        background: 'linear-gradient(90deg, var(--color-champagne), var(--color-gold))',
-                        borderRadius: 1,
-                      }}
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                    />
-                  )}
-                </Link>
-              );
-            })}
-          </nav>
-
-          {/* Desktop WhatsApp CTA */}
-          <a
-            href={getWhatsAppUrl('Hello BookMyFlight, I would like travel assistance.')}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden xl:inline-flex"
-            style={{
-              alignItems: 'center',
-              gap: 8,
-              padding: '10px 22px',
-              background: 'var(--color-whatsapp)',
-              color: 'white',
-              fontSize: 13,
-              fontWeight: 600,
-              letterSpacing: '0.03em',
-              textDecoration: 'none',
-              borderRadius: 2,
-              transition: 'all 0.3s ease',
-              flexShrink: 0,
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'var(--color-whatsapp-dark)';
-              e.currentTarget.style.transform = 'translateY(-1px)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'var(--color-whatsapp)';
-              e.currentTarget.style.transform = 'translateY(0)';
-            }}
-          >
-            <WhatsAppIcon size={16} />
-            WhatsApp Us
-          </a>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="xl:hidden"
-            style={{
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              padding: 8,
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 5,
-              zIndex: 1002,
-            }}
-            aria-label="Toggle menu"
-          >
-            <motion.span
-              animate={isMobileMenuOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
-              style={{ width: 24, height: 1.5, background: 'var(--color-champagne)', display: 'block', transformOrigin: 'center' }}
-            />
-            <motion.span
-              animate={isMobileMenuOpen ? { opacity: 0 } : { opacity: 1 }}
-              style={{ width: 18, height: 1.5, background: 'var(--color-champagne)', display: 'block', marginLeft: 'auto' }}
-            />
-            <motion.span
-              animate={isMobileMenuOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
-              style={{ width: 24, height: 1.5, background: 'var(--color-champagne)', display: 'block', transformOrigin: 'center' }}
-            />
-          </button>
-        </div>
-      </header>
-
-      {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            style={{
-              position: 'fixed',
-              inset: 0,
-              zIndex: 999,
-              background: 'rgba(26, 26, 26, 0.98)',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              minHeight: '100dvh',
-              maxHeight: '100dvh',
-              overflowY: 'auto',
-              WebkitOverflowScrolling: 'touch',
-              gap: 'clamp(12px, 2.2vh, 24px)',
-              padding: 'calc(72px + env(safe-area-inset-top, 0px)) 24px calc(32px + env(safe-area-inset-bottom, 0px))',
-            }}
-          >
-            {navigation.map((item, i) => {
-              const isActive =
-                item.href === '/'
-                  ? pathname === '/'
-                  : pathname === item.href || pathname.startsWith(item.href + '/');
-
-              return (
-                <motion.div
-                  key={item.href}
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.04, duration: 0.3 }}
-                >
-                  <Link
-                    href={item.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    style={{
-                      color: isActive ? 'var(--color-champagne)' : 'white',
-                      textDecoration: 'none',
-                      fontFamily: 'var(--font-heading)',
-                      fontSize: 'clamp(20px, 3.2vh, 26px)',
-                      fontWeight: isActive ? 600 : 500,
-                      letterSpacing: '-0.01em',
-                      transition: 'color 0.3s ease',
-                      display: 'inline-block',
-                      padding: '4px 0',
-                    }}
-                  >
-                    {item.label}
-                  </Link>
-                </motion.div>
-              );
-            })}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.35, duration: 0.3 }}
-              style={{ marginTop: 'clamp(8px, 1.5vh, 16px)', width: '100%', maxWidth: 300 }}
-            >
+          <ul className={styles.secondaryNav}>
+            <li>
+              <Link href="/contact" className={styles.helpLink}>
+                Help
+              </Link>
+            </li>
+            <li className={styles.cultureWrap} ref={cultureRef}>
+              <button
+                type="button"
+                className={styles.cultureButton}
+                aria-expanded={cultureOpen}
+                aria-haspopup="dialog"
+                onClick={() => setCultureOpen(!cultureOpen)}
+              >
+                <span className={styles.cultureLocale}>English (UK)</span>
+                <PakistanFlag className={styles.flag} />
+                <span>Pakistan</span>
+                <span className={styles.currency}>Rs PKR</span>
+              </button>
+              {cultureOpen && (
+                <div className={styles.popover} role="dialog" aria-label="Contact and region">
+                  <p className={styles.popoverTitle}>Pakistan · English · Rs PKR</p>
+                  <div className={styles.popoverRow}>
+                    <Phone size={16} />
+                    <span>
+                      <a href={`tel:${siteConfig.contact.phone[0]}`}>{siteConfig.contact.phone[0]}</a>
+                      {' · '}
+                      <a href={`tel:${siteConfig.contact.phone[1]}`}>{siteConfig.contact.phone[1]}</a>
+                    </span>
+                  </div>
+                  <div className={styles.popoverRow}>
+                    <WhatsAppIcon size={16} />
+                    <a href={getWhatsAppUrl('Hello BookMyFlight, I need help with a booking.')} target="_blank" rel="noopener noreferrer">
+                      {siteConfig.contact.whatsappDisplay}
+                    </a>
+                  </div>
+                  <div className={styles.popoverRow}>
+                    <Mail size={16} />
+                    <a href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a>
+                  </div>
+                  <div className={styles.popoverRow}>
+                    <Clock size={16} />
+                    <span>
+                      {siteConfig.hours.days}, {siteConfig.hours.weekdays}
+                    </span>
+                  </div>
+                  <div className={styles.popoverRow}>
+                    <MapPin size={16} />
+                    <span>
+                      {siteConfig.address.street}, {siteConfig.address.area}, {siteConfig.address.city}
+                    </span>
+                  </div>
+                </div>
+              )}
+            </li>
+            <li>
               <a
                 href={getWhatsAppUrl('Hello BookMyFlight, I would like travel assistance.')}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-whatsapp"
-                style={{ fontSize: 15, width: '100%', justifyContent: 'center' }}
+                className={styles.iconButton}
+                aria-label="Chat with us on WhatsApp"
               >
-                <WhatsAppIcon size={18} />
-                WhatsApp Us
+                <WhatsAppIcon size={24} />
               </a>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
-  );
-}
+            </li>
+            <li>
+              <a
+                href={getWhatsAppUrl('Hello BookMyFlight, I would like a fare quote.')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.quoteButton}
+              >
+                Get a quote
+              </a>
+            </li>
+            <li>
+              <MobileMenu />
+            </li>
+          </ul>
+        </div>
 
-function WhatsAppIcon({ size = 24 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-    </svg>
+        <nav className={styles.primaryNav} aria-label="Main">
+          <ul className={styles.tabScroll}>
+            {navigation.map((item) => {
+              const active = isActive(pathname, item.href);
+              const cls = `${styles.tab} ${active ? styles.tabSelected : ''}`;
+              if (item.dropdown === 'airlines') {
+                return (
+                  <li key={item.href} onMouseEnter={onMenuEnter} onMouseLeave={onMenuLeave}>
+                    <button
+                      ref={airlinesTabRef}
+                      type="button"
+                      className={cls}
+                      aria-expanded={menuOpen}
+                      aria-controls="airlines-menu"
+                      onClick={() => (menuOpen ? setMenuOpen(false) : openMenu())}
+                    >
+                      <NavGlyph name={item.icon} className={styles.tabIcon} strokeWidth={2.25} />
+                      {item.label}
+                      <ChevronDown
+                        aria-hidden
+                        className={`${styles.tabChevron} ${menuOpen ? styles.tabChevronOpen : ''}`}
+                        strokeWidth={2.5}
+                      />
+                    </button>
+                  </li>
+                );
+              }
+              return (
+                <li key={item.href}>
+                  <Link href={item.href} className={cls} aria-current={active ? 'page' : undefined}>
+                    <NavGlyph name={item.icon} className={styles.tabIcon} strokeWidth={2.25} />
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+
+        {/* Airlines mega menu: always in the DOM so crawlers see the links */}
+        <div
+          id="airlines-menu"
+          ref={menuRef}
+          className={`${styles.menu} ${menuOpen ? styles.menuOpen : ''}`}
+          style={{ left: menuLeft }}
+          onMouseEnter={onMenuEnter}
+          onMouseLeave={onMenuLeave}
+        >
+          <div className={styles.menuGrid}>
+            <div>
+              <p className={styles.menuHeading}>Pakistani airlines</p>
+              <ul className={styles.menuList}>
+                {pakistaniAirlines.map((a) => (
+                  <li key={a.slug}>
+                    <Link href={`/airlines/${a.slug}`} className={styles.menuLink} tabIndex={menuOpen ? 0 : -1}>
+                      <AirlineBadge airline={a} />
+                      <span>
+                        <span className={styles.menuLinkName}>{a.name}</span>
+                        <span className={styles.menuLinkMeta}>{a.hub}</span>
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p className={styles.menuHeading}>International airlines</p>
+              <ul className={`${styles.menuList} ${styles.menuListTwoCol}`}>
+                {internationalAirlines.map((a) => (
+                  <li key={a.slug}>
+                    <Link href={`/airlines/${a.slug}`} className={styles.menuLink} tabIndex={menuOpen ? 0 : -1}>
+                      <AirlineBadge airline={a} />
+                      <span>
+                        <span className={styles.menuLinkName}>{a.name}</span>
+                        <span className={styles.menuLinkMeta}>{a.hub}</span>
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div className={styles.menuFooter}>
+            <span>Fares, refund &amp; reissue rules for every airline</span>
+            <Link href="/airlines" tabIndex={menuOpen ? 0 : -1}>
+              View all airlines <ChevronRight size={16} aria-hidden />
+            </Link>
+          </div>
+        </div>
+      </div>
+    </header>
   );
 }

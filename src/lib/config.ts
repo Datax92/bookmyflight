@@ -17,6 +17,21 @@ export const siteConfig = {
     website: 'https://ostravels.com',
   },
 
+  // Accreditation & registrations (verified from ostravels.com/about/registrations-and-licenses/)
+  credentials: {
+    // IATA agency numeric code. Leave empty until the official code is supplied;
+    // the Partners page only prints a code when one is set here.
+    iataCode: '',
+    dtsLicense: 'DTS Islamabad Directory Listing #402',
+    dtsVerifyUrl: 'http://dts.gov.pk/Detail/NDAyY2I2ZWItYTMzNC00MWMwLThkYjktZjk0ZDliZjUwYTRj',
+    gds: ['Amadeus', 'Sabre'],
+    fbr: 'Active registered taxpayer, Regional Tax Office (RTO) Islamabad',
+    secp: 'Registered business entity, Islamabad jurisdiction',
+    experienceYears: '10+',
+    happyClients: '12k+',
+    facebookCommunity: '32k+',
+  },
+
   // Verified contact information
   contact: {
     whatsapp: '+923335542877', // Verified WhatsApp from Facebook
@@ -49,7 +64,7 @@ export const siteConfig = {
 
   // Verified social media
   social: {
-    facebook: 'https://www.facebook.com/osconsultants01/',
+    facebook: 'https://www.facebook.com/ostravels/',
     youtube: 'https://www.youtube.com/@obrehman84',
     twitter: 'https://twitter.com/ostravels',
   },
@@ -223,7 +238,7 @@ export const destinations: DestinationItem[] = [
     faqs: [
       {
         question: 'Which Pakistani cities have direct flights to Dubai?',
-        answer: 'Direct flights operate daily to Dubai from Islamabad (ISB), Lahore (LHE), Karachi (KHI), Peshawar (PEW), Multan (MUX), Faisalabad (LYP), and Sialkot (SKT) via Emirates, Flydubai, PIA, and Airblue.',
+        answer: 'Non-stop flights to Dubai operate from Islamabad (ISB), Lahore (LHE), Karachi (KHI), Peshawar (PEW), Multan (MUX) and Sialkot (SKT) on Emirates, flydubai, PIA, Airblue, AirSial and Fly Jinnah, depending on the city.',
       },
       {
         question: 'Can BookMyFlight arrange UAE tourist visas?',
@@ -316,7 +331,7 @@ export const destinations: DestinationItem[] = [
     image: '/images/destinations/bangkok.jpg',
     flightTime: 'Approx. 4h 45m to 5h 30m direct from Islamabad, Lahore, Karachi',
     primaryAirports: ['Suvarnabhumi Airport (BKK)', 'Don Mueang International (DMK)'],
-    airlines: ['Thai Airways', 'PIA', 'Malindo Air / Batik Air'],
+    airlines: ['Thai Airways'],
     bestSeason: 'November to February (Cooler, dry winter season)',
     visaType: 'Thailand Sticker Visa (processed via Royal Thai Embassy / authorized centers)',
     tagline: 'Golden Temples, Exotic Markets & Tropical Warmth',
@@ -352,7 +367,7 @@ export const destinations: DestinationItem[] = [
     image: '/images/destinations/kuala-lumpur.jpg',
     flightTime: 'Approx. 5h 30m to 6h direct from Islamabad, Lahore, Karachi',
     primaryAirports: ['Kuala Lumpur International Airport (KLIA / KLIA2)'],
-    airlines: ['Malaysia Airlines', 'Batik Air', 'PIA'],
+    airlines: ['PIA', 'Batik Air', 'AirAsia X'],
     bestSeason: 'Year-round tropical climate (May to July & December to February are especially popular)',
     visaType: 'Malaysia e-Visa / eVisa for Pakistani citizens',
     tagline: 'Halal-Friendly Southeast Asian Marvel',
@@ -375,7 +390,7 @@ export const destinations: DestinationItem[] = [
       },
       {
         question: 'Which airlines fly directly from Pakistan to KL?',
-        answer: 'Malaysia Airlines and Batik Air offer direct flights from Islamabad, Lahore, and Karachi to KLIA.',
+        answer: 'PIA flies non-stop from Islamabad, Batik Air from Karachi and Lahore, and AirAsia X from Karachi to Kuala Lumpur International (KLIA).',
       },
     ],
   },
@@ -388,7 +403,7 @@ export const destinations: DestinationItem[] = [
     image: '/images/destinations/riyadh.jpg',
     flightTime: 'Approx. 4h 15m to 4h 45m direct from Islamabad, Lahore, Karachi',
     primaryAirports: ['King Khalid International Airport (RUH)'],
-    airlines: ['Saudia', 'Flynas', 'PIA', 'Airblue', 'Serene Air'],
+    airlines: ['Saudia', 'flynas', 'flyadeal', 'PIA', 'Airblue', 'AirSial', 'Fly Jinnah'],
     bestSeason: 'October to March (Pleasant cool desert winter)',
     visaType: 'Saudi Tourist e-Visa / Visa on Arrival (for US/UK/Schengen holders) or Umrah/Business visa',
     tagline: 'The Modern Epicenter of Arabian Transformation',
@@ -407,7 +422,7 @@ export const destinations: DestinationItem[] = [
     faqs: [
       {
         question: 'Which airlines operate direct flights to Riyadh from Pakistan?',
-        answer: 'Saudia, Flynas, PIA, and Airblue operate multiple direct flights weekly from Islamabad, Lahore, Karachi, and Peshawar to Riyadh.',
+        answer: 'Saudia, flynas, flyadeal, PIA, Airblue, AirSial and Fly Jinnah fly non-stop to Riyadh from Islamabad, Lahore, Karachi, Peshawar, Multan and Sialkot, depending on the airline.',
       },
       {
         question: 'Can Pakistani travelers visit Riyadh on a tourist visa?',
@@ -424,7 +439,7 @@ export const destinations: DestinationItem[] = [
     image: '/images/destinations/jeddah.jpg',
     flightTime: 'Approx. 4h 30m to 5h 15m direct from Islamabad, Lahore, Karachi, Multan',
     primaryAirports: ['King Abdulaziz International Airport (JED)'],
-    airlines: ['Saudia', 'Flynas', 'PIA', 'Airblue', 'AirSial', 'Serene Air'],
+    airlines: ['Saudia', 'PIA', 'Airblue', 'AirSial', 'Fly Jinnah', 'flynas', 'flyadeal'],
     bestSeason: 'November to April (Moderate coastal climate)',
     visaType: 'Saudi Umrah Visa, Tourist Visa, or Transit Visa',
     tagline: 'Coastal Charm & Gateway to the Holy Cities',
@@ -447,7 +462,7 @@ export const destinations: DestinationItem[] = [
       },
       {
         question: 'How many flights fly to Jeddah daily from Pakistan?',
-        answer: 'Jeddah is one of the highest-frequency international routes from Pakistan, with multiple daily direct flights from Islamabad, Lahore, Karachi, Peshawar, Multan, and Sialkot.',
+        answer: 'Jeddah is one of the busiest international routes from Pakistan, with daily non-stop flights from Islamabad, Lahore, Karachi, Peshawar, Multan and Sialkot on Saudia, PIA, Airblue, AirSial, Fly Jinnah and flynas.',
       },
     ],
   },
@@ -568,7 +583,7 @@ export const destinations: DestinationItem[] = [
     image: '/images/destinations/makkah.jpg',
     flightTime: 'Approx. 4h 30m direct to Jeddah (JED), then 54m via high-speed train or 1h 15m private road transfer',
     primaryAirports: ['King Abdulaziz International Airport Jeddah (JED)', 'Taif Regional Airport (TIF)'],
-    airlines: ['Saudia', 'Flynas', 'PIA', 'Airblue', 'AirSial', 'Serene Air'],
+    airlines: ['Saudia', 'PIA', 'Airblue', 'AirSial', 'Fly Jinnah', 'flynas', 'flyadeal'],
     bestSeason: 'Year-round spiritual journey; cooler months are October to March; Ramadan is peak season',
     visaType: 'Saudi Umrah e-Visa (handled end-to-end by our team)',
     tagline: 'The Sacred Center of Faith & Pilgrimage',
@@ -600,16 +615,48 @@ export const destinations: DestinationItem[] = [
 // ============================================================
 // Navigation Items
 // ============================================================
-export const navigation = [
-  { label: 'Home', href: '/' },
-  { label: 'Flights', href: '/flights' },
-  { label: 'Cheap Flights', href: '/cheap-flights' },
-  { label: 'Destinations', href: '/destinations' },
-  { label: 'Umrah', href: '/umrah' },
-  { label: 'Holidays', href: '/holidays' },
-  { label: 'Visa', href: '/visa' },
-  { label: 'Hotels', href: '/hotels' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/contact' },
+export type NavIcon =
+  | 'home'
+  | 'ticket'
+  | 'plane'
+  | 'compass'
+  | 'handshake'
+  | 'newspaper'
+  | 'info'
+  | 'phone';
+
+export interface NavItem {
+  label: string;
+  href: string;
+  icon: NavIcon;
+  dropdown?: 'airlines';
+}
+
+export const navigation: NavItem[] = [
+  { label: 'Home', href: '/', icon: 'home' },
+  { label: 'Ticketing', href: '/ticketing', icon: 'ticket' },
+  { label: 'Airlines', href: '/airlines', icon: 'plane', dropdown: 'airlines' },
+  { label: 'Explore', href: '/explore', icon: 'compass' },
+  { label: 'Partners', href: '/partners', icon: 'handshake' },
+  { label: 'Blogs', href: '/blog', icon: 'newspaper' },
+  { label: 'About Us', href: '/about', icon: 'info' },
+  { label: 'Contact', href: '/contact', icon: 'phone' },
+];
+
+// ============================================================
+// O.S Travel & Tours: association links (outbound links / backlinks)
+// ============================================================
+export const osTravelsLinks = [
+  { label: 'O.S Travel & Tours', href: 'https://ostravels.com/', note: 'Parent travel agency, Islamabad' },
+  { label: 'Air Ticketing', href: 'https://ostravels.com/air-ticketing/', note: 'Domestic & international e-tickets' },
+  { label: 'Visa Services', href: 'https://ostravels.com/visa/', note: 'Visit visas for 20+ countries' },
+  { label: 'Schengen Visa File Processing', href: 'https://ostravels.com/schengen-visa-file-processing/', note: 'France, Italy, Spain & more' },
+  { label: 'Saudi Arabia Visa', href: 'https://ostravels.com/visa/saudi-arabia-visa/', note: 'Umrah & tourist visas' },
+  { label: 'Malaysia Visa', href: 'https://ostravels.com/visa/malaysia-visa/', note: 'eVisa processing' },
+  { label: 'Travel Insurance', href: 'https://ostravels.com/travel-insurance/', note: 'Schengen-compliant cover' },
+  { label: 'Licenses & Registrations', href: 'https://ostravels.com/about/registrations-and-licenses/', note: 'DTS, FBR & SECP credentials' },
+  { label: 'Islamabad Blue Area Office', href: 'https://ostravels.com/branches/islamabad-blue-area/', note: 'Aaly Plaza, Fazal-e-Haq Road' },
+  { label: 'About O.S Travel & Tours', href: 'https://ostravels.com/about/', note: 'Company background' },
+  { label: 'Client Reviews', href: 'https://ostravels.com/reviews/', note: 'What travellers say' },
+  { label: 'O.S Travel Blog', href: 'https://ostravels.com/blog/', note: 'Visa & travel guides' },
 ] as const;

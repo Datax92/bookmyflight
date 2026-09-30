@@ -1,21 +1,34 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
+import { Inter } from 'next/font/google';
 import './globals.css';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { WhatsAppFloat } from '@/components/WhatsAppFloat';
 import { MobileWhatsAppBar } from '@/components/MobileWhatsAppBar';
+import { SplashScreen, splashBootScript } from '@/components/SplashScreen';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://bookmyflight.pk';
+
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+  weight: ['400', '700', '900'],
+});
+
+export const viewport: Viewport = {
+  themeColor: '#05203c',
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   alternates: {
     canonical: '/',
   },
-  title: 'BookMyFlight — Premium Travel Services | Flights, Umrah, Visa & Hotels',
+  title: 'BookMyFlight | Compare Cheap Flights from Pakistan & Book Air Tickets',
   description:
-    'BookMyFlight offers premium travel services powered by O.S Travel & Tours — flights, Umrah packages, visa assistance, hotel reservations, and personalized travel solutions from Islamabad, Pakistan.',
+    'Compare cheap flights from Islamabad, Lahore and Karachi on PIA, Emirates, Qatar Airways, Saudia, Turkish and more. Airline refund & reissue rules, fare seasons and ticketing by O.S Travel & Tours.',
   keywords: [
     'BookMyFlight',
     'cheap flights Pakistan',
@@ -27,12 +40,16 @@ export const metadata: Metadata = {
     'travel agency Islamabad',
     'O.S Travel Tours',
     'air ticketing Islamabad',
+    'airline refund policy Pakistan',
+    'ticket reissue policy',
+    'cheapest month to fly from Pakistan',
+    'IATA travel agent Islamabad',
   ],
   authors: [{ name: 'BookMyFlight — Powered by O.S Travel & Tours' }],
   openGraph: {
-    title: 'BookMyFlight — Premium Travel Services',
+    title: 'BookMyFlight | Cheap Flights from Pakistan',
     description:
-      'Your journey, our expertise. Premium flights, Umrah packages, visa assistance & personalized travel solutions.',
+      'Compare cheap flights from Pakistan, check airline refund & reissue rules and book with O.S Travel & Tours.',
     type: 'website',
     locale: 'en_PK',
     siteName: 'BookMyFlight',
@@ -40,9 +57,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'BookMyFlight — Premium Travel Services',
+    title: 'BookMyFlight | Cheap Flights from Pakistan',
     description:
-      'Your journey, our expertise. Premium flights, Umrah packages, visa assistance & personalized travel solutions.',
+      'Compare cheap flights from Pakistan, check airline refund & reissue rules and book with O.S Travel & Tours.',
   },
   robots: {
     index: true,
@@ -61,20 +78,10 @@ export default function RootLayout({
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
   return (
-    <html lang="en">
+    <html lang="en" className={inter.variable} suppressHydrationWarning>
       <head>
-        <meta name="theme-color" content="#1a1a1a" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
-          rel="stylesheet"
-        />
-
+        {/* Skips the opening animation on repeat loads within a session */}
+        <script dangerouslySetInnerHTML={{ __html: splashBootScript }} />
         {/* Global Google Analytics 4 (Conditional on env var) */}
         {gaId && (
           <>
@@ -105,12 +112,7 @@ export default function RootLayout({
               name: 'BookMyFlight',
               url: siteUrl,
               description:
-                'Premium flight booking, Umrah packages, visa assistance, and luxury travel consultancy.',
-              potentialAction: {
-                '@type': 'SearchAction',
-                target: `${siteUrl}/flights?q={search_term_string}`,
-                'query-input': 'required name=search_term_string',
-              },
+                'Compare cheap flights from Pakistan, airline refund and reissue policies, and book air tickets with O.S Travel & Tours.',
             }),
           }}
         />
@@ -125,7 +127,7 @@ export default function RootLayout({
               name: 'BookMyFlight',
               alternateName: 'Book My Flight',
               description:
-                'Premium travel services powered by O.S Travel & Tours — flights, Umrah, visa, hotels.',
+                'Flight ticketing, airline fare comparison, Umrah, visa and hotel services powered by O.S Travel & Tours, Islamabad.',
               telephone: ['+92-51-2120700', '+92-51-2120701', '+92-333-5542877'],
               email: 'info@ostravels.com',
               url: siteUrl,
@@ -159,14 +161,16 @@ export default function RootLayout({
                 '@type': 'Organization',
                 name: 'O.S Travel & Tours',
                 url: 'https://ostravels.com',
+                sameAs: ['https://www.facebook.com/ostravels/', 'https://www.youtube.com/@obrehman84'],
               },
             }),
           }}
         />
       </head>
       <body>
+        <SplashScreen />
         <Header />
-        <main>{children}</main>
+        <main id="main-content">{children}</main>
         <Footer />
         <WhatsAppFloat />
         <MobileWhatsAppBar />

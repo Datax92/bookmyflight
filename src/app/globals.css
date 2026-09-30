@@ -1,384 +1,679 @@
 @import 'tailwindcss';
 
 /* ============================================================
-   BookMyFlight — Premium Design System
-   Deep charcoal / black + warm champagne/gold + white/ivory
+   BookMyFlight design tokens
+   Values measured from skyscanner.pk (Backpack design system)
+   so layout, colour and motion match 1:1.
    ============================================================ */
-
 @theme {
-  /* Brand Colors */
-  --color-charcoal: #1a1a1a;
-  --color-charcoal-light: #2a2a2a;
-  --color-charcoal-lighter: #3a3a3a;
-  --color-champagne: #C9A96E;
-  --color-champagne-light: #D4B87E;
-  --color-champagne-dark: #B8954F;
-  --color-gold: #D4A947;
-  --color-gold-light: #E6C770;
-  --color-ivory: #FAF8F5;
-  --color-ivory-dark: #F0EDE8;
-  --color-warm-gray: #8A8278;
-  --color-warm-gray-light: #B8B2A8;
-  --color-warm-gray-dark: #5A554D;
+  /* Core palette */
+  --color-sky-dark: #05203c;          /* Dark Sky: header, hero, footer, tiles */
+  --color-sky-dark-hover: #154679;    /* hover on dark surfaces */
+  --color-sky-dark-pressed: #04182d;
+  --color-sky-blue: #0062e3;          /* featured CTA, selected tab, links */
+  --color-sky-blue-pressed: #024daf;
+  --color-text-primary: #161616;
+  --color-text-secondary: #626971;
+  --color-line: #c1c7cf;
+  --color-surface-highlight: #e0e4e9; /* secondary button */
+  --color-surface-subtle: #eff3f8;    /* tinted sections, list hover */
+  --color-surface-tint: #e3f0ff;
+  --color-success: #0c838a;
+  --color-danger: #e70866;
+  --color-warning: #f55d42;
+  --color-whatsapp: #25d366;
+  --color-whatsapp-dark: #128c7e;
 
-  /* WhatsApp Brand */
-  --color-whatsapp: #25D366;
-  --color-whatsapp-dark: #128C7E;
+  /* Legacy aliases (older pages still reference these) */
+  --color-charcoal: #05203c;
+  --color-charcoal-light: #154679;
+  --color-charcoal-lighter: #1d5a96;
+  --color-champagne: #0062e3;
+  --color-champagne-light: #3b8af0;
+  --color-champagne-dark: #024daf;
+  --color-gold: #0062e3;
+  --color-gold-light: #84b8ff;
+  --color-ivory: #ffffff;
+  --color-ivory-dark: #eff3f8;
+  --color-warm-gray: #626971;
+  --color-warm-gray-light: #c1c7cf;
+  --color-warm-gray-dark: #161616;
 
-  /* Fonts */
-  --font-heading: 'Playfair Display', Georgia, serif;
-  --font-body: 'Inter', system-ui, sans-serif;
+  --font-heading: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+  --font-body: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
 
-  /* Spacing */
-  --spacing-section: clamp(60px, 8vw, 120px);
-  --spacing-section-mobile: 60px;
+  --breakpoint-desktop: 64.0625rem;
+
+  --shadow-sm: 0 1px 3px 0 #25201f4d;
+  --shadow-lg: 0 4px 14px 0 #25201f40;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+
+  --spacing-section: 2.5rem;
 }
 
 /* ============================================================
-   Base Styles
+   Base
    ============================================================ */
-* {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 html {
-  scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   font-family: var(--font-body);
-  color: var(--color-charcoal);
-  background-color: var(--color-ivory);
-  line-height: 1.7;
+  font-size: 1rem;
+  line-height: 1.3;
+  color: var(--color-text-primary);
+  background-color: #fff;
   overflow-x: hidden;
 }
 
-/* ============================================================
-   Typography
-   ============================================================ */
-h1, h2, h3, h4, h5 {
+h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
-  line-height: 1.2;
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  font-weight: 700;
 }
 
-/* ============================================================
-   Premium Scrollbar
-   ============================================================ */
-::-webkit-scrollbar {
-  width: 8px;
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--color-ivory);
+button {
+  font: inherit;
+  color: inherit;
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--color-warm-gray-light);
-  border-radius: 4px;
+img {
+  max-width: 100%;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-warm-gray);
-}
-
-/* ============================================================
-   Selection Color
-   ============================================================ */
 ::selection {
-  background-color: var(--color-champagne);
-  color: var(--color-charcoal);
+  background-color: #0062e3;
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-sky-blue);
+  outline-offset: 2px;
 }
 
 /* ============================================================
-   Premium Button Styles
+   Layout
    ============================================================ */
-.btn-primary {
+.bpk-container,
+.container-premium {
+  width: 100%;
+  max-width: 76.5rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+@media (min-width: 64.0625rem) {
+  .bpk-container,
+  .container-premium {
+    width: 95%;
+    padding-inline: 0;
+  }
+}
+
+.bpk-stack {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2.5rem;
+}
+
+@media (max-width: 48rem) {
+  .bpk-stack {
+    row-gap: 1.5rem;
+  }
+}
+
+/* ============================================================
+   Typography (Backpack scale)
+   ============================================================ */
+.text-hero-5 { font-size: 3rem; font-weight: 900; line-height: 3rem; letter-spacing: -0.04em; }
+.text-heading-1 { font-size: 2.5rem; font-weight: 700; line-height: 3rem; }
+.text-heading-2 { font-size: 2rem; font-weight: 700; line-height: 2.5rem; }
+.text-heading-3 { font-size: 1.5rem; font-weight: 700; line-height: 1.75rem; }
+.text-heading-4 { font-size: 1.25rem; font-weight: 700; line-height: 1.5rem; }
+.text-heading-5 { font-size: 1rem; font-weight: 700; line-height: 1.25rem; }
+.text-subheading { font-size: 1.5rem; font-weight: 400; line-height: 2rem; }
+.text-body { font-size: 1rem; font-weight: 400; line-height: 1.5rem; }
+.text-body-longform { font-size: 1.25rem; font-weight: 400; line-height: 1.75rem; }
+.text-footnote { font-size: 0.875rem; font-weight: 400; line-height: 1.25rem; }
+.text-caption { font-size: 0.75rem; font-weight: 400; line-height: 1rem; }
+.text-label-1 { font-size: 1rem; font-weight: 700; line-height: 1.5rem; }
+.text-label-2 { font-size: 0.875rem; font-weight: 700; line-height: 1.25rem; }
+.text-label-3 { font-size: 0.75rem; font-weight: 700; line-height: 1rem; }
+.text-secondary { color: var(--color-text-secondary); }
+
+@media (max-width: 48rem) {
+  .text-heading-1 { font-size: 2rem; line-height: 2.5rem; }
+  .text-heading-2 { font-size: 1.5rem; line-height: 1.75rem; }
+  .text-hero-5 { font-size: 2.5rem; line-height: 2.5rem; }
+}
+
+/* Long-form article / policy copy */
+.bpk-prose { font-size: 1rem; line-height: 1.5rem; color: var(--color-text-primary); }
+.bpk-prose > * + * { margin-top: 1rem; }
+.bpk-prose h2 { font-size: 1.5rem; line-height: 1.75rem; margin-top: 2.5rem; }
+.bpk-prose h3 { font-size: 1.25rem; line-height: 1.5rem; margin-top: 2rem; }
+.bpk-prose ul, .bpk-prose ol { padding-left: 1.5rem; }
+.bpk-prose ul { list-style: disc; }
+.bpk-prose ol { list-style: decimal; }
+nav ol.toc-list { list-style: decimal; }
+.bpk-prose li + li { margin-top: 0.5rem; }
+.bpk-prose a { color: var(--color-sky-blue); text-decoration: underline; }
+.bpk-prose strong { font-weight: 700; }
+
+/* ============================================================
+   Links (BpkLink: animated underline)
+   ============================================================ */
+.bpk-link {
+  color: var(--color-sky-blue);
+  background: linear-gradient(currentcolor, currentcolor) no-repeat 0 100% / 100% 1px;
+  padding-bottom: 0.0625rem;
+  transition: background-size 0.2s ease;
+  cursor: pointer;
+}
+.bpk-link:hover { background-size: 0 1px; }
+
+.bpk-link-implicit {
+  background: linear-gradient(currentcolor, currentcolor) no-repeat 0 100% / 0 1px;
+  padding-bottom: 0.0625rem;
+  transition: background-size 0.2s ease;
+}
+.bpk-link-implicit:hover { background-size: 100% 1px; }
+
+/* ============================================================
+   Buttons (BpkButton)
+   ============================================================ */
+.bpk-btn {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 16px 36px;
-  background: var(--color-champagne);
-  color: var(--color-charcoal);
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 15px;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  border: none;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.25rem;
+  padding: 0.375rem 1rem;
+  border: 0;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+  text-align: center;
+  white-space: nowrap;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.25, 0.1, 0, 1);
-  position: relative;
-  overflow: hidden;
+  user-select: none;
+  background-color: var(--color-sky-dark);
+  color: #fff;
+}
+.bpk-btn:hover:not(:disabled) { background-color: var(--color-sky-dark-hover); }
+.bpk-btn:disabled { background-color: #e0e4e9; color: #0003; cursor: not-allowed; }
+.bpk-btn svg { flex-shrink: 0; }
+
+.bpk-btn--large { min-height: 3rem; padding: 0.75rem 1rem; }
+.bpk-btn--featured { background-color: var(--color-sky-blue); color: #fff; }
+.bpk-btn--featured:hover:not(:disabled) { background-color: var(--color-sky-blue-pressed); }
+.bpk-btn--secondary { background-color: #e0e4e9; color: #161616; }
+.bpk-btn--secondary:hover:not(:disabled) { background-color: #c1c7cf; }
+.bpk-btn--secondary-on-dark { background-color: #ffffff1a; color: #fff; }
+.bpk-btn--secondary-on-dark:hover:not(:disabled) { background-color: #04182d; }
+.bpk-btn--primary-on-dark { background-color: #fff; color: #161616; }
+.bpk-btn--primary-on-dark:hover:not(:disabled) { background-color: #c1c7cf; }
+.bpk-btn--whatsapp { background-color: var(--color-whatsapp); color: #fff; }
+.bpk-btn--whatsapp:hover:not(:disabled) { background-color: var(--color-whatsapp-dark); }
+.bpk-btn--full { width: 100%; }
+
+/* Legacy button classes mapped onto Backpack buttons */
+.btn-primary, .btn-secondary, .btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 3rem;
+  padding: 0.75rem 1.25rem;
+  border: 0;
+  border-radius: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+  text-decoration: none;
+  text-transform: none;
+  letter-spacing: 0;
+  cursor: pointer;
+}
+.btn-primary { background-color: var(--color-sky-blue); color: #fff; }
+.btn-primary:hover { background-color: var(--color-sky-blue-pressed); }
+.btn-secondary { background-color: #ffffff1a; color: #fff; box-shadow: inset 0 0 0 1px #ffffff80; }
+.btn-secondary:hover { background-color: #fff; color: #161616; }
+.btn-whatsapp { background-color: var(--color-whatsapp); color: #fff; }
+.btn-whatsapp:hover { background-color: var(--color-whatsapp-dark); }
+
+@media (max-width: 40rem) {
+  .btn-primary, .btn-secondary, .btn-whatsapp { width: 100%; }
 }
 
-.btn-primary::before {
+/* ============================================================
+   Cards (BpkCard: elevation fades in on hover)
+   ============================================================ */
+.bpk-card {
+  position: relative;
+  display: block;
+  background-color: #fff;
+  color: #161616;
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+  isolation: isolate;
+}
+.bpk-card::after {
   content: '';
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-  transition: left 0.6s ease;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease-in-out;
 }
+a.bpk-card:hover::after,
+button.bpk-card:hover::after,
+.bpk-card--interactive:hover::after { opacity: 1; }
+.bpk-card--padded { padding: 1rem; }
+.bpk-card--flat { box-shadow: none; }
 
-.btn-primary:hover::before {
-  left: 100%;
+.card-interactive {
+  background: #fff;
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s ease-in-out;
 }
+.card-interactive:hover { box-shadow: var(--shadow-lg); }
 
-.btn-primary:hover {
-  background: var(--color-champagne-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(201, 169, 110, 0.35);
-}
-
-.btn-secondary {
+/* ============================================================
+   Selectable chips (BpkSelectableChip)
+   ============================================================ */
+.bpk-chip {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 16px 36px;
-  background: transparent;
-  color: white;
-  font-family: var(--font-body);
-  font-weight: 500;
-  font-size: 15px;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  border: 1.5px solid rgba(255, 255, 255, 0.4);
-  cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.25, 0.1, 0, 1);
-}
-
-.btn-secondary:hover {
-  border-color: var(--color-champagne);
-  color: var(--color-champagne);
-  transform: translateY(-2px);
-}
-
-.btn-whatsapp {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 16px 36px;
-  background: var(--color-whatsapp);
-  color: white;
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 15px;
-  letter-spacing: 0.02em;
+  height: 2rem;
+  padding: 0 1rem;
   border: none;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.25, 0.1, 0, 1);
-  border-radius: 2px;
+  white-space: nowrap;
+  background-color: transparent;
+  box-shadow: inset 0 0 0 1px #c1c7cf;
+  color: #161616;
+}
+.bpk-chip:hover { box-shadow: inset 0 0 0 1px #161616; }
+.bpk-chip[aria-pressed='true'],
+.bpk-chip[aria-selected='true'],
+.bpk-chip--selected { background-color: #05203c; box-shadow: inset 0 0 0 1px #05203c; color: #fff; }
+
+.bpk-chip--on-dark { box-shadow: inset 0 0 0 1px #ffffff80; color: #fff; }
+.bpk-chip--on-dark:hover,
+.bpk-chip--on-dark[aria-expanded='true'] { background-color: #fff; box-shadow: inset 0 0 0 1px #fff; color: #161616; }
+.bpk-chip__trailing { display: inline-flex; margin-left: 0.5rem; margin-right: -0.5rem; }
+.bpk-chip__leading { display: inline-flex; margin-right: 0.5rem; }
+
+/* ============================================================
+   Checkbox (BpkCheckbox)
+   ============================================================ */
+.bpk-checkbox {
+  position: relative;
+  display: inline-block;
+  padding-left: 1.75rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  cursor: pointer;
+}
+.bpk-checkbox input {
+  appearance: none;
+  position: absolute;
+  top: 0.125rem;
+  left: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0;
+  border: 0.1875rem solid #626971;
+  border-radius: 0.25rem;
+  background: #fff;
+  cursor: pointer;
+}
+.bpk-checkbox input:checked {
+  background-color: #0062e3;
+  border-color: #0062e3;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='9' fill='none' viewBox='0 0 13 9'%3E%3Cpath stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M2.354 3.646 5.5 7.5l6-6'/%3E%3C/svg%3E");
+  background-position: 50%;
+  background-repeat: no-repeat;
+}
+.bpk-checkbox--white { color: #fff; }
+
+/* ============================================================
+   Popover (BpkPopover)
+   ============================================================ */
+.bpk-popover {
+  background-color: #fff;
+  color: #161616;
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-lg);
+  animation: bpk-fade-in 0.2s ease-in-out;
 }
 
-.btn-whatsapp:hover {
-  background: var(--color-whatsapp-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(37, 211, 102, 0.35);
+@keyframes bpk-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes bpk-drop-in {
+  from { opacity: 0; transform: translateY(-0.25rem); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* ============================================================
-   Premium Section Label
+   Forms (BpkInput / BpkSelect / BpkTextarea)
+   ============================================================ */
+.bpk-label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.25rem;
+}
+.bpk-input,
+.bpk-select,
+.bpk-textarea {
+  display: block;
+  width: 100%;
+  height: 3rem;
+  padding: 0 1rem;
+  border: 1px solid #c1c7cf;
+  border-radius: 0.5rem;
+  background-color: #fff;
+  color: #161616;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  transition: border-color 0.2s ease;
+}
+.bpk-textarea { height: auto; min-height: 7.5rem; padding: 0.75rem 1rem; resize: vertical; }
+.bpk-select {
+  appearance: none;
+  padding-right: 2.5rem;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23161616'%3E%3Cpath d='M12 16.5a1.5 1.5 0 0 1-1.06-.44l-6-6a1.5 1.5 0 0 1 2.12-2.12L12 12.88l4.94-4.94a1.5 1.5 0 0 1 2.12 2.12l-6 6a1.5 1.5 0 0 1-1.06.44z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1.25rem;
+}
+.bpk-input:hover, .bpk-select:hover, .bpk-textarea:hover { border-color: #161616; }
+.bpk-input:focus, .bpk-select:focus, .bpk-textarea:focus {
+  outline: 0.1875rem solid #0062e3;
+  outline-offset: -0.0625rem;
+  border-color: #0062e3;
+}
+.bpk-input::placeholder, .bpk-textarea::placeholder { color: #626971; }
+
+@media (max-width: 48rem) {
+  input, select, textarea { font-size: 16px; }
+}
+
+/* ============================================================
+   Tables (policy comparison)
+   ============================================================ */
+.bpk-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 0.75rem;
+  box-shadow: inset 0 0 0 1px #c1c7cf;
+}
+.bpk-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+.bpk-table th,
+.bpk-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid #c1c7cf;
+}
+.bpk-table thead th {
+  background-color: #eff3f8;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.bpk-table tbody tr:last-child td,
+.bpk-table tbody tr:last-child th { border-bottom: 0; }
+.bpk-table tbody th { font-weight: 700; }
+
+/* ============================================================
+   Legacy helpers (kept so un-migrated markup still renders)
    ============================================================ */
 .section-label {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--color-champagne);
-  margin-bottom: 20px;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.25rem;
+  color: var(--color-sky-blue);
 }
 
-.section-label::before {
-  content: '';
-  display: block;
-  width: 40px;
-  height: 1px;
-  background: var(--color-champagne);
+.premium-divider {
+  width: 3rem;
+  height: 0.25rem;
+  margin: 1rem 0;
+  border-radius: 0.125rem;
+  background: var(--color-sky-blue);
 }
 
-/* ============================================================
-   Image Reveal Animation
-   ============================================================ */
-.image-reveal {
-  position: relative;
-  overflow: hidden;
+.glass-subtle {
+  background: #ffffff1a;
+  border-radius: 0.75rem;
 }
 
-.image-reveal img {
-  transition: transform 0.8s cubic-bezier(0.25, 0.1, 0, 1);
-}
-
-.image-reveal:hover img {
-  transform: scale(1.05);
-}
+.image-reveal { position: relative; overflow: hidden; }
+.image-reveal img { transition: transform 0.4s ease; }
+.image-reveal:hover img { transform: scale(1.03); }
 
 /* ============================================================
-   Floating WhatsApp Button
+   WhatsApp helpers
    ============================================================ */
 .whatsapp-float {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 999;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: var(--color-whatsapp);
+  right: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 900;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
-  transition: all 0.3s ease;
-  text-decoration: none;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background: var(--color-whatsapp);
+  box-shadow: var(--shadow-lg);
+  transition: background-color 0.2s ease;
 }
+.whatsapp-float:hover { background: var(--color-whatsapp-dark); }
+.whatsapp-float svg { width: 1.75rem; height: 1.75rem; fill: #fff; }
 
-.whatsapp-float:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
-}
+.mobile-whatsapp-bar { display: none; }
 
-.whatsapp-float svg {
-  width: 30px;
-  height: 30px;
-  fill: white;
-}
-
-/* ============================================================
-   Mobile WhatsApp Bar
-   ============================================================ */
-@media (max-width: 768px) {
-  .whatsapp-float {
-    display: none;
-  }
-
+@media (max-width: 48rem) {
+  .whatsapp-float { display: none; }
   .mobile-whatsapp-bar {
     position: fixed;
-    bottom: 0;
     left: 0;
     right: 0;
-    z-index: 998;
-    padding: 12px 16px;
-    padding-bottom: calc(12px + env(safe-area-inset-bottom));
-    background: var(--color-whatsapp);
+    bottom: 0;
+    z-index: 900;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.2);
+    padding: 0.5rem 1rem calc(0.5rem + env(safe-area-inset-bottom));
+    background: #fff;
+    box-shadow: 0 -1px 3px 0 #25201f4d;
   }
-
   .mobile-whatsapp-bar a {
     display: flex;
     align-items: center;
-    gap: 8px;
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 15px;
-    width: 100%;
     justify-content: center;
-  }
-
-  /* Add bottom padding to body when mobile bar is visible */
-  body {
-    padding-bottom: 76px;
-  }
-
-  /* Prevent automatic iOS Safari input zoom */
-  input, select, textarea {
-    font-size: 16px !important;
-  }
-}
-
-@media (max-width: 640px) {
-  .btn-primary, .btn-secondary, .btn-whatsapp {
-    padding: 14px 20px;
-    font-size: 14px;
+    gap: 0.5rem;
     width: 100%;
-    justify-content: center;
-    text-align: center;
+    min-height: 3rem;
+    border-radius: 0.5rem;
+    background: var(--color-whatsapp);
+    color: #fff;
+    font-weight: 700;
   }
+  body { padding-bottom: 4rem; }
 }
 
-@media (min-width: 769px) {
-  .mobile-whatsapp-bar {
-    display: none;
-  }
+/* Skip link */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  z-index: 2000;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  background: #fff;
+  color: #161616;
+  font-weight: 700;
+}
+.skip-link:focus { top: 1rem; }
+
+.sr-only-text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* ============================================================
-   Glass Effect (subtle, not excessive)
+   Opening animation (splash) + hero entrance
    ============================================================ */
-.glass-subtle {
-  background: rgba(26, 26, 26, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+.bmf-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #05203c;
+  animation: bmf-splash-out 0.5s cubic-bezier(0.4, 0, 0.2, 1) 1.15s forwards;
 }
 
-/* ============================================================
-   Premium Divider
-   ============================================================ */
-.premium-divider {
-  width: 60px;
-  height: 2px;
-  background: linear-gradient(90deg, var(--color-champagne), var(--color-gold));
-  margin: 24px 0;
+html.bmf-seen .bmf-splash {
+  display: none;
 }
 
-/* ============================================================
-   Container
-   ============================================================ */
-.container-premium {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 16px;
+.bmf-splash__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
 }
 
-@media (min-width: 640px) {
-  .container-premium {
-    padding: 0 24px;
+.bmf-splash__mark {
+  position: relative;
+  width: 7rem;
+  height: 7rem;
+  animation: bmf-pop 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.bmf-splash__ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  animation: bmf-rotate 1.4s linear infinite;
+}
+
+.bmf-splash__ring circle {
+  stroke-dasharray: 170;
+  stroke-dashoffset: 20;
+}
+
+.bmf-splash__logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 3.5rem;
+  height: auto;
+  transform: translate(-50%, -52%);
+}
+
+.bmf-splash__word {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  animation: bmf-rise 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) 0.25s both;
+}
+
+@keyframes bmf-rotate {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes bmf-pop {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes bmf-rise {
+  from { opacity: 0; transform: translateY(0.75rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bmf-splash-out {
+  to { opacity: 0; visibility: hidden; pointer-events: none; }
+}
+
+/* Hero content rises in after the splash (immediately on later navigations) */
+:root { --bmf-enter-delay: 1.25s; }
+html.bmf-seen { --bmf-enter-delay: 0s; }
+
+.bmf-enter {
+  animation: bmf-rise 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--bmf-enter-delay) + var(--bmf-stagger, 0s));
+}
+
+.bmf-enter-1 { --bmf-stagger: 0.08s; }
+.bmf-enter-2 { --bmf-stagger: 0.16s; }
+.bmf-enter-3 { --bmf-stagger: 0.24s; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .bmf-splash {
+    animation-delay: 0.3s !important;
+  }
+
+  .bmf-splash__ring {
+    animation: none !important;
   }
 }
-
-@media (min-width: 768px) {
-  .container-premium {
-    padding: 0 40px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .container-premium {
-    padding: 0 60px;
-  }
-}
-
-/* ============================================================
-   Interactive Cards
-   ============================================================ */
-.card-interactive {
-  background: white;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  transition: all 0.35s cubic-bezier(0.25, 0.1, 0, 1);
-}
-
-.card-interactive:hover {
-  border-color: var(--color-champagne);
-  transform: translateY(-4px);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
-}
-
-

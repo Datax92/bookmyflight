@@ -1,81 +1,101 @@
 import type { Metadata } from 'next';
-import { AnimateIn } from '@/components/AnimateIn';
-import { getWhatsAppUrl } from '@/lib/whatsapp';
+import { LandingPage, type LandingData, type CardItem } from '@/components/sections/LandingPage';
 
 export const metadata: Metadata = {
-  title: 'Visa Assistance — BookMyFlight | Global Visa Services',
-  description: 'Expert visa consultancy for US, UK, Canada, Schengen, Malaysia, Singapore, Thailand, Saudi Arabia, and more. BookMyFlight visa services powered by O.S Travel & Tours.',
+  title: 'Visa Assistance in Islamabad: Visit Visas & Schengen File Processing | BookMyFlight',
+  description:
+    'Visit visas and visa file processing by O.S Travel & Tours, Islamabad: Saudi Arabia, Malaysia, Thailand, Singapore, Türkiye, Azerbaijan, Schengen, UK, USA, Canada and more.',
+  alternates: { canonical: '/visa' },
+};
+
+const visit: [string, string][] = [
+  ['Saudi Arabia', 'saudi-arabia-visa'], ['Malaysia', 'malaysia-visa'], ['Thailand', 'thailand-visa'], ['Singapore', 'singapore-visa'],
+  ['Türkiye', 'turkey-visa'], ['Azerbaijan', 'azerbaijan-visa'], ['Indonesia', 'indonesia-visa'], ['Vietnam', 'vietnam-visa'],
+  ['China', 'china-visa'], ['Hong Kong', 'hongkong-visa'], ['Sri Lanka', 'sri-lanka-visa'], ['Philippines', 'philippine-visa'],
+  ['Cambodia', 'cambodia-visa'], ['Egypt', 'egypt-visa'], ['Nepal', 'nepal'], ['Kazakhstan', 'kazakhstan'],
+  ['Uzbekistan', 'uzbekistan-visa'], ['Kyrgyzstan', 'kyrgyzstan-visa'], ['Tajikistan', 'tajikistan-visa'],
+];
+
+const files: [string, string][] = [
+  ['United Kingdom', 'united-kingdom-uk-visa'], ['United States', 'united-states-usa-visa'], ['Canada', 'canada-visa'],
+  ['Australia', 'australia-visa'], ['France', 'france-visa'], ['Germany', 'germany-visa'], ['Italy', 'italy-visa'],
+  ['Spain', 'spain-visa'], ['Netherlands', 'netherlands-visa'], ['Switzerland', 'switzerland-visa'], ['Greece', 'greece-visa'],
+  ['Portugal', 'portugal-visa'], ['Belgium', 'belgium-visa'], ['Denmark', 'denmark-visa'], ['Sweden', 'sweden-visa'],
+  ['Norway', 'norway-visa'], ['Poland', 'poland-visa'], ['Hungary', 'hungary-visa'], ['Czech Republic', 'czech-republic-visa'],
+];
+
+const visitCards: CardItem[] = visit.map(([name, slug]) => ({
+  title: name,
+  meta: 'Visit / tourist visa',
+  href: `https://ostravels.com/visa/${slug}/`,
+  external: true,
+  cta: 'Requirements',
+}));
+
+const fileCards: CardItem[] = files.map(([name, slug]) => ({
+  title: name,
+  meta: ['United Kingdom', 'United States', 'Canada', 'Australia'].includes(name) ? 'Visa file processing' : 'Schengen visa file',
+  href: `https://ostravels.com/schengen-visa-file-processing/${slug}/`,
+  external: true,
+  cta: 'Requirements',
+}));
+
+const data: LandingData = {
+  hero: {
+    title: 'Visa assistance',
+    subtitle: 'Visit visas and visa file processing by the O.S Travel & Tours visa team in Blue Area, Islamabad.',
+    breadcrumb: 'Visa',
+  },
+  blocks: [
+    {
+      type: 'steps',
+      title: 'How visa assistance works',
+      items: [
+        { title: 'Tell us your destination', body: 'Share your travel purpose, dates and passport details on WhatsApp or at our office.' },
+        { title: 'Get a document checklist', body: 'We send the exact documents for your visa type: bank statements, letters, bookings and forms.' },
+        { title: 'File preparation & submission', body: 'We prepare and check your file, book appointments where needed and submit or guide submission.' },
+      ],
+    },
+    { type: 'cards', title: 'Visit & tourist visas', intro: 'Asia, the Middle East and Central Asia. O.S Travel & Tours lists itself as an authorised drop-box agent for Malaysia, Indonesia, Thailand and Vietnam.', cols: 4, items: visitCards },
+    { type: 'cards', title: 'Schengen, UK, USA & Canada file processing', intro: 'Complete visa file preparation, itinerary, hotel and flight reservations and travel insurance for embassy and VFS submissions.', cols: 4, items: fileCards },
+    {
+      type: 'bullets',
+      title: 'Documents usually needed',
+      panel: true,
+      items: [
+        'Passport valid for at least 6 months with blank pages, plus old passports',
+        'Recent photographs to embassy specification',
+        'Bank statement (usually last 6 months) and account maintenance letter',
+        'Employment letter, business registration or student letter',
+        'Tax returns (NTN) for many embassies',
+        'Flight reservation and hotel booking or invitation letter',
+        'Travel insurance (mandatory for Schengen visas)',
+        'Family registration certificate (FRC) for family applications',
+      ],
+    },
+    {
+      type: 'cta',
+      title: 'Talk to a visa expert',
+      body: 'Visa rules change often. Message our team with your destination and travel dates for the current requirements and processing time.',
+      whatsapp: 'Hello BookMyFlight, I need visa assistance. My destination is:',
+      button: 'Ask about my visa',
+    },
+  ],
+  faqTitle: 'Visa assistance FAQs',
+  faqs: [
+    { question: 'Which visas can you help with?', answer: 'Visit and tourist visas for Saudi Arabia, Malaysia, Thailand, Singapore, Türkiye, Azerbaijan, Indonesia, Vietnam, China, Hong Kong, Sri Lanka and more, plus file processing for Schengen countries, the UK, USA, Canada and Australia.' },
+    { question: 'Do you guarantee visa approval?', answer: 'No. Decisions are made only by embassies and immigration authorities. We make sure your file is complete and well prepared, which reduces avoidable refusals.' },
+    { question: 'How long does visa processing take?', answer: 'It depends on the country and season, from a few working days for some e-visas to several weeks for Schengen, UK or US visas. Apply well before your travel date.' },
+    { question: 'Do I need a flight ticket before applying?', answer: 'Most embassies need a flight reservation, not a paid ticket. We provide reservations and issue the actual ticket once the visa is approved.' },
+    { question: 'Is travel insurance required?', answer: 'Yes for Schengen visas (minimum €30,000 medical cover), and recommended for all trips. We arrange compliant insurance.' },
+    { question: 'Can you help with Umrah visas?', answer: 'Yes. See our Umrah page for Umrah visas together with flights, hotels and transport.' },
+    { question: 'What bank balance do I need?', answer: 'Embassies look for a steady history and enough funds for the trip rather than a fixed figure. We advise on your file before submission.' },
+    { question: 'Can I apply if I was refused before?', answer: 'Yes, but you must declare the refusal and address the reasons in your new application. Share the refusal letter with us.' },
+    { question: 'Do I need to visit your office?', answer: 'Not always. Many steps can be done on WhatsApp, but original documents may need to be submitted in person.' },
+    { question: 'What is a drop-box agent?', answer: 'An agent authorised to accept visa applications on behalf of an embassy. O.S Travel & Tours lists drop-box authorisation for Malaysia, Indonesia, Thailand and Vietnam.' },
+  ],
 };
 
 export default function VisaPage() {
-  const visaTypes = [
-    { country: 'United States', type: 'Tourist / Business / Student', flag: '🇺🇸' },
-    { country: 'United Kingdom', type: 'Tourist / Business / Student', flag: '🇬🇧' },
-    { country: 'Canada', type: 'Tourist / Business / Student', flag: '🇨🇦' },
-    { country: 'Schengen Countries', type: 'Tourist / Business', flag: '🇪🇺' },
-    { country: 'Saudi Arabia', type: 'Umrah / Tourist / Business', flag: '🇸🇦' },
-    { country: 'Malaysia', type: 'Tourist / Business', flag: '🇲🇾' },
-    { country: 'Singapore', type: 'Tourist / Business', flag: '🇸🇬' },
-    { country: 'Thailand', type: 'Tourist', flag: '🇹🇭' },
-  ];
-
-  return (
-    <>
-      <section style={{ background: 'var(--color-charcoal)', paddingTop: 'clamp(100px, 15vw, 140px)', paddingBottom: 'clamp(50px, 8vw, 80px)' }}>
-        <div className="container-premium">
-          <AnimateIn>
-            <div style={{ maxWidth: 600 }}>
-              <div className="section-label">Visa Services</div>
-              <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(32px, 5vw, 52px)', color: 'white', fontWeight: 600, lineHeight: 1.1, marginBottom: 24 }}>
-                Expert Visa
-                <br /><span style={{ color: 'var(--color-champagne)' }}>Assistance</span>
-              </h1>
-              <p style={{ fontSize: 17, color: 'rgba(255,255,255,0.6)', lineHeight: 1.7 }}>
-                Professional visa consultancy for destinations worldwide. Our experienced team guides you through the entire visa application process.
-              </p>
-            </div>
-          </AnimateIn>
-        </div>
-      </section>
-
-      <section style={{ background: 'var(--color-ivory)', padding: 'var(--spacing-section) 0' }}>
-        <div className="container-premium">
-          <AnimateIn>
-            <div style={{ maxWidth: 600, marginBottom: 48 }}>
-              <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(26px, 3.5vw, 32px)', color: 'var(--color-charcoal)', fontWeight: 600, marginBottom: 16 }}>
-                Visa Services We Offer
-              </h2>
-              <div className="premium-divider" />
-              <p style={{ fontSize: 16, color: 'var(--color-warm-gray)', lineHeight: 1.8 }}>
-                We provide visa consultancy services for a wide range of countries. Our team assists with document preparation, file processing, and application guidance.
-              </p>
-            </div>
-          </AnimateIn>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))', gap: 'clamp(16px, 2.5vw, 20px)' }}>
-            {visaTypes.map((visa, i) => (
-              <AnimateIn key={visa.country} delay={i * 0.06}>
-                <div
-                  className="card-interactive"
-                  style={{ padding: 'clamp(20px, 4vw, 32px)', cursor: 'pointer', height: '100%' }}
-                >
-                  <span style={{ fontSize: 32, marginBottom: 16, display: 'block' }}>{visa.flag}</span>
-                  <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: 20, fontWeight: 600, color: 'var(--color-charcoal)', marginBottom: 4 }}>{visa.country}</h3>
-                  <p style={{ fontSize: 13, color: 'var(--color-warm-gray)', marginBottom: 16 }}>{visa.type}</p>
-                  <a
-                    href={getWhatsAppUrl(`Hello BookMyFlight, I need visa assistance for ${visa.country}. Please guide me through the process.`)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-whatsapp-dark)', textDecoration: 'none' }}
-                  >
-                    Talk to a Visa Expert →
-                  </a>
-                </div>
-              </AnimateIn>
-            ))}
-          </div>
-        </div>
-      </section>
-    </>
-  );
+  return <LandingPage data={data} />;
 }

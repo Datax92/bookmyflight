@@ -36,7 +36,7 @@ export const campaignOffers: CampaignOffer[] = [
     title: 'Tailored Umrah Packages for Pakistani Families',
     subtitle: 'Close Markazia Hotels & Complete Visa Processing',
     description:
-      'Plan your spiritual pilgrimage with confidence. With decades of dedicated service through O.S Travel & Tours, we customize Umrah travel dates, markazia hotel proximity to the Haram, and private ground transportation.',
+      'Plan your spiritual pilgrimage with confidence. With more than 10 years of service through O.S Travel & Tours, we customize Umrah travel dates, markazia hotel proximity to the Haram, and private ground transportation.',
     benefits: [
       'Approved Saudi electronic Umrah visa processing',
       'Return international flights from Islamabad, Lahore, or Karachi',
