@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <rect width="120" height="120" rx="20" fill="#0a7a4b"/>
+  <circle cx="60" cy="50" r="32" fill="#08633d"/>
+  <!-- Flying bird symbol with red accent -->
+  <path d="M 32 58 C 44 40 70 34 90 38 C 76 46 56 50 42 66 Z" fill="#ffffff"/>
+  <path d="M 46 54 C 58 44 76 40 88 44 C 74 50 62 56 52 64 Z" fill="#e20613"/>
+  <!-- Fly Jinnah brand text -->
+  <text x="60" y="94" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif" font-size="16" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="0.5">FLY JINNAH</text>
+  <text x="60" y="107" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif" font-size="8" font-weight="700" fill="#a4e4c2" text-anchor="middle" letter-spacing="1">PAKISTAN</text>
+</svg>

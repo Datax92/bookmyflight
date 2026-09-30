@@ -17,6 +17,8 @@ export interface AirlineBase {
   website: string;
   /** Brand colour used for the code badge */
   color: string;
+  /** Path to official SVG logo */
+  logo: string;
 }
 
 export const airlines: AirlineBase[] = [
@@ -31,6 +33,7 @@ export const airlines: AirlineBase[] = [
     alliance: 'None',
     website: 'https://www.piac.com.pk',
     color: '#00553c',
+    logo: '/images/airlines/logos/pia-pakistan-international-airlines.svg',
   },
   {
     slug: 'airblue',
@@ -42,6 +45,7 @@ export const airlines: AirlineBase[] = [
     alliance: 'None',
     website: 'https://www.airblue.com',
     color: '#0b4ea2',
+    logo: '/images/airlines/logos/airblue.svg',
   },
   {
     slug: 'airsial',
@@ -53,6 +57,7 @@ export const airlines: AirlineBase[] = [
     alliance: 'None',
     website: 'https://www.airsial.com',
     color: '#15306b',
+    logo: '/images/airlines/logos/airsial.svg',
   },
   {
     slug: 'fly-jinnah',
@@ -64,6 +69,7 @@ export const airlines: AirlineBase[] = [
     alliance: 'None',
     website: 'https://www.flyjinnah.com',
     color: '#0a7a4b',
+    logo: '/images/airlines/logos/fly-jinnah.svg',
   },
   // ---------------- International carriers ----------------
   {
@@ -76,6 +82,7 @@ export const airlines: AirlineBase[] = [
     alliance: 'None',
     website: 'https://www.emirates.com/pk/english/',
     color: '#d71921',
+    logo: '/images/airlines/logos/emirates.svg',
   },
   {
     slug: 'flydubai',
@@ -87,6 +94,7 @@ export const airlines: AirlineBase[] = [
     alliance: 'None',
     website: 'https://www.flydubai.com/en-pk/',
     color: '#1c3f73',
+    logo: '/images/airlines/logos/flydubai.svg',
   },
   {
     slug: 'qatar-airways',
@@ -98,6 +106,7 @@ export const airlines: AirlineBase[] = [
     alliance: 'oneworld',
     website: 'https://www.qatarairways.com/en-pk/homepage.html',
     color: '#5c0632',
+    logo: '/images/airlines/logos/qatar-airways.svg',
   },
   {
     slug: 'etihad-airways',
@@ -109,6 +118,7 @@ export const airlines: AirlineBase[] = [
     alliance: 'None',
     website: 'https://www.etihad.com/en-pk/',
     color: '#8a6d3b',
+    logo: '/images/airlines/logos/etihad-airways.svg',
   },
   {
     slug: 'air-arabia',
@@ -120,6 +130,7 @@ export const airlines: AirlineBase[] = [
     alliance: 'None',
     website: 'https://www.airarabia.com',
     color: '#e20613',
+    logo: '/images/airlines/logos/air-arabia.svg',
   },
   {
     slug: 'saudia',
@@ -131,6 +142,7 @@ export const airlines: AirlineBase[] = [
     alliance: 'SkyTeam',
     website: 'https://www.saudia.com',
     color: '#006c35',
+    logo: '/images/airlines/logos/saudia.svg',
   },
   {
     slug: 'flynas',
@@ -142,6 +154,7 @@ export const airlines: AirlineBase[] = [
     alliance: 'None',
     website: 'https://www.flynas.com',
     color: '#4b2a7b',
+    logo: '/images/airlines/logos/flynas.svg',
   },
   {
     slug: 'flyadeal',
@@ -153,6 +166,7 @@ export const airlines: AirlineBase[] = [
     alliance: 'None',
     website: 'https://www.flyadeal.com',
     color: '#6fa817',
+    logo: '/images/airlines/logos/flyadeal.svg',
   },
   {
     slug: 'turkish-airlines',
@@ -164,6 +178,7 @@ export const airlines: AirlineBase[] = [
     alliance: 'Star Alliance',
     website: 'https://www.turkishairlines.com/en-pk/',
     color: '#c8102e',
+    logo: '/images/airlines/logos/turkish-airlines.svg',
   },
   {
     slug: 'oman-air',
@@ -175,6 +190,7 @@ export const airlines: AirlineBase[] = [
     alliance: 'oneworld',
     website: 'https://www.omanair.com/pk/en',
     color: '#00747a',
+    logo: '/images/airlines/logos/oman-air.svg',
   },
   {
     slug: 'gulf-air',
@@ -186,6 +202,7 @@ export const airlines: AirlineBase[] = [
     alliance: 'None',
     website: 'https://www.gulfair.com',
     color: '#8c6d2c',
+    logo: '/images/airlines/logos/gulf-air.svg',
   },
   {
     slug: 'thai-airways',
@@ -197,6 +214,7 @@ export const airlines: AirlineBase[] = [
     alliance: 'Star Alliance',
     website: 'https://www.thaiairways.com',
     color: '#4e2a84',
+    logo: '/images/airlines/logos/thai-airways.svg',
   },
   {
     slug: 'british-airways',
@@ -208,6 +226,7 @@ export const airlines: AirlineBase[] = [
     alliance: 'oneworld',
     website: 'https://www.britishairways.com',
     color: '#075aaa',
+    logo: '/images/airlines/logos/british-airways.svg',
   },
   {
     slug: 'salamair',
@@ -219,6 +238,7 @@ export const airlines: AirlineBase[] = [
     alliance: 'None',
     website: 'https://www.salamair.com',
     color: '#00a19a',
+    logo: '/images/airlines/logos/salamair.svg',
   },
 ];
 

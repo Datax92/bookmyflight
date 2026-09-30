@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <rect width="120" height="120" rx="20" fill="#5c0632"/>
+  <circle cx="60" cy="50" r="32" fill="#460426"/>
+  <!-- Arabian Oryx head with sleek curved horns -->
+  <g fill="#ffffff" transform="translate(60, 48) scale(0.85)">
+    <!-- Horns -->
+    <path d="M -4 -4 C 2 -26 18 -38 28 -42 C 22 -32 10 -22 6 -4 Z"/>
+    <path d="M 2 -4 C 10 -24 24 -34 34 -36 C 26 -28 16 -18 10 -4 Z"/>
+    <!-- Head & muzzle -->
+    <path d="M -14 18 C -18 10 -12 -2 -2 -8 C 6 -4 14 4 12 14 C 10 24 -4 28 -14 18 Z"/>
+    <path d="M -14 18 L -24 22 L -18 26 L -8 24 Z"/>
+    <!-- Eye -->
+    <circle cx="-4" cy="6" r="2.5" fill="#5c0632"/>
+  </g>
+  <!-- Qatar Airways text -->
+  <text x="60" y="96" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif" font-size="14" font-weight="800" fill="#ffffff" text-anchor="middle" letter-spacing="1">QATAR</text>
+  <text x="60" y="108" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif" font-size="8.5" font-weight="600" fill="#d99cb5" text-anchor="middle" letter-spacing="2">AIRWAYS</text>
+</svg>

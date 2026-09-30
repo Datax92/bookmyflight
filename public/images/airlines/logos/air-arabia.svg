@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <rect width="120" height="120" rx="20" fill="#e20613"/>
+  <circle cx="60" cy="50" r="32" fill="#be040f"/>
+  <!-- Soaring gull / bird silhouette -->
+  <g fill="#ffffff" transform="translate(60, 48)">
+    <path d="M -30 14 C -18 -8 4 -22 28 -20 C 12 -12 -2 -2 -8 8 C -14 0 -22 8 -30 14 Z"/>
+    <path d="M -12 8 C 4 0 20 -2 32 4 C 18 6 6 12 0 16 Z"/>
+  </g>
+  <!-- Air Arabia brand text -->
+  <text x="60" y="96" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif" font-size="14.5" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="0.5">Air Arabia</text>
+</svg>

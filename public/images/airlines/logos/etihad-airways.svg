@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <rect width="120" height="120" rx="20" fill="#1b1a18"/>
+  <!-- Facets of Abu Dhabi golden geometric emblem -->
+  <g transform="translate(60, 46)">
+    <polygon points="0,-24 16,-12 0,0 -16,-12" fill="#c5a059"/>
+    <polygon points="-16,-12 0,0 -8,14 -22,4" fill="#a4813e"/>
+    <polygon points="16,-12 22,4 8,14 0,0" fill="#dfbe76"/>
+    <polygon points="0,0 8,14 0,26 -8,14" fill="#8a6d3b"/>
+  </g>
+  <!-- ETIHAD wordmark -->
+  <text x="60" y="94" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif" font-size="16" font-weight="800" fill="#c5a059" text-anchor="middle" letter-spacing="3">ETIHAD</text>
+  <text x="60" y="106" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif" font-size="8" font-weight="600" fill="#ffffff" text-anchor="middle" letter-spacing="2">AIRWAYS</text>
+</svg>

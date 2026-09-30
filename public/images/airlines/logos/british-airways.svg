@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <rect width="120" height="120" rx="20" fill="#075aaa"/>
+  <circle cx="60" cy="50" r="32" fill="#054585"/>
+  <!-- Speedbird ribbon flutter motif -->
+  <g transform="translate(60, 48)">
+    <!-- Red ribbon top swoosh -->
+    <path d="M -26 4 C -12 -12 12 -18 30 -6 C 16 -6 -4 2 -14 14 Z" fill="#eb2226"/>
+    <!-- Blue ribbon lower swoosh -->
+    <path d="M -16 12 C -4 4 16 0 32 6 C 20 8 4 14 -6 20 Z" fill="#ffffff"/>
+  </g>
+  <!-- British Airways text -->
+  <text x="60" y="96" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif" font-size="12" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="1">BRITISH</text>
+  <text x="60" y="108" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif" font-size="9" font-weight="700" fill="#b0d4f6" text-anchor="middle" letter-spacing="1.5">AIRWAYS</text>
+</svg>

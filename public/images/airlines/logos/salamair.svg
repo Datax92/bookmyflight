@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <rect width="120" height="120" rx="20" fill="#00a19a"/>
+  <circle cx="60" cy="50" r="32" fill="#00827c"/>
+  <!-- Modern twin wing bird in flight -->
+  <g transform="translate(60, 48)">
+    <path d="M -26 12 C -14 -6 6 -16 28 -12 C 14 -8 0 0 -10 16 Z" fill="#ffffff"/>
+    <path d="M -16 16 C -6 6 12 2 28 6 C 18 10 6 16 -4 22 Z" fill="#7cb342"/>
+  </g>
+  <!-- SalamAir text -->
+  <text x="60" y="96" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif" font-size="16" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="-0.5">SalamAir</text>
+</svg>

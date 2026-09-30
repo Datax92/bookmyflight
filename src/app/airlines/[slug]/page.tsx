@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { BadgeCheck, ExternalLink, FileText, MessageCircle, Plane } from 'lucide-react';
@@ -79,6 +80,31 @@ export default async function AirlinePage({ params }: Props) {
           ]}
         />
 
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', padding: '1.25rem 1.5rem', backgroundColor: '#fff', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(37,32,31,0.1)', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <AirlineBadge airline={a} size={54} />
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+                <span style={{ fontSize: '1.375rem', fontWeight: 800, color: '#161616' }}>{a.name}</span>
+                <span className={`${styles.badge} ${styles.badgePrimary}`} style={{ textTransform: 'uppercase' }}>{a.code}</span>
+                {a.alliance !== 'None' && <span className={styles.badge}>{a.alliance}</span>}
+              </div>
+              <p style={{ margin: '0.25rem 0 0', fontSize: '0.875rem', color: '#626971' }}>
+                {a.group === 'pakistani' ? 'Pakistani carrier' : 'International carrier'} · Hub: {a.hub} · Country: {a.country}
+              </p>
+            </div>
+          </div>
+          <a
+            href={a.website}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bpk-btn bpk-btn--secondary"
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.375rem', textDecoration: 'none' }}
+          >
+            Visit official site <ExternalLink size={14} aria-hidden />
+          </a>
+        </div>
+
         <ul className={styles.usps}>
           <li className={styles.usp}>
             <span className={styles.uspIcon}>
@@ -157,6 +183,20 @@ export default async function AirlinePage({ params }: Props) {
         <section id="information" className={styles.section}>
           <h2 className={styles.sectionTitle}>{a.name} flight information</h2>
           <p className={styles.sectionIntro}>{d.intro}</p>
+          <div style={{ position: 'relative', width: '100%', height: '16rem', borderRadius: '0.75rem', overflow: 'hidden', marginBottom: '1.5rem' }}>
+            <Image
+              src="/images/airlines/fleet-hero.jpg"
+              alt={`${a.name} fleet in flight`}
+              fill
+              sizes="(max-width: 1224px) 100vw, 1224px"
+              style={{ objectFit: 'cover', objectPosition: 'center 40%' }}
+            />
+            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(5,32,60,0.1) 0%, rgba(5,32,60,0.7) 100%)' }} />
+            <div style={{ position: 'absolute', bottom: '1.25rem', left: '1.5rem', color: '#fff' }}>
+              <p style={{ margin: 0, fontSize: '0.875rem', opacity: 0.9 }}>Commercial Fleet &amp; Operations</p>
+              <p style={{ margin: 0, fontSize: '1.25rem', fontWeight: 700 }}>{a.name} Scheduled Flights from Pakistan</p>
+            </div>
+          </div>
           <ul className={styles.stats}>
             <li className={styles.stat}>
               <p className={styles.statLabel}>Cheapest months to fly</p>
