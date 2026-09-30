@@ -1,5 +1,7 @@
 /* ---------- Hero / search area (Homepage_searchControlsContainer) ---------- */
 .hero {
+  position: relative;
+  z-index: 20;
   background-color: #05203c;
   color: #fff;
   padding-bottom: 2.5rem;
@@ -15,6 +17,8 @@
 
 /* ---------- Page body stack ---------- */
 .body {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   row-gap: 2.5rem;

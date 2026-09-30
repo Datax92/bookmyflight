@@ -1,5 +1,7 @@
 /* ---------- Dark page hero (continues the header) ---------- */
 .hero {
+  position: relative;
+  z-index: 20;
   background-color: #05203c;
   color: #fff;
   padding: 1.5rem 0 2.5rem;
@@ -40,6 +42,8 @@
 
 /* ---------- Page body ---------- */
 .body {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   row-gap: 3rem;
