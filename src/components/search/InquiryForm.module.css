@@ -11,45 +11,305 @@
 .backdrop {
   position: absolute;
   inset: 0;
-  background: #00000080;
-  animation: bpk-fade-in 0.2s ease-out;
+  background: #05203cb3;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  animation: inq-fade 0.25s ease-out both;
 }
 
 .dialog {
   position: relative;
-  width: min(30rem, 100%);
+  width: min(28rem, 100%);
   max-height: calc(100dvh - 2rem);
   overflow-y: auto;
-  padding: 1.5rem;
-  border-radius: 0.75rem;
+  border-radius: 1.25rem;
   background: #fff;
   color: #161616;
-  box-shadow: 0 4px 14px 0 #25201f40;
-  animation: bpk-drop-in 0.2s ease-out;
+  box-shadow: 0 24px 64px -12px #020d1a99;
+  animation: inq-pop 0.45s cubic-bezier(0.22, 1.2, 0.36, 1) both;
   overscroll-behavior: contain;
 }
 
-/* Keep the heading clear of the close button */
-.dialog h2 {
-  padding-inline-end: 2.5rem;
+.closing .backdrop {
+  animation: inq-fade 0.18s ease-in reverse both;
+}
+
+.closing .dialog {
+  animation: inq-leave 0.18s ease-in both;
 }
 
 .close {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 0.875rem;
+  right: 0.875rem;
+  z-index: 2;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.25rem;
+  height: 2.25rem;
   border: none;
-  border-radius: 0.5rem;
-  background: transparent;
-  color: #161616;
+  border-radius: 50%;
+  background: #ffffff1f;
+  color: #fff;
   cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .close:hover {
-  background: #eff3f8;
+  background: #ffffff38;
+  transform: rotate(90deg);
+}
+
+/* ---------- Trip recap ---------- */
+.header {
+  position: relative;
+  padding: 1.5rem 1.5rem 1.75rem;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 0% 0%, #ec78262e, transparent 55%),
+    radial-gradient(circle at 100% 100%, #4fc1e038, transparent 55%),
+    #05203c;
+  color: #fff;
+}
+
+/* Brand stripe, same stops as the logo */
+.header::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 0.25rem;
+  background: linear-gradient(90deg, #ec7826 0%, #f0a04e 42%, #7fd0e2 58%, #4fc1e0 100%);
+}
+
+.eyebrow {
+  padding-inline-end: 2.5rem;
+  color: #c1c7cf;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  animation: inq-rise 0.4s ease-out 0.1s both;
+}
+
+.route {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  animation: inq-rise 0.4s ease-out 0.16s both;
+}
+
+.place {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.place strong {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.place span {
+  overflow: hidden;
+  color: #c1c7cf;
+  font-size: 0.875rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.placeEnd {
+  align-items: flex-end;
+  text-align: end;
+}
+
+/* Dashed flight path the plane travels along */
+.path {
+  position: relative;
+  flex: 1;
+  min-width: 3rem;
+  height: 1.5rem;
+  align-self: flex-start;
+  margin-top: 0.4rem;
+}
+
+.path::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  border-top: 2px dashed #ffffff4d;
+}
+
+.plane {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: #7fd0e2;
+  transform: translate(-50%, -50%) rotate(45deg);
+  animation: inq-fly 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s both;
+}
+
+.dates {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  animation: inq-rise 0.4s ease-out 0.22s both;
+}
+
+/* ---------- Form ---------- */
+.body {
+  padding: 1.5rem;
+}
+
+.form {
+  display: grid;
+  gap: 1rem;
+}
+
+.form > * {
+  animation: inq-rise 0.4s ease-out both;
+}
+
+.form > :nth-child(1) { animation-delay: 0.2s; }
+.form > :nth-child(2) { animation-delay: 0.26s; }
+.form > :nth-child(3) { animation-delay: 0.32s; }
+.form > :nth-child(4) { animation-delay: 0.38s; }
+.form > :nth-child(5) { animation-delay: 0.44s; }
+
+.notes {
+  min-height: 5.5rem;
+}
+
+.submit {
+  transition:
+    background-color 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
+}
+
+.submit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px -8px #128c7e;
+}
+
+.submit:active {
+  transform: translateY(0);
+}
+
+/* ---------- Sent ---------- */
+.sent {
+  display: grid;
+  gap: 0.75rem;
+  justify-items: start;
+}
+
+.sent > * {
+  animation: inq-rise 0.4s ease-out 0.15s both;
+}
+
+.sentCheck {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background: #0c838a;
+  color: #fff;
+  box-shadow: 0 0 0 0 #0c838a66;
+  animation:
+    inq-pop 0.5s cubic-bezier(0.22, 1.4, 0.36, 1) both,
+    inq-ring 1s ease-out 0.3s both;
+}
+
+.sentActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+/* ---------- Phones: slide up as a bottom sheet ---------- */
+@media (max-width: 40rem) {
+  .root {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .dialog {
+    width: 100%;
+    max-height: 92dvh;
+    border-radius: 1.25rem 1.25rem 0 0;
+    padding-bottom: env(safe-area-inset-bottom);
+    animation: inq-sheet 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  .closing .dialog {
+    animation: inq-sheet 0.18s ease-in reverse both;
+  }
+
+  .place strong {
+    font-size: 1.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop,
+  .dialog,
+  .plane,
+  .eyebrow,
+  .route,
+  .dates,
+  .form > *,
+  .sent > *,
+  .sentCheck {
+    animation: none;
+  }
+
+  .close:hover,
+  .submit:hover {
+    transform: none;
+  }
+}
+
+@keyframes inq-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes inq-pop {
+  from { opacity: 0; transform: translateY(1.5rem) scale(0.92); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes inq-leave {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to { opacity: 0; transform: translateY(0.75rem) scale(0.96); }
+}
+
+@keyframes inq-sheet {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes inq-rise {
+  from { opacity: 0; transform: translateY(0.5rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes inq-fly {
+  from { left: 0; opacity: 0; }
+  to { left: 50%; opacity: 1; }
+}
+
+@keyframes inq-ring {
+  from { box-shadow: 0 0 0 0 #0c838a66; }
+  to { box-shadow: 0 0 0 1rem #0c838a00; }
 }

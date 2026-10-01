@@ -8,7 +8,6 @@ import {
   cabinLabels,
   defaultSearch,
   formatDisplayDate,
-  summaryLines,
   toQuery,
   travellersLabel,
   tripLabels,
@@ -293,7 +292,7 @@ export function SearchWidget({ initial, hideOptions }: SearchWidgetProps) {
   const pathname = usePathname();
   const rootRef = useRef<HTMLFormElement>(null);
   // Trip details for the inquiry pop-up; null while it is closed
-  const [inquiry, setInquiry] = useState<string[] | null>(null);
+  const [inquiry, setInquiry] = useState<FlightSearch | null>(null);
   const closeInquiry = useCallback(() => setInquiry(null), []);
   const [s, setS] = useState<FlightSearch>(() => ({ ...defaultSearch, ...initial }));
   const [panel, setPanel] = useState<Panel>(null);
@@ -388,7 +387,7 @@ export function SearchWidget({ initial, hideOptions }: SearchWidgetProps) {
     }
     // Keep the results page behind the pop-up in step with the new search
     if (pathname === '/search') router.replace(`/search?${toQuery(s)}`, { scroll: false });
-    setInquiry(summaryLines(s));
+    setInquiry(s);
   };
 
   const fieldError = (f: ErrorField) => (error?.field === f ? error.message : null);
@@ -804,7 +803,7 @@ export function SearchWidget({ initial, hideOptions }: SearchWidgetProps) {
       )}
     </form>
     {/* Outside the form so its submit doesn't bubble into the search form */}
-    {inquiry && <InquiryModal lines={inquiry} onClose={closeInquiry} />}
+    {inquiry && <InquiryModal search={inquiry} onClose={closeInquiry} />}
     </>
   );
 }

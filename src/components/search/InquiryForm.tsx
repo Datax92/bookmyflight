@@ -2,9 +2,11 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { CheckCircle2, Phone, X } from 'lucide-react';
+import { Check, Phone, Plane, X } from 'lucide-react';
 import { WhatsAppIcon } from '@/components/ui/icons';
+import { findAirport } from '@/lib/airports';
 import { siteConfig } from '@/lib/config';
+import { formatLongDate, summaryLines, travellersLabel, tripLabels, type FlightSearch } from '@/lib/search';
 import { getWhatsAppUrl } from '@/lib/whatsapp';
 import styles from './InquiryForm.module.css';
 
@@ -36,16 +38,16 @@ function InquiryForm({ lines }: { lines: string[] }) {
 
   if (sentUrl) {
     return (
-      <div role="status">
-        <CheckCircle2 size={40} color="#0c838a" aria-hidden />
-        <h2 id="inq-title" className="text-heading-3" style={{ marginTop: '1rem' }}>
-          Your request is ready in WhatsApp
-        </h2>
-        <p className="text-body" style={{ marginTop: '0.5rem' }}>
+      <div className={styles.sent} role="status">
+        <span className={styles.sentCheck} aria-hidden>
+          <Check size={32} strokeWidth={3} />
+        </span>
+        <h2 className="text-heading-3">Your request is ready in WhatsApp</h2>
+        <p className="text-body">
           Press send in WhatsApp and our ticketing team will reply with live fares during office hours (
           {siteConfig.hours.days}, {siteConfig.hours.weekdays}).
         </p>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', marginTop: '1.5rem' }}>
+        <div className={styles.sentActions}>
           <a href={sentUrl} target="_blank" rel="noopener noreferrer" className="bpk-btn bpk-btn--whatsapp bpk-btn--large">
             <WhatsAppIcon size={20} /> Open WhatsApp again
           </a>
@@ -58,9 +60,9 @@ function InquiryForm({ lines }: { lines: string[] }) {
   }
 
   return (
-    <form onSubmit={onSubmit} noValidate style={{ display: 'grid', gap: '1rem' }}>
+    <form onSubmit={onSubmit} noValidate className={styles.form}>
       <div>
-        <h2 id="inq-title" className="text-heading-3">Get today’s best fares</h2>
+        <h2 className="text-heading-3">Get today’s best fares</h2>
         <p className="text-footnote text-secondary" style={{ marginTop: '0.25rem' }}>
           Our O.S Travel &amp; Tours ticketing team checks live availability across airlines and replies on WhatsApp.
         </p>
@@ -93,13 +95,13 @@ function InquiryForm({ lines }: { lines: string[] }) {
         </label>
         <textarea
           id="inq-notes"
-          className="bpk-textarea"
+          className={`bpk-textarea ${styles.notes}`}
           value={form.notes}
           onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))}
           placeholder="e.g. extra baggage, wheelchair, Umrah visa, group of 12"
         />
       </div>
-      <button type="submit" className="bpk-btn bpk-btn--featured bpk-btn--large bpk-btn--full">
+      <button type="submit" className={`bpk-btn bpk-btn--whatsapp bpk-btn--large bpk-btn--full ${styles.submit}`}>
         <WhatsAppIcon size={20} /> Send request on WhatsApp
       </button>
       <p className="text-caption text-secondary">
@@ -110,14 +112,60 @@ function InquiryForm({ lines }: { lines: string[] }) {
   );
 }
 
+/** Boarding-pass style recap of the trip shown at the top of the pop-up. */
+function TripHeader({ search: s }: { search: FlightSearch }) {
+  const multi = s.trip === 'multicity';
+  const fromCode = multi ? s.legs[0]?.from : s.from;
+  const toCode = multi ? s.legs[s.legs.length - 1]?.to : s.to;
+  const from = findAirport(fromCode);
+  const to = findAirport(toCode);
+  const dates = multi
+    ? `${s.legs.length} flights · from ${formatLongDate(s.legs[0]?.date) || 'date to confirm'}`
+    : [formatLongDate(s.depart), s.trip === 'return' ? formatLongDate(s.ret) : ''].filter(Boolean).join(' – ') ||
+      'Dates to confirm';
+
+  return (
+    <div className={styles.header}>
+      <p className={styles.eyebrow}>
+        {tripLabels[s.trip]} · {travellersLabel(s)}
+      </p>
+      <div className={styles.route} id="inq-title">
+        <span className={styles.place}>
+          <strong>{from?.code ?? (fromCode || '—')}</strong>
+          <span>{from?.city ?? 'Origin'}</span>
+        </span>
+        <span className={styles.path} aria-hidden>
+          <Plane size={22} className={styles.plane} />
+        </span>
+        <span className="sr-only">to</span>
+        <span className={`${styles.place} ${styles.placeEnd}`}>
+          <strong>{to?.code ?? (toCode || '—')}</strong>
+          <span>{to?.city ?? 'Destination'}</span>
+        </span>
+      </div>
+      <p className={styles.dates}>{dates}</p>
+    </div>
+  );
+}
+
 /** Pop-up shown when a traveller presses Search. */
-export function InquiryModal({ lines, onClose }: { lines: string[]; onClose: () => void }) {
+export function InquiryModal({ search, onClose }: { search: FlightSearch; onClose: () => void }) {
+  // Play the exit animation before unmounting
+  const [closing, setClosing] = useState(false);
+  const requestClose = useCallback(() => setClosing(true), []);
+
+  useEffect(() => {
+    if (!closing) return;
+    const t = setTimeout(onClose, 180);
+    return () => clearTimeout(t);
+  }, [closing, onClose]);
+
   useEffect(() => {
     const opener = document.activeElement as HTMLElement | null;
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') requestClose();
     };
     window.addEventListener('keydown', onKey);
     return () => {
@@ -125,16 +173,19 @@ export function InquiryModal({ lines, onClose }: { lines: string[]; onClose: () 
       window.removeEventListener('keydown', onKey);
       opener?.focus();
     };
-  }, [onClose]);
+  }, [requestClose]);
 
   return createPortal(
-    <div className={styles.root}>
-      <div className={styles.backdrop} onClick={onClose} aria-hidden />
+    <div className={`${styles.root} ${closing ? styles.closing : ''}`}>
+      <div className={styles.backdrop} onClick={requestClose} aria-hidden />
       <div className={styles.dialog} role="dialog" aria-modal="true" aria-labelledby="inq-title">
-        <button type="button" className={styles.close} onClick={onClose} aria-label="Close">
-          <X size={24} aria-hidden />
+        <button type="button" className={styles.close} onClick={requestClose} aria-label="Close">
+          <X size={22} aria-hidden />
         </button>
-        <InquiryForm lines={lines} />
+        <TripHeader search={search} />
+        <div className={styles.body}>
+          <InquiryForm lines={summaryLines(search)} />
+        </div>
       </div>
     </div>,
     document.body,
@@ -142,7 +193,7 @@ export function InquiryModal({ lines, onClose }: { lines: string[]; onClose: () 
 }
 
 /** Button that opens the inquiry pop-up for a trip already described on the page. */
-export function InquiryButton({ lines }: { lines: string[] }) {
+export function InquiryButton({ search }: { search: FlightSearch }) {
   const [open, setOpen] = useState(false);
   const close = useCallback(() => setOpen(false), []);
 
@@ -151,7 +202,7 @@ export function InquiryButton({ lines }: { lines: string[] }) {
       <button type="button" className="bpk-btn bpk-btn--featured bpk-btn--large" onClick={() => setOpen(true)}>
         <WhatsAppIcon size={20} /> Get today’s best fares
       </button>
-      {open && <InquiryModal lines={lines} onClose={close} />}
+      {open && <InquiryModal search={search} onClose={close} />}
     </>
   );
 }

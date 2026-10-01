@@ -8,7 +8,7 @@ import { AirlineBadge } from '@/components/ui/AirlineBadge';
 import { airlines } from '@/lib/airlines';
 import { airlineDetails, seasonProfiles, type SeasonProfile } from '@/lib/airline-details';
 import { findAirport } from '@/lib/airports';
-import { formatLongDate, fromParams, summaryLines, travellersLabel, tripLabels } from '@/lib/search';
+import { formatLongDate, fromParams, travellersLabel, tripLabels } from '@/lib/search';
 import styles from '@/components/sections/Page.module.css';
 
 export const metadata: Metadata = {
@@ -88,7 +88,7 @@ export default async function SearchPage({ searchParams }: Props) {
               </li>
             </ul>
             <div style={{ marginTop: '1.5rem' }}>
-              <InquiryButton lines={summaryLines(s)} />
+              <InquiryButton search={s} />
             </div>
           </section>
 
