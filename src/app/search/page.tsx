@@ -3,12 +3,12 @@ import Link from 'next/link';
 import { ArrowRight, CalendarDays, Luggage, Users } from 'lucide-react';
 import { PageHero } from '@/components/sections/PageHero';
 import { FareSeasonChart } from '@/components/sections/FareSeasonChart';
-import { InquiryForm } from '@/components/search/InquiryForm';
+import { InquiryButton } from '@/components/search/InquiryForm';
 import { AirlineBadge } from '@/components/ui/AirlineBadge';
 import { airlines } from '@/lib/airlines';
 import { airlineDetails, seasonProfiles, type SeasonProfile } from '@/lib/airline-details';
-import { airportLabel, findAirport } from '@/lib/airports';
-import { cabinLabels, formatLongDate, fromParams, travellersLabel, tripLabels, type FlightSearch } from '@/lib/search';
+import { findAirport } from '@/lib/airports';
+import { formatLongDate, fromParams, summaryLines, travellersLabel, tripLabels } from '@/lib/search';
 import styles from '@/components/sections/Page.module.css';
 
 export const metadata: Metadata = {
@@ -44,30 +44,6 @@ function routeAirlines(from: string, to: string) {
     })
     .filter((x): x is { a: (typeof airlines)[number]; direct: boolean } => !!x)
     .sort((x, y) => Number(y.direct) - Number(x.direct));
-}
-
-function summaryLines(s: FlightSearch) {
-  const lines: string[] = [`Trip: ${tripLabels[s.trip]}`];
-  if (s.trip === 'multicity') {
-    s.legs.forEach((l, i) => {
-      const f = findAirport(l.from);
-      const t = findAirport(l.to);
-      lines.push(`Flight ${i + 1}: ${f ? airportLabel(f) : l.from} → ${t ? airportLabel(t) : l.to} on ${formatLongDate(l.date) || 'date to confirm'}`);
-    });
-  } else {
-    const f = findAirport(s.from);
-    const t = findAirport(s.to);
-    lines.push(`From: ${f ? airportLabel(f) : s.from}${s.nearbyFrom ? ' (+ nearby airports)' : ''}`);
-    lines.push(`To: ${t ? airportLabel(t) : s.to || 'to confirm'}${s.nearbyTo ? ' (+ nearby airports)' : ''}`);
-    lines.push(`Depart: ${formatLongDate(s.depart) || 'date to confirm'}`);
-    if (s.trip === 'return') lines.push(`Return: ${formatLongDate(s.ret) || 'date to confirm'}`);
-  }
-  lines.push(`Travellers: ${s.adults} adult(s), ${s.children} child(ren), ${s.infants} infant(s)`);
-  lines.push(`Cabin: ${cabinLabels[s.cabin]}`);
-  if (s.cabinBags || s.checkedBags) lines.push(`Bags per traveller: ${s.cabinBags} cabin, ${s.checkedBags} checked`);
-  if (s.direct) lines.push('Direct flights only');
-  if (s.stay) lines.push('Also need a hotel');
-  return lines;
 }
 
 export default async function SearchPage({ searchParams }: Props) {
@@ -111,58 +87,57 @@ export default async function SearchPage({ searchParams }: Props) {
                 {s.direct ? ' · Direct flights only' : ''}
               </li>
             </ul>
+            <div style={{ marginTop: '1.5rem' }}>
+              <InquiryButton lines={summaryLines(s)} />
+            </div>
           </section>
 
           <div className={styles.split}>
-            <InquiryForm summary={{ lines: summaryLines(s), airlines: options.map((o) => o.a.name) }} />
+            <section aria-labelledby="route-airlines">
+              <h2 id="route-airlines" className="text-heading-3" style={{ marginBottom: '1rem' }}>
+                {options.length ? 'Airlines on this route' : 'Airlines from ' + (fromA?.city ?? 'Pakistan')}
+              </h2>
+              {options.length ? (
+                <ul style={{ listStyle: 'none', display: 'grid', gap: '0.75rem' }}>
+                  {options.map(({ a, direct }) => (
+                    <li key={a.slug}>
+                      <Link
+                        href={`/airlines/${a.slug}`}
+                        className="bpk-card bpk-card--padded"
+                        style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}
+                      >
+                        <AirlineBadge airline={a} size={40} />
+                        <span style={{ flex: 1 }}>
+                          <span style={{ display: 'block', fontWeight: 700 }}>{a.name}</span>
+                          <span className="text-footnote text-secondary">Refund, reissue &amp; baggage rules</span>
+                        </span>
+                        <span className={`${styles.badge} ${direct ? styles.badgeSuccess : ''}`}>
+                          {direct ? 'Direct' : '1+ stops'}
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-body">
+                  Many airlines connect this route via Dubai, Doha, Abu Dhabi, Istanbul or Muscat. Send your request and
+                  we’ll compare every option.{' '}
+                  <Link href="/airlines" className="bpk-link">
+                    Browse all airlines <ArrowRight size={14} style={{ display: 'inline' }} aria-hidden />
+                  </Link>
+                </p>
+              )}
+            </section>
 
-            <div style={{ display: 'grid', gap: '2rem' }}>
-              <section aria-labelledby="route-airlines">
-                <h2 id="route-airlines" className="text-heading-3" style={{ marginBottom: '1rem' }}>
-                  {options.length ? 'Airlines on this route' : 'Airlines from ' + (fromA?.city ?? 'Pakistan')}
-                </h2>
-                {options.length ? (
-                  <ul style={{ listStyle: 'none', display: 'grid', gap: '0.75rem' }}>
-                    {options.map(({ a, direct }) => (
-                      <li key={a.slug}>
-                        <Link
-                          href={`/airlines/${a.slug}`}
-                          className="bpk-card bpk-card--padded"
-                          style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}
-                        >
-                          <AirlineBadge airline={a} size={40} />
-                          <span style={{ flex: 1 }}>
-                            <span style={{ display: 'block', fontWeight: 700 }}>{a.name}</span>
-                            <span className="text-footnote text-secondary">Refund, reissue &amp; baggage rules</span>
-                          </span>
-                          <span className={`${styles.badge} ${direct ? styles.badgeSuccess : ''}`}>
-                            {direct ? 'Direct' : '1+ stops'}
-                          </span>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p className="text-body">
-                    Many airlines connect this route via Dubai, Doha, Abu Dhabi, Istanbul or Muscat. Send your request and
-                    we’ll compare every option.{' '}
-                    <Link href="/airlines" className="bpk-link">
-                      Browse all airlines <ArrowRight size={14} style={{ display: 'inline' }} aria-hidden />
-                    </Link>
-                  </p>
-                )}
-              </section>
-
-              <section aria-labelledby="route-season">
-                <h2 id="route-season" className="text-heading-3" style={{ marginBottom: '1rem' }}>
-                  Cheapest months to fly{toA ? ` to ${toA.city}` : ''}
-                </h2>
-                <FareSeasonChart
-                  levels={seasonProfiles[profile].levels}
-                  caption="Typical fare level by month from Pakistan (not live prices)"
-                />
-              </section>
-            </div>
+            <section aria-labelledby="route-season">
+              <h2 id="route-season" className="text-heading-3" style={{ marginBottom: '1rem' }}>
+                Cheapest months to fly{toA ? ` to ${toA.city}` : ''}
+              </h2>
+              <FareSeasonChart
+                levels={seasonProfiles[profile].levels}
+                caption="Typical fare level by month from Pakistan (not live prices)"
+              />
+            </section>
           </div>
 
           <section aria-labelledby="next-steps">

@@ -2,7 +2,9 @@
 // Flight search state <-> URL query encoding
 // ============================================================
 
-export type TripType = 'return' | 'oneway' | 'multicity';
+import { airportLabel, findAirport } from './airports';
+
+export type TripType ='return' | 'oneway' | 'multicity';
 export type Cabin = 'economy' | 'premium_economy' | 'business' | 'first';
 
 export interface Leg {
@@ -170,4 +172,29 @@ export function formatLongDate(v: string) {
   const d = parseISODate(v);
   if (!d) return '';
   return d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+/** Plain-text trip details sent to the ticketing team with an inquiry. */
+export function summaryLines(s: FlightSearch) {
+  const lines: string[] = [`Trip: ${tripLabels[s.trip]}`];
+  if (s.trip === 'multicity') {
+    s.legs.forEach((l, i) => {
+      const f = findAirport(l.from);
+      const t = findAirport(l.to);
+      lines.push(`Flight ${i + 1}: ${f ? airportLabel(f) : l.from} → ${t ? airportLabel(t) : l.to} on ${formatLongDate(l.date) || 'date to confirm'}`);
+    });
+  } else {
+    const f = findAirport(s.from);
+    const t = findAirport(s.to);
+    lines.push(`From: ${f ? airportLabel(f) : s.from}${s.nearbyFrom ? ' (+ nearby airports)' : ''}`);
+    lines.push(`To: ${t ? airportLabel(t) : s.to || 'to confirm'}${s.nearbyTo ? ' (+ nearby airports)' : ''}`);
+    lines.push(`Depart: ${formatLongDate(s.depart) || 'date to confirm'}`);
+    if (s.trip === 'return') lines.push(`Return: ${formatLongDate(s.ret) || 'date to confirm'}`);
+  }
+  lines.push(`Travellers: ${s.adults} adult(s), ${s.children} child(ren), ${s.infants} infant(s)`);
+  lines.push(`Cabin: ${cabinLabels[s.cabin]}`);
+  if (s.cabinBags || s.checkedBags) lines.push(`Bags per traveller: ${s.cabinBags} cabin, ${s.checkedBags} checked`);
+  if (s.direct) lines.push('Direct flights only');
+  if (s.stay) lines.push('Also need a hotel');
+  return lines;
 }

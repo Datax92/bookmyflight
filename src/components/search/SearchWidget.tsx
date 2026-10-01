@@ -1,13 +1,14 @@
 'use client';
 
-import { useEffect, useId, useMemo, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 import { ArrowLeftRight, ChevronDown, Globe, Minus, Plane, Plus, X } from 'lucide-react';
 import { EVERYWHERE, airportLabel, findAirport, searchAirports, type Airport } from '@/lib/airports';
 import {
   cabinLabels,
   defaultSearch,
   formatDisplayDate,
+  summaryLines,
   toQuery,
   travellersLabel,
   tripLabels,
@@ -17,6 +18,7 @@ import {
   type TripType,
 } from '@/lib/search';
 import { Calendar } from './Calendar';
+import { InquiryModal } from './InquiryForm';
 import styles from './SearchWidget.module.css';
 
 type Panel =
@@ -288,7 +290,11 @@ export interface SearchWidgetProps {
 
 export function SearchWidget({ initial, hideOptions }: SearchWidgetProps) {
   const router = useRouter();
+  const pathname = usePathname();
   const rootRef = useRef<HTMLFormElement>(null);
+  // Trip details for the inquiry pop-up; null while it is closed
+  const [inquiry, setInquiry] = useState<string[] | null>(null);
+  const closeInquiry = useCallback(() => setInquiry(null), []);
   const [s, setS] = useState<FlightSearch>(() => ({ ...defaultSearch, ...initial }));
   const [panel, setPanel] = useState<Panel>(null);
   const [selecting, setSelecting] = useState<'depart' | 'return'>('depart');
@@ -380,7 +386,9 @@ export function SearchWidget({ initial, hideOptions }: SearchWidgetProps) {
       router.push(`/explore?from=${encodeURIComponent(s.from)}`);
       return;
     }
-    router.push(`/search?${toQuery(s)}`);
+    // Keep the results page behind the pop-up in step with the new search
+    if (pathname === '/search') router.replace(`/search?${toQuery(s)}`, { scroll: false });
+    setInquiry(summaryLines(s));
   };
 
   const fieldError = (f: ErrorField) => (error?.field === f ? error.message : null);
@@ -460,6 +468,7 @@ export function SearchWidget({ initial, hideOptions }: SearchWidgetProps) {
   );
 
   return (
+    <>
     <form ref={rootRef} className={styles.root} onSubmit={onSubmit} noValidate>
       {/* Trip type + bags chips */}
       <div className={styles.dropdowns}>
@@ -794,5 +803,8 @@ export function SearchWidget({ initial, hideOptions }: SearchWidgetProps) {
         </>
       )}
     </form>
+    {/* Outside the form so its submit doesn't bubble into the search form */}
+    {inquiry && <InquiryModal lines={inquiry} onClose={closeInquiry} />}
+    </>
   );
 }

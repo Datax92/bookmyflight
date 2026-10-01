@@ -1,45 +1,31 @@
 'use client';
 
-import { useState } from 'react';
-import { CheckCircle2, Phone } from 'lucide-react';
+import { useCallback, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { CheckCircle2, Phone, X } from 'lucide-react';
 import { WhatsAppIcon } from '@/components/ui/icons';
 import { siteConfig } from '@/lib/config';
 import { getWhatsAppUrl } from '@/lib/whatsapp';
+import styles from './InquiryForm.module.css';
 
-export interface InquirySummary {
-  lines: string[];
-  airlines: string[];
-}
-
-/** Collects the traveller's contact details and hands the full request to WhatsApp. */
-export function InquiryForm({ summary }: { summary: InquirySummary }) {
-  const [form, setForm] = useState({ name: '', phone: '', email: '', airline: 'Any airline', flexible: 'Exact dates', notes: '' });
-  const [errors, setErrors] = useState<Record<string, string>>({});
+/** Asks for the traveller's name and hands the full request to WhatsApp. */
+function InquiryForm({ lines }: { lines: string[] }) {
+  const [form, setForm] = useState({ name: '', notes: '' });
+  const [nameError, setNameError] = useState<string | null>(null);
   const [sentUrl, setSentUrl] = useState<string | null>(null);
-
-  const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
-    setForm((f) => ({ ...f, [k]: e.target.value }));
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const next: Record<string, string> = {};
-    if (form.name.trim().length < 2) next.name = 'Enter your full name';
-    if (!/^[+\d][\d\s-]{8,16}$/.test(form.phone.trim())) next.phone = 'Enter a valid mobile or WhatsApp number';
-    if (form.email && !/^\S+@\S+\.\S+$/.test(form.email)) next.email = 'Enter a valid email address';
-    setErrors(next);
-    if (Object.keys(next).length) return;
+    if (form.name.trim().length < 2) return setNameError('Enter your full name');
+    setNameError(null);
 
     const message = [
       'Hello BookMyFlight, please send me the best fares for this trip:',
       '',
-      ...summary.lines,
-      `Preferred airline: ${form.airline}`,
-      `Dates: ${form.flexible}`,
+      ...lines,
       '',
       `Name: ${form.name.trim()}`,
-      `Phone: ${form.phone.trim()}`,
-      form.email ? `Email: ${form.email.trim()}` : null,
-      form.notes ? `Notes: ${form.notes.trim()}` : null,
+      form.notes.trim() ? `Notes: ${form.notes.trim()}` : null,
     ]
       .filter((l) => l !== null)
       .join('\n');
@@ -50,9 +36,9 @@ export function InquiryForm({ summary }: { summary: InquirySummary }) {
 
   if (sentUrl) {
     return (
-      <div className="bpk-card bpk-card--padded" style={{ padding: '2rem' }} role="status">
+      <div role="status">
         <CheckCircle2 size={40} color="#0c838a" aria-hidden />
-        <h2 className="text-heading-3" style={{ marginTop: '1rem' }}>
+        <h2 id="inq-title" className="text-heading-3" style={{ marginTop: '1rem' }}>
           Your request is ready in WhatsApp
         </h2>
         <p className="text-body" style={{ marginTop: '0.5rem' }}>
@@ -71,65 +57,35 @@ export function InquiryForm({ summary }: { summary: InquirySummary }) {
     );
   }
 
-  const field = (key: 'name' | 'phone' | 'email', label: string, type: string, autoComplete: string, required = true) => (
-    <div>
-      <label className="bpk-label" htmlFor={`inq-${key}`}>
-        {label}
-        {!required && <span className="text-secondary" style={{ fontWeight: 400 }}> (optional)</span>}
-      </label>
-      <input
-        id={`inq-${key}`}
-        className="bpk-input"
-        type={type}
-        autoComplete={autoComplete}
-        value={form[key]}
-        onChange={set(key)}
-        aria-invalid={!!errors[key]}
-        aria-describedby={errors[key] ? `inq-${key}-err` : undefined}
-        style={errors[key] ? { borderColor: '#e70866' } : undefined}
-      />
-      {errors[key] && (
-        <p id={`inq-${key}-err`} className="text-footnote" style={{ color: '#e70866', marginTop: '0.25rem' }}>
-          {errors[key]}
-        </p>
-      )}
-    </div>
-  );
-
   return (
-    <form onSubmit={onSubmit} noValidate className="bpk-card bpk-card--padded" style={{ padding: '1.5rem', display: 'grid', gap: '1rem' }}>
+    <form onSubmit={onSubmit} noValidate style={{ display: 'grid', gap: '1rem' }}>
       <div>
-        <h2 className="text-heading-3">Get today’s best fares</h2>
+        <h2 id="inq-title" className="text-heading-3">Get today’s best fares</h2>
         <p className="text-footnote text-secondary" style={{ marginTop: '0.25rem' }}>
           Our O.S Travel &amp; Tours ticketing team checks live availability across airlines and replies on WhatsApp.
         </p>
       </div>
-      {field('name', 'Full name (as on passport)', 'text', 'name')}
-      {field('phone', 'Mobile / WhatsApp number', 'tel', 'tel')}
-      {field('email', 'Email', 'email', 'email', false)}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(12rem, 1fr))', gap: '1rem' }}>
-        <div>
-          <label className="bpk-label" htmlFor="inq-airline">
-            Preferred airline
-          </label>
-          <select id="inq-airline" className="bpk-select" value={form.airline} onChange={set('airline')}>
-            <option>Any airline</option>
-            {summary.airlines.map((a) => (
-              <option key={a}>{a}</option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label className="bpk-label" htmlFor="inq-flex">
-            Date flexibility
-          </label>
-          <select id="inq-flex" className="bpk-select" value={form.flexible} onChange={set('flexible')}>
-            <option>Exact dates</option>
-            <option>± 1 day</option>
-            <option>± 3 days</option>
-            <option>Any day in the same week</option>
-          </select>
-        </div>
+      <div>
+        <label className="bpk-label" htmlFor="inq-name">
+          Full name
+        </label>
+        <input
+          id="inq-name"
+          className="bpk-input"
+          type="text"
+          autoComplete="name"
+          autoFocus
+          value={form.name}
+          onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+          aria-invalid={!!nameError}
+          aria-describedby={nameError ? 'inq-name-err' : undefined}
+          style={nameError ? { borderColor: '#e70866' } : undefined}
+        />
+        {nameError && (
+          <p id="inq-name-err" className="text-footnote" style={{ color: '#e70866', marginTop: '0.25rem' }}>
+            {nameError}
+          </p>
+        )}
       </div>
       <div>
         <label className="bpk-label" htmlFor="inq-notes">
@@ -139,7 +95,7 @@ export function InquiryForm({ summary }: { summary: InquirySummary }) {
           id="inq-notes"
           className="bpk-textarea"
           value={form.notes}
-          onChange={set('notes')}
+          onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))}
           placeholder="e.g. extra baggage, wheelchair, Umrah visa, group of 12"
         />
       </div>
@@ -151,5 +107,51 @@ export function InquiryForm({ summary }: { summary: InquirySummary }) {
         WhatsApp.
       </p>
     </form>
+  );
+}
+
+/** Pop-up shown when a traveller presses Search. */
+export function InquiryModal({ lines, onClose }: { lines: string[]; onClose: () => void }) {
+  useEffect(() => {
+    const opener = document.activeElement as HTMLElement | null;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener('keydown', onKey);
+      opener?.focus();
+    };
+  }, [onClose]);
+
+  return createPortal(
+    <div className={styles.root}>
+      <div className={styles.backdrop} onClick={onClose} aria-hidden />
+      <div className={styles.dialog} role="dialog" aria-modal="true" aria-labelledby="inq-title">
+        <button type="button" className={styles.close} onClick={onClose} aria-label="Close">
+          <X size={24} aria-hidden />
+        </button>
+        <InquiryForm lines={lines} />
+      </div>
+    </div>,
+    document.body,
+  );
+}
+
+/** Button that opens the inquiry pop-up for a trip already described on the page. */
+export function InquiryButton({ lines }: { lines: string[] }) {
+  const [open, setOpen] = useState(false);
+  const close = useCallback(() => setOpen(false), []);
+
+  return (
+    <>
+      <button type="button" className="bpk-btn bpk-btn--featured bpk-btn--large" onClick={() => setOpen(true)}>
+        <WhatsAppIcon size={20} /> Get today’s best fares
+      </button>
+      {open && <InquiryModal lines={lines} onClose={close} />}
+    </>
   );
 }
