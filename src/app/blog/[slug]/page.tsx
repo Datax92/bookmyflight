@@ -153,7 +153,7 @@ export default async function BlogPostPage({ params }: Props) {
 
             <div className={blog.authorBox}>
               <span className={blog.authorAvatar}>
-                <Image src="/images/brand/logo-mark-white.png" alt="" width={28} height={26} />
+                <Image src="/images/brand/logo-mark-gradient.png" alt="" width={28} height={26} />
               </span>
               <div>
                 <p className="text-heading-5">{post.author}</p>

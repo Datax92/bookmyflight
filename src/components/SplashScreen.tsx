@@ -21,9 +21,9 @@ export function SplashScreen() {
             <circle cx="33" cy="33" r="30" fill="transparent" strokeWidth="1.5" stroke="url(#bmf-splash-gradient)" />
           </svg>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="bmf-splash__logo" src="/images/brand/logo-mark-white.png" alt="" width={56} height={52} />
+          <img className="bmf-splash__logo" src="/images/brand/logo-mark-gradient.png" alt="" width={56} height={52} />
         </div>
-        <span className="bmf-splash__word">BookMyFlight</span>
+        <span className="bmf-splash__word bmf-brand-text">BookMyFlight</span>
       </div>
     </div>
   );

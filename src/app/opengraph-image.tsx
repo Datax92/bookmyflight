@@ -6,7 +6,7 @@ export const alt = 'BookMyFlight: compare cheap flights from Pakistan';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
-const logo = await readFile(join(process.cwd(), 'public/images/brand/logo-mark-white.png'), 'base64');
+const logo = await readFile(join(process.cwd(), 'public/images/brand/logo-mark-gradient.png'), 'base64');
 const photo = await readFile(join(process.cwd(), 'public/images/hero/hero-aviation.jpg'), 'base64');
 
 /** Default social-share image for every page without its own. */
@@ -33,7 +33,18 @@ export default function OpengraphImage() {
           <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
             {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
             <img src={`data:image/png;base64,${logo}`} width={86} height={80} />
-            <span style={{ fontSize: 52, fontWeight: 700, letterSpacing: -1.5 }}>BookMyFlight</span>
+            <span
+              style={{
+                fontSize: 52,
+                fontWeight: 700,
+                letterSpacing: -1.5,
+                backgroundImage: 'linear-gradient(90deg, #ec7826 0%, #f0a04e 42%, #7fd0e2 58%, #4fc1e0 100%)',
+                backgroundClip: 'text',
+                color: 'transparent',
+              }}
+            >
+              BookMyFlight
+            </span>
           </div>
           <div style={{ marginTop: 40, fontSize: 64, fontWeight: 700, lineHeight: 1.1, maxWidth: 720 }}>
             Cheap flights from Pakistan. One simple search.

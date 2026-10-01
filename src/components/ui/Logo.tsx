@@ -9,14 +9,14 @@ export function Logo({ className, markClassName, textClassName }: {
   return (
     <Link href="/" className={className} aria-label="BookMyFlight home">
       <Image
-        src="/images/brand/logo-mark-white.png"
+        src="/images/brand/logo-mark-gradient.png"
         alt=""
         width={32}
         height={30}
         priority
         className={markClassName}
       />
-      <span className={textClassName}>BookMyFlight</span>
+      <span className={['bmf-brand-text', textClassName].filter(Boolean).join(' ')}>BookMyFlight</span>
     </Link>
   );
 }

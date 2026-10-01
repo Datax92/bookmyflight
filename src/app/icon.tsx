@@ -5,9 +5,9 @@ import { join } from 'node:path';
 export const size = { width: 512, height: 512 };
 export const contentType = 'image/png';
 
-const logo = await readFile(join(process.cwd(), 'public/images/brand/logo-mark-white.png'), 'base64');
+const logo = await readFile(join(process.cwd(), 'public/images/brand/logo-mark-gradient.png'), 'base64');
 
-/** App / browser-tab icon: white bird mark on Dark Sky. */
+/** App / browser-tab icon: orange-to-blue bird mark on Dark Sky. */
 export default function Icon() {
   return new ImageResponse(
     (

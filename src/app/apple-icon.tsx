@@ -5,7 +5,7 @@ import { join } from 'node:path';
 export const size = { width: 180, height: 180 };
 export const contentType = 'image/png';
 
-const logo = await readFile(join(process.cwd(), 'public/images/brand/logo-mark-white.png'), 'base64');
+const logo = await readFile(join(process.cwd(), 'public/images/brand/logo-mark-gradient.png'), 'base64');
 
 /** iOS home-screen icon (iOS rounds the corners itself). */
 export default function AppleIcon() {
