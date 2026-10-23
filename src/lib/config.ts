@@ -34,6 +34,9 @@ export const siteConfig = {
 
   // Verified contact information
   contact: {
+    // Main call number, shown first wherever a phone number appears
+    hotline: '+923325500377',
+    hotlineDisplay: '+92 332 5500377',
     whatsapp: '+923335542877', // Verified WhatsApp from Facebook
     whatsappDisplay: '+92 333 5542877',
     whatsappSecondary: '+923345500277',

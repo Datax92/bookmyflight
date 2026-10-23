@@ -12,7 +12,7 @@ import { formatLongDate, fromParams, travellersLabel, tripLabels } from '@/lib/s
 import styles from '@/components/sections/Page.module.css';
 
 export const metadata: Metadata = {
-  title: 'Flight search | BookMyFlight',
+  title: 'Flight search',
   robots: { index: false, follow: true },
 };
 

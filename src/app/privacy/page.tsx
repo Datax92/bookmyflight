@@ -1,12 +1,14 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import { LegalPage } from '@/components/sections/LegalPage';
 import { siteConfig } from '@/lib/config';
 
-export const metadata: Metadata = {
-  title: 'Privacy Policy | BookMyFlight',
-  description: 'How BookMyFlight and O.S Travel & Tours collect, use and protect your personal information when you search, enquire and book travel.',
-  alternates: { canonical: '/privacy' },
-};
+export const metadata: Metadata = pageMetadata({
+  title: 'Privacy Policy',
+  description:
+    'How BookMyFlight and O.S Travel & Tours collect, use and protect your personal information when you search, enquire and book travel.',
+  path: '/privacy',
+});
 
 export default function PrivacyPage() {
   const { contact, address } = siteConfig;
@@ -78,7 +80,7 @@ export default function PrivacyPage() {
         {
           heading: 'Contact',
           paragraphs: [
-            `For privacy questions, email ${contact.email}, call ${contact.phone[0]} or write to O.S Travel & Tours, ${address.street}, ${address.area}, ${address.city}.`,
+            `For privacy questions, email ${contact.email}, call ${contact.hotlineDisplay} or ${contact.phone[0]}, or write to O.S Travel & Tours, ${address.street}, ${address.area}, ${address.city}.`,
           ],
         },
       ]}

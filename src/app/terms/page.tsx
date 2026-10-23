@@ -1,12 +1,14 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import { LegalPage } from '@/components/sections/LegalPage';
 import { siteConfig } from '@/lib/config';
 
-export const metadata: Metadata = {
-  title: 'Terms of Service | BookMyFlight',
-  description: 'Terms for using BookMyFlight and booking flights, hotels, Umrah and visas with O.S Travel & Tours.',
-  alternates: { canonical: '/terms' },
-};
+export const metadata: Metadata = pageMetadata({
+  title: 'Terms of Service',
+  description:
+    'Terms for using BookMyFlight and booking flights, hotels, Umrah and visas with O.S Travel & Tours.',
+  path: '/terms',
+});
 
 export default function TermsPage() {
   const { contact } = siteConfig;
@@ -82,7 +84,7 @@ export default function TermsPage() {
         },
         {
           heading: 'Contact',
-          paragraphs: [`Questions about these terms: ${contact.email} or ${contact.phone[0]}.`],
+          paragraphs: [`Questions about these terms: ${contact.email}, ${contact.hotlineDisplay} or ${contact.phone[0]}.`],
         },
       ]}
     />

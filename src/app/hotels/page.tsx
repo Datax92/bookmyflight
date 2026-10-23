@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import { LandingPage, type LandingData } from '@/components/sections/LandingPage';
 
-export const metadata: Metadata = {
-  title: 'Hotel Reservations Worldwide: Makkah, Madinah, Dubai, Istanbul & More | BookMyFlight',
+export const metadata: Metadata = pageMetadata({
+  title: 'Hotel Booking: Makkah, Madinah, Dubai, Istanbul & More',
   description:
-    'Hotel bookings for travellers from Pakistan: Haram-facing hotels in Makkah and Madinah, Dubai, Istanbul, London, Kuala Lumpur and Bangkok. Hand-picked options on WhatsApp.',
-  alternates: { canonical: '/hotels' },
-};
+    'Hotels for travellers from Pakistan: Haram-facing rooms in Makkah and Madinah, plus Dubai, Istanbul, London, Kuala Lumpur and Bangkok. Hand-picked on WhatsApp.',
+  path: '/hotels',
+});
 
 const hotel = (city: string, category: string, body: string, image?: string) => ({
   title: city,

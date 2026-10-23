@@ -1,13 +1,14 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import { LandingPage, type LandingData } from '@/components/sections/LandingPage';
 import { destinations } from '@/lib/config';
 
-export const metadata: Metadata = {
-  title: 'Destination Guides: Dubai, Jeddah, London, Istanbul & More from Pakistan | BookMyFlight',
+export const metadata: Metadata = pageMetadata({
+  title: 'Destination Guides from Pakistan: Flights, Visas & Tips',
   description:
-    'Travel guides for the most popular destinations from Pakistan: flight times, airlines, best season, visa type, highlights and tips for Dubai, Makkah, Jeddah, Riyadh, Doha, Istanbul, London, Paris, Baku, Bangkok and Kuala Lumpur.',
-  alternates: { canonical: '/destinations' },
-};
+    'Flight times, airlines, best season and visa type for Dubai, Makkah, Jeddah, Riyadh, Doha, Istanbul, London, Paris, Baku, Bangkok and Kuala Lumpur from Pakistan.',
+  path: '/destinations',
+});
 
 const data: LandingData = {
   hero: {

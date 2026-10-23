@@ -51,8 +51,8 @@ function InquiryForm({ lines }: { lines: string[] }) {
           <a href={sentUrl} target="_blank" rel="noopener noreferrer" className="bpk-btn bpk-btn--whatsapp bpk-btn--large">
             <WhatsAppIcon size={20} /> Open WhatsApp again
           </a>
-          <a href={`tel:${siteConfig.contact.phone[0]}`} className="bpk-btn bpk-btn--secondary bpk-btn--large">
-            <Phone size={20} aria-hidden /> Call {siteConfig.contact.phone[0]}
+          <a href={`tel:${siteConfig.contact.hotline}`} className="bpk-btn bpk-btn--secondary bpk-btn--large">
+            <Phone size={20} aria-hidden /> Call {siteConfig.contact.hotlineDisplay}
           </a>
         </div>
       </div>

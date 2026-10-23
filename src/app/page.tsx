@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Compass, Landmark, Stamp } from 'lucide-react';
@@ -11,16 +12,18 @@ import { airlines } from '@/lib/airlines';
 import { destinations } from '@/lib/config';
 import { blogPosts } from '@/lib/blog-data';
 import { findAirport } from '@/lib/airports';
+import { routeHref } from '@/lib/routes';
 import { homeFaqs } from '@/lib/faqs';
 import { getWhatsAppUrl } from '@/lib/whatsapp';
 import styles from '@/components/home/Home.module.css';
 
-export const metadata: Metadata = {
-  title: 'BookMyFlight | Compare Cheap Flights from Pakistan & Book Air Tickets',
+export const metadata: Metadata = pageMetadata({
+  title: 'Cheap Flights from Pakistan: Compare & Book | BookMyFlight',
   description:
-    'Search cheap flights from Islamabad, Lahore, Karachi and every Pakistani airport. Compare PIA, Emirates, Qatar Airways, Saudia & Turkish fares, refund and reissue rules, then book with O.S Travel & Tours.',
-  alternates: { canonical: '/' },
-};
+    'Compare cheap flights from Islamabad, Lahore & Karachi on PIA, Emirates, Qatar Airways, Saudia & Turkish. Refund & baggage rules explained. Call +92 332 5500377.',
+  path: '/',
+  absoluteTitle: true,
+});
 
 const tiles = [
   {
@@ -58,7 +61,7 @@ const linkGroups: LinkGroup[] = [
   },
   {
     label: 'Routes',
-    links: routePairs.map(([f, t]) => ({ label: routeLabel(f, t), href: `/search?trip=return&from=${f}&to=${t}` })),
+    links: routePairs.map(([f, t]) => ({ label: routeLabel(f, t), href: routeHref(f, t) })),
   },
   {
     label: 'Destinations',

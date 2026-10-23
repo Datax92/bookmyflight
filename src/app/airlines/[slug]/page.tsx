@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { pageMetadata, YEAR } from '@/lib/seo';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -14,6 +15,7 @@ import { airlines, getAirline } from '@/lib/airlines';
 import { LAST_VERIFIED, getAirlineDetail, seasonProfiles } from '@/lib/airline-details';
 import { airlineFaqs, airlineTips, article, cityNames, listJoin, seasonSummary } from '@/lib/airline-content';
 import { findAirport } from '@/lib/airports';
+import { routeHref } from '@/lib/routes';
 import { getWhatsAppUrl } from '@/lib/whatsapp';
 import styles from '@/components/sections/Page.module.css';
 
@@ -29,18 +31,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const a = getAirline(slug);
   const d = getAirlineDetail(slug);
-  if (!a || !d) return { title: 'Airline not found | BookMyFlight' };
+  if (!a || !d) return { title: 'Airline not found' };
   const { cheap } = seasonSummary(d);
-  return {
-    title: `${a.name} Flights from Pakistan: Refund & Reissue Policy, Baggage, Cheapest Months | BookMyFlight`,
-    description: `Book ${a.name} (${a.code}) tickets from ${listJoin(cityNames(d.pkAirports.slice(0, 4)))}. Compare ${a.name} fare types, baggage, refund and date-change rules. Cheapest months: ${listJoin(cheap.slice(0, 3))}.`,
-    alternates: { canonical: `/airlines/${a.slug}` },
-    openGraph: {
-      title: `${a.name} flights from Pakistan | BookMyFlight`,
-      description: `${a.name} fare types, baggage allowance, refund and reissue policy, and the cheapest months to fly from Pakistan.`,
-      url: `https://bookmyflight.pk/airlines/${a.slug}`,
-    },
-  };
+  return pageMetadata({
+    title: `${a.name} Refund Policy, Baggage & Fares ${YEAR}`,
+    description: `${a.name} (${a.code}) from ${listJoin(cityNames(d.pkAirports.slice(0, 3)))}: fare types, baggage, refund & date-change rules. Cheapest: ${listJoin(cheap.slice(0, 2))}. Call +92 332 5500377.`,
+    path: `/airlines/${a.slug}`,
+  });
 }
 
 export default async function AirlinePage({ params }: Props) {
@@ -156,7 +153,7 @@ export default async function AirlinePage({ params }: Props) {
               return (
                 <li key={r.code}>
                   <Link
-                    href={`/search?trip=return&from=${origin}&to=${r.code}`}
+                    href={routeHref(origin, r.code)}
                     className="bpk-card bpk-card--padded"
                     style={{ display: 'flex', flexDirection: 'column', height: '100%' }}
                   >

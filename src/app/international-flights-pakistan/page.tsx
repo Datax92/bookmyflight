@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import { LandingPage, type LandingData } from '@/components/sections/LandingPage';
 
-export const metadata: Metadata = {
-  title: 'International Airports in Pakistan: Where You Can Fly From | BookMyFlight',
+export const metadata: Metadata = pageMetadata({
+  title: 'International Airports in Pakistan: Full Guide',
   description:
-    'Guide to Pakistan’s international departure airports: Islamabad (ISB), Lahore (LHE), Karachi (KHI), Peshawar, Multan, Sialkot and Faisalabad, with airlines and non-stop destinations.',
-  alternates: { canonical: '/international-flights-pakistan' },
-};
+    'Guide to Pakistan’s international airports: Islamabad (ISB), Lahore (LHE), Karachi (KHI), Peshawar, Multan, Sialkot and Faisalabad, with airlines and destinations.',
+  path: '/international-flights-pakistan',
+});
 
 const data: LandingData = {
   hero: {

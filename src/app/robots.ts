@@ -1,20 +1,34 @@
-import { MetadataRoute } from 'next';
+import type { MetadataRoute } from 'next';
+import { SITE_URL } from '@/lib/seo';
+
+// AI search and answer engines. Allowing them lets BookMyFlight be cited in
+// ChatGPT, Perplexity, Gemini, Copilot and Google AI Overviews answers.
+const aiCrawlers = [
+  'GPTBot',
+  'OAI-SearchBot',
+  'ChatGPT-User',
+  'ClaudeBot',
+  'Claude-SearchBot',
+  'Claude-User',
+  'PerplexityBot',
+  'Perplexity-User',
+  'Google-Extended',
+  'Applebot-Extended',
+  'Bingbot',
+  'CCBot',
+];
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://bookmyflight.pk';
+  // Never block /_next/: Google needs the CSS and JS to render pages.
+  // Offer and search pages stay crawlable so crawlers can see their noindex tag.
+  const disallow = ['/api/'];
 
   return {
     rules: [
-      {
-        userAgent: '*',
-        allow: '/',
-        disallow: [
-          '/offers/', // Paid campaign / promotional landing pages (marked noindex)
-          '/api/',
-          '/_next/',
-        ],
-      },
+      { userAgent: '*', allow: '/', disallow },
+      { userAgent: aiCrawlers, allow: '/', disallow },
     ],
-    sitemap: `${baseUrl}/sitemap.xml`,
+    sitemap: `${SITE_URL}/sitemap.xml`,
+    host: SITE_URL,
   };
 }

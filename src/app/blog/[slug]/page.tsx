@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -25,21 +26,17 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = blogPosts.find((p) => p.slug === slug);
-  if (!post) return { title: 'Article not found | BookMyFlight' };
-  return {
-    title: `${post.title} | BookMyFlight`,
+  if (!post) return { title: 'Article not found' };
+  return pageMetadata({
+    title: post.title,
     description: post.excerpt,
-    alternates: { canonical: `/blog/${post.slug}` },
-    openGraph: {
-      title: post.title,
-      description: post.excerpt,
-      url: `https://bookmyflight.pk/blog/${post.slug}`,
-      type: 'article',
-      publishedTime: post.publishDate,
-      authors: [post.author],
-      images: [{ url: `https://bookmyflight.pk${post.image}`, alt: post.title }],
-    },
-  };
+    path: `/blog/${post.slug}`,
+    type: 'article',
+    publishedTime: post.publishDate,
+    modifiedTime: post.publishDate,
+    image: post.image,
+    imageAlt: post.title,
+  });
 }
 
 function slugify(s: string) {

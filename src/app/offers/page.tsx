@@ -1,13 +1,14 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import { LandingPage, type LandingData } from '@/components/sections/LandingPage';
 import { campaignOffers } from '@/lib/offers-data';
 
-export const metadata: Metadata = {
-  title: 'Travel Offers: Flight Fares, Umrah & Dubai Packages | BookMyFlight',
+export const metadata: Metadata = pageMetadata({
+  title: 'Travel Offers: Flights, Umrah & Dubai Packages',
   description:
-    'Current travel offers from BookMyFlight and O.S Travel & Tours: best-fare flight assistance, tailored Umrah packages and Dubai flight, visa and hotel packages.',
-  alternates: { canonical: '/offers' },
-};
+    'Current offers from BookMyFlight and O.S Travel & Tours: best-fare flight assistance, tailored Umrah packages and Dubai flight, visa and hotel packages.',
+  path: '/offers',
+});
 
 const data: LandingData = {
   hero: {

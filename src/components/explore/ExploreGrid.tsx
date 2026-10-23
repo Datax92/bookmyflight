@@ -15,12 +15,15 @@ export function ExploreGrid({
   nonstop,
   cheap,
   initialFrom,
+  routePages,
 }: {
   items: ExploreItem[];
   regions: Region[];
   nonstop: Record<string, string[]>;
   cheap: Record<string, string[]>;
   initialFrom: string;
+  /** "ISB-DXB" -> route landing page slug */
+  routePages?: Record<string, string>;
 }) {
   const [from, setFrom] = useState(origins.some((o) => o.code === initialFrom) ? initialFrom : 'ISB');
   const [region, setRegion] = useState<Region | 'All'>('All');
@@ -67,7 +70,8 @@ export function ExploreGrid({
       <ul className={styles.grid}>
         {shown.map((it) => {
           const direct = nonstop[it.code]?.includes(from);
-          const href = `/search?trip=return&from=${from}&to=${it.code}`;
+          const page = routePages?.[`${from}-${it.code}`];
+          const href = page ? `/flights/${page}` : `/search?trip=return&from=${from}&to=${it.code}`;
           return (
             <li key={it.code}>
               <article className={`bpk-card ${styles.card}`}>

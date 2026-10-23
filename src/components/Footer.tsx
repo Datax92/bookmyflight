@@ -106,7 +106,7 @@ function FooterGroup({ title, links }: { title: string; links: FooterLink[] }) {
   );
 }
 
-export function Footer() {
+export function Footer({ routeLinks = [] }: { routeLinks?: FooterLink[] }) {
   return (
     <footer className={styles.footer}>
       <div className={styles.linkContainer}>
@@ -126,6 +126,15 @@ export function Footer() {
             </a>
             , a government-licensed travel agency in Blue Area, Islamabad.
           </p>
+          <address className={styles.nap}>
+            <a href={`tel:${siteConfig.contact.hotline}`}>Call {siteConfig.contact.hotlineDisplay}</a>
+            <span aria-hidden> · </span>
+            <a href={`tel:${siteConfig.contact.phone[0]}`}>{siteConfig.contact.phone[0]}</a>
+            <span aria-hidden> · </span>
+            <a href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a>
+            <br />
+            {siteConfig.address.street}, {siteConfig.address.area}, {siteConfig.address.city}
+          </address>
           <div className={styles.social}>
             <a href={siteConfig.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="O.S Travel & Tours on Facebook">
               <FacebookIcon size={18} />
@@ -161,6 +170,7 @@ export function Footer() {
         </div>
 
         <div className={styles.seoLinks}>
+          {routeLinks.length > 0 && <FooterGroup title="Popular flights" links={routeLinks} />}
           {groups.map((g) => (
             <FooterGroup key={g.title} title={g.title} links={g.links} />
           ))}

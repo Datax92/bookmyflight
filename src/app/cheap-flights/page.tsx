@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
+import { pageMetadata, YEAR } from '@/lib/seo';
 import { LandingPage, type LandingData } from '@/components/sections/LandingPage';
 
-export const metadata: Metadata = {
-  title: 'Cheap Flights from Pakistan: 8 Ways to Pay Less for Air Tickets | BookMyFlight',
+export const metadata: Metadata = pageMetadata({
+  title: `Cheap Flights from Pakistan ${YEAR}: 8 Ways to Pay Less`,
   description:
-    'How to find cheap flights from Islamabad, Lahore and Karachi: best months and days to fly, direct vs connecting, baggage traps and nearby airports. Get a fare quote on WhatsApp.',
-  alternates: { canonical: '/cheap-flights' },
-};
+    'Pay less for flights from Islamabad, Lahore & Karachi: cheapest months and days to fly, baggage traps and nearby airports. Free fare check: call +92 332 5500377.',
+  path: '/cheap-flights',
+});
 
 const data: LandingData = {
   hero: {
@@ -76,7 +77,7 @@ const data: LandingData = {
     { question: 'Do fares go down closer to departure?', answer: 'Rarely on international routes from Pakistan. Prices usually rise as seats fill, especially in peak seasons.' },
     { question: 'Are domestic flights in Pakistan cheaper when booked early?', answer: 'Yes, especially around Eid and the summer season to Skardu and Gilgit. PIA, Airblue, AirSial and Fly Jinnah release their cheapest seats first.' },
     { question: 'Can students get cheaper fares?', answer: 'Some airlines, such as Emirates, publish student fares with extra baggage on certain routes. Ask us whether a student fare is available for your trip.' },
-    { question: 'How do I request a quote?', answer: 'Use the search form above or send your origin, destination, dates, passengers and cabin to +92 333 5542877 on WhatsApp.' },
+    { question: 'How do I request a quote?', answer: 'Use the search form above or send your origin, destination, dates, passengers and cabin to +92 333 5542877 on WhatsApp, or call +92 332 5500377.' },
   ],
 };
 

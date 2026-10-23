@@ -7,8 +7,10 @@ import { Footer } from '@/components/Footer';
 import { WhatsAppFloat } from '@/components/WhatsAppFloat';
 import { MobileWhatsAppBar } from '@/components/MobileWhatsAppBar';
 import { SplashScreen, splashBootScript } from '@/components/SplashScreen';
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://bookmyflight.pk';
+import { JsonLd } from '@/components/JsonLd';
+import { siteConfig } from '@/lib/config';
+import { SITE_URL, siteGraph } from '@/lib/seo';
+import { flightRoutes, routeLabel } from '@/lib/routes';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -21,52 +23,71 @@ export const viewport: Viewport = {
   themeColor: '#05203c',
 };
 
+const defaultTitle = 'Cheap Flights from Pakistan: Compare & Book | BookMyFlight';
+const defaultDescription =
+  'Compare cheap flights from Islamabad, Lahore & Karachi on PIA, Emirates, Qatar Airways, Saudia & more. Real airline e-tickets by an IATA agent. Call +92 332 5500377.';
+
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  alternates: {
-    canonical: '/',
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: defaultTitle,
+    template: '%s | BookMyFlight',
   },
-  title: 'BookMyFlight | Compare Cheap Flights from Pakistan & Book Air Tickets',
-  description:
-    'Compare cheap flights from Islamabad, Lahore and Karachi on PIA, Emirates, Qatar Airways, Saudia, Turkish and more. Airline refund & reissue rules, fare seasons and ticketing by O.S Travel & Tours.',
+  description: defaultDescription,
+  applicationName: 'BookMyFlight',
+  category: 'travel',
   keywords: [
     'BookMyFlight',
     'cheap flights Pakistan',
     'flight booking Islamabad',
+    'air ticket price Pakistan',
     'international flights Pakistan',
-    'Umrah packages Islamabad',
-    'visa services Islamabad',
-    'hotel booking',
+    'Umrah packages',
     'travel agency Islamabad',
-    'O.S Travel Tours',
     'air ticketing Islamabad',
     'airline refund policy Pakistan',
-    'ticket reissue policy',
-    'cheapest month to fly from Pakistan',
     'IATA travel agent Islamabad',
   ],
-  authors: [{ name: 'BookMyFlight — Powered by O.S Travel & Tours' }],
+  authors: [{ name: 'BookMyFlight', url: SITE_URL }],
+  creator: 'BookMyFlight',
+  publisher: 'O.S Travel & Tours',
+  formatDetection: { telephone: true, email: true, address: true },
   openGraph: {
-    title: 'BookMyFlight | Cheap Flights from Pakistan',
-    description:
-      'Compare cheap flights from Pakistan, check airline refund & reissue rules and book with O.S Travel & Tours.',
+    title: defaultTitle,
+    description: defaultDescription,
     type: 'website',
     locale: 'en_PK',
     siteName: 'BookMyFlight',
-    url: siteUrl,
+    url: '/',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'BookMyFlight | Cheap Flights from Pakistan',
-    description:
-      'Compare cheap flights from Pakistan, check airline refund & reissue rules and book with O.S Travel & Tours.',
+    title: defaultTitle,
+    description: defaultDescription,
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
   },
   verification: {
     google: process.env.NEXT_PUBLIC_GSC_VERIFICATION || undefined,
+    yandex: process.env.NEXT_PUBLIC_YANDEX_VERIFICATION || undefined,
+    other: {
+      ...(process.env.NEXT_PUBLIC_BING_VERIFICATION ? { 'msvalidate.01': process.env.NEXT_PUBLIC_BING_VERIFICATION } : {}),
+    },
+  },
+  other: {
+    'geo.region': 'PK-IS',
+    'geo.placename': 'Islamabad',
+    'geo.position': `${siteConfig.address.coordinates.lat};${siteConfig.address.coordinates.lng}`,
+    ICBM: `${siteConfig.address.coordinates.lat}, ${siteConfig.address.coordinates.lng}`,
   },
 };
 
@@ -78,7 +99,7 @@ export default function RootLayout({
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
   return (
-    <html lang="en" className={inter.variable} suppressHydrationWarning>
+    <html lang="en-PK" className={inter.variable} suppressHydrationWarning>
       <head>
         {/* Skips the opening animation on repeat loads within a session */}
         <script dangerouslySetInnerHTML={{ __html: splashBootScript }} />
@@ -102,76 +123,19 @@ export default function RootLayout({
           </>
         )}
 
-        {/* Schema.org WebSite markup */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'WebSite',
-              name: 'BookMyFlight',
-              url: siteUrl,
-              description:
-                'Compare cheap flights from Pakistan, airline refund and reissue policies, and book air tickets with O.S Travel & Tours.',
-            }),
-          }}
-        />
-
-        {/* Schema.org TravelAgency markup */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'TravelAgency',
-              name: 'BookMyFlight',
-              alternateName: 'Book My Flight',
-              description:
-                'Flight ticketing, airline fare comparison, Umrah, visa and hotel services powered by O.S Travel & Tours, Islamabad.',
-              telephone: ['+92-51-2120700', '+92-51-2120701', '+92-333-5542877'],
-              email: 'info@ostravels.com',
-              url: siteUrl,
-              address: {
-                '@type': 'PostalAddress',
-                streetAddress:
-                  'Office # 3, Aaly Plaza, Fazal-e-Haq Rd, Block E, G-6/2, Blue Area',
-                addressLocality: 'Islamabad',
-                addressRegion: 'Islamabad Capital Territory',
-                addressCountry: 'PK',
-              },
-              geo: {
-                '@type': 'GeoCoordinates',
-                latitude: '33.7178385',
-                longitude: '73.0733661',
-              },
-              openingHoursSpecification: {
-                '@type': 'OpeningHoursSpecification',
-                dayOfWeek: [
-                  'Monday',
-                  'Tuesday',
-                  'Wednesday',
-                  'Thursday',
-                  'Friday',
-                  'Saturday',
-                ],
-                opens: '09:00',
-                closes: '18:00',
-              },
-              parentOrganization: {
-                '@type': 'Organization',
-                name: 'O.S Travel & Tours',
-                url: 'https://ostravels.com',
-                sameAs: ['https://www.facebook.com/ostravels/', 'https://www.youtube.com/@obrehman84'],
-              },
-            }),
-          }}
-        />
+        {/* Organisation, website and travel agency entities (schema.org) */}
+        <JsonLd schema={siteGraph()} />
       </head>
       <body>
         <SplashScreen />
         <Header />
         <main id="main-content">{children}</main>
-        <Footer />
+        <Footer
+          routeLinks={[
+            ...flightRoutes.slice(0, 14).map((r) => ({ label: `${routeLabel(r)} flights`, href: `/flights/${r.slug}` })),
+            { label: 'All flight routes', href: '/flights' },
+          ]}
+        />
         <WhatsAppFloat />
         <MobileWhatsAppBar />
       </body>

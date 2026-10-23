@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import Link from 'next/link';
 import {
   BadgeCheck,
@@ -24,12 +25,12 @@ import { siteConfig } from '@/lib/config';
 import { getWhatsAppUrl } from '@/lib/whatsapp';
 import styles from '@/components/sections/Page.module.css';
 
-export const metadata: Metadata = {
-  title: 'Air Ticketing in Pakistan: Book International & Domestic Flight Tickets | BookMyFlight',
+export const metadata: Metadata = pageMetadata({
+  title: 'Air Ticketing in Pakistan: Book Flight Tickets',
   description:
-    'Air ticketing by O.S Travel & Tours, Islamabad: international, domestic, Umrah and group flight tickets on PIA, Emirates, Qatar Airways, Saudia and more. Ticket reissue, refund and date-change support.',
-  alternates: { canonical: '/ticketing' },
-};
+    'International, domestic, Umrah and group air tickets on PIA, Emirates, Qatar Airways, Saudia & more, with reissue and refund support. Call +92 332 5500377.',
+  path: '/ticketing',
+});
 
 const services = [
   { icon: Globe, title: 'International flights', body: 'Tickets to the Gulf, Saudi Arabia, the UK, Europe, North America and Asia on full-service and low-cost airlines.' },
@@ -206,15 +207,15 @@ export default function TicketingPage() {
         <section className={styles.panelDark}>
           <h2 className={styles.subTitle}>Need a ticket today?</h2>
           <p className="text-body" style={{ maxWidth: '44rem' }}>
-            Send your route, dates and passenger names on WhatsApp or call {siteConfig.contact.phone[0]}. Office hours:{' '}
+            Send your route, dates and passenger names on WhatsApp or call {siteConfig.contact.hotlineDisplay}. Office hours:{' '}
             {siteConfig.hours.days}, {siteConfig.hours.weekdays}.
           </p>
           <div className={styles.ctaRow}>
             <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="bpk-btn bpk-btn--whatsapp bpk-btn--large">
               <WhatsAppIcon size={20} /> Book on WhatsApp
             </a>
-            <a href={`tel:${siteConfig.contact.phone[0]}`} className="bpk-btn bpk-btn--primary-on-dark bpk-btn--large">
-              Call {siteConfig.contact.phone[0]}
+            <a href={`tel:${siteConfig.contact.hotline}`} className="bpk-btn bpk-btn--primary-on-dark bpk-btn--large">
+              Call {siteConfig.contact.hotlineDisplay}
             </a>
           </div>
         </section>

@@ -54,6 +54,23 @@
   background-size: 0 1px;
 }
 
+.nap {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  font-style: normal;
+  line-height: 1.5rem;
+  color: #eff3f8;
+}
+
+.nap a {
+  font-weight: 700;
+  color: #fff;
+}
+
+.nap a:hover {
+  text-decoration: underline;
+}
+
 .social {
   display: flex;
   gap: 0.75rem;

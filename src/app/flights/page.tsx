@@ -1,12 +1,14 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import { LandingPage, type LandingData } from '@/components/sections/LandingPage';
+import { flightRoutes, routeLabel } from '@/lib/routes';
 
-export const metadata: Metadata = {
-  title: 'Search Flights from Pakistan: Islamabad, Lahore, Karachi & More | BookMyFlight',
+export const metadata: Metadata = pageMetadata({
+  title: 'Search Flights from Islamabad, Lahore & Karachi',
   description:
-    'Search return, one-way and multi-city flights from Islamabad, Lahore, Karachi, Peshawar, Multan and Sialkot. Compare airlines, baggage and fare rules, then book with O.S Travel & Tours.',
-  alternates: { canonical: '/flights' },
-};
+    'Search return, one-way and multi-city flights from every Pakistani airport. Compare non-stop airlines, baggage and fare rules, then book with O.S Travel & Tours.',
+  path: '/flights',
+});
 
 const data: LandingData = {
   hero: {
@@ -46,6 +48,11 @@ const data: LandingData = {
         ['First', 'Usually 50 kg or 2–3 × 32 kg', 'Private suite on some airlines', 'Luxury travel on Emirates and a few others'],
       ],
       note: 'Allowances vary by airline and fare type. See each airline page for exact baggage.',
+    },
+    {
+      type: 'links',
+      title: 'All non-stop routes from Pakistan',
+      items: flightRoutes.map((r) => ({ label: `${routeLabel(r)} flights`, href: `/flights/${r.slug}` })),
     },
     {
       type: 'links',

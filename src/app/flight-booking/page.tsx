@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import { LandingPage, type LandingData } from '@/components/sections/LandingPage';
 
-export const metadata: Metadata = {
-  title: 'Flight Booking in Pakistan: International & Domestic Air Tickets | BookMyFlight',
+export const metadata: Metadata = pageMetadata({
+  title: 'Flight Booking in Pakistan: Domestic & International',
   description:
-    'Book international and domestic air tickets in Pakistan with human support: fare comparison, verified baggage, holds, e-tickets, reissues and refunds by O.S Travel & Tours.',
-  alternates: { canonical: '/flight-booking' },
-};
+    'Book international and domestic air tickets with real human support: fare comparison, verified baggage, e-tickets, reissues and refunds. Call +92 332 5500377.',
+  path: '/flight-booking',
+});
 
 const data: LandingData = {
   hero: {
@@ -67,7 +68,7 @@ const data: LandingData = {
   ],
   faqTitle: 'Flight booking FAQs',
   faqs: [
-    { question: 'How do I book a flight through BookMyFlight?', answer: 'Use the search form or message +92 333 5542877 on WhatsApp. A consultant compares airlines and coordinates your ticketing.' },
+    { question: 'How do I book a flight through BookMyFlight?', answer: 'Use the search form call +92 332 5500377 or message +92 333 5542877 on WhatsApp. A consultant compares airlines and coordinates your ticketing.' },
     { question: 'Are payments secure?', answer: 'Payments, receipts and confirmations are handled by O.S Travel & Tours, an established agency in Blue Area, Islamabad. Tickets are issued only after payment, and we never ask for card details on WhatsApp.' },
     { question: 'Can you help with date changes and cancellations?', answer: 'Yes. We handle change requests, reissues and refund claims directly with the airline according to your fare rules.' },
     { question: 'Do you offer group bookings?', answer: 'Yes. For 10 or more passengers we request group fares, which often have flexible name submission and deposit-based payment.' },

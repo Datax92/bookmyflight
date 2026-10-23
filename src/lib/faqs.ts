@@ -452,7 +452,7 @@ export const contactFaqs: Faq[] = [
   {
     question: 'What is the fastest way to contact BookMyFlight?',
     answer:
-      'WhatsApp is fastest. Send your route, dates and number of travellers to +92 333 5542877 and our ticketing team will reply during office hours.',
+      'WhatsApp is fastest. Send your route, dates and number of travellers to +92 333 5542877 and our ticketing team will reply during office hours. To speak to someone straight away, call +92 332 5500377.',
   },
   {
     question: 'What are your office hours?',
@@ -460,7 +460,7 @@ export const contactFaqs: Faq[] = [
   },
   {
     question: 'What are your phone numbers?',
-    answer: 'Landline: 051-2120700 and 051-2120701. Mobile / WhatsApp: +92 333 5542877.',
+    answer: 'Call +92 332 5500377. Landline: 051-2120700 and 051-2120701. WhatsApp: +92 333 5542877.',
   },
   {
     question: 'Can I visit your office in person?',

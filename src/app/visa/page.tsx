@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import { LandingPage, type LandingData, type CardItem } from '@/components/sections/LandingPage';
 
-export const metadata: Metadata = {
-  title: 'Visa Assistance in Islamabad: Visit Visas & Schengen File Processing | BookMyFlight',
+export const metadata: Metadata = pageMetadata({
+  title: 'Visa Assistance in Islamabad: Visit & Schengen Visas',
   description:
-    'Visit visas and visa file processing by O.S Travel & Tours, Islamabad: Saudi Arabia, Malaysia, Thailand, Singapore, Türkiye, Azerbaijan, Schengen, UK, USA, Canada and more.',
-  alternates: { canonical: '/visa' },
-};
+    'Visit visas and file processing by O.S Travel & Tours, Islamabad: Saudi Arabia, Malaysia, Thailand, Türkiye, Azerbaijan, Schengen, UK, USA, Canada & more.',
+  path: '/visa',
+});
 
 const visit: [string, string][] = [
   ['Saudi Arabia', 'saudi-arabia-visa'], ['Malaysia', 'malaysia-visa'], ['Thailand', 'thailand-visa'], ['Singapore', 'singapore-visa'],

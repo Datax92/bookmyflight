@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
+import { pageMetadata, YEAR } from '@/lib/seo';
 import { LandingPage, type LandingData } from '@/components/sections/LandingPage';
 
-export const metadata: Metadata = {
-  title: 'Umrah Packages from Pakistan: Visa, Flights, Makkah & Madinah Hotels | BookMyFlight',
+export const metadata: Metadata = pageMetadata({
+  title: `Umrah Packages ${YEAR} from Pakistan: Visa & Hotels`,
   description:
-    'Umrah packages from Islamabad, Lahore and Karachi with Umrah visa, return flights to Jeddah or Madinah, hotels near the Haram, transport and Ziyarat. Family, executive and group Umrah.',
-  alternates: { canonical: '/umrah' },
-};
+    'Umrah packages from Islamabad, Lahore & Karachi: Umrah visa, flights to Jeddah or Madinah, hotels near the Haram and transport. Call +92 332 5500377.',
+  path: '/umrah',
+});
 
 const data: LandingData = {
   hero: {

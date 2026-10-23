@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import Image from 'next/image';
 import Link from 'next/link';
 import { BadgeCheck, Building2, ExternalLink, Landmark, Network, ReceiptText, ShieldCheck, Users } from 'lucide-react';
@@ -13,12 +14,12 @@ import { partnersFaqs } from '@/lib/faqs';
 import { getWhatsAppUrl } from '@/lib/whatsapp';
 import styles from '@/components/sections/Page.module.css';
 
-export const metadata: Metadata = {
-  title: 'Partners: O.S Travel & Tours, IATA Accreditation & DTS Licence | BookMyFlight',
+export const metadata: Metadata = pageMetadata({
+  title: 'Partners, IATA Accreditation & DTS Licence',
   description:
-    'BookMyFlight is powered by O.S Travel & Tours, Islamabad: IATA-accredited ticketing via Amadeus and Sabre, DTS government licence #402, FBR and SECP registered. See the airlines we ticket.',
-  alternates: { canonical: '/partners' },
-};
+    'BookMyFlight is powered by O.S Travel & Tours, Islamabad: IATA-accredited ticketing on Amadeus and Sabre, DTS licence #402, FBR and SECP registered.',
+  path: '/partners',
+});
 
 export default function PartnersPage() {
   const c = siteConfig.credentials;
@@ -52,7 +53,7 @@ export default function PartnersPage() {
     '@type': 'TravelAgency',
     name: 'O.S Travel & Tours',
     url: 'https://ostravels.com/',
-    telephone: siteConfig.contact.phone,
+    telephone: [siteConfig.contact.hotline, ...siteConfig.contact.phone],
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'Office No. 3, Aaly Plaza, Fazal-e-Haq Road, Blue Area',

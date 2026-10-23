@@ -173,7 +173,7 @@ const originalPosts: BlogPost[] = [
         },
       ],
       conclusion:
-        'Plan early to secure preferred timings and lower fare classes. Contact BookMyFlight on WhatsApp (+92 333 5542877) to check real-time availability for your planned travel window.',
+        'Plan early to secure preferred timings and lower fare classes. Call BookMyFlight on +92 332 5500377 or WhatsApp +92 333 5542877 to check real-time availability for your planned travel window.',
     },
   },
   {

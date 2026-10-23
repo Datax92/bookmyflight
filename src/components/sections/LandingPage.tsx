@@ -5,6 +5,7 @@ import { PageHero } from './PageHero';
 import { FaqSection, type Faq } from './FaqSection';
 import { WhatsAppIcon } from '@/components/ui/icons';
 import { findAirport } from '@/lib/airports';
+import { routeHref } from '@/lib/routes';
 import { getWhatsAppUrl } from '@/lib/whatsapp';
 import type { FlightSearch } from '@/lib/search';
 import styles from './Page.module.css';
@@ -214,7 +215,7 @@ function renderBlock(b: Block, i: number) {
               const z = findAirport(t);
               return (
                 <li key={f + t}>
-                  <Link href={`/search?trip=return&from=${f}&to=${t}`} className="bpk-card bpk-card--padded" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+                  <Link href={routeHref(f, t)} className="bpk-card bpk-card--padded" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                     <span className={styles.cardTitle}>
                       {a?.city ?? f} → {z?.city ?? t}
                     </span>

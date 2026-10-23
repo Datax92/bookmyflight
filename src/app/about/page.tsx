@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import Link from 'next/link';
 import { BadgeCheck, FileText, Hotel, Landmark, MessagesSquare, Plane, ShieldCheck, Stamp, Umbrella } from 'lucide-react';
 import { PageHero } from '@/components/sections/PageHero';
@@ -10,12 +11,12 @@ import { aboutFaqs } from '@/lib/faqs';
 import { getWhatsAppUrl } from '@/lib/whatsapp';
 import styles from '@/components/sections/Page.module.css';
 
-export const metadata: Metadata = {
-  title: 'About BookMyFlight | Flight Booking by O.S Travel & Tours, Islamabad',
+export const metadata: Metadata = pageMetadata({
+  title: 'About Us: IATA-Accredited Travel Agency in Islamabad',
   description:
-    'BookMyFlight is the online flight desk of O.S Travel & Tours, a DTS-licensed, IATA-accredited travel agency in Blue Area, Islamabad: flight tickets, Umrah, visas and hotels.',
-  alternates: { canonical: '/about' },
-};
+    'BookMyFlight is the online flight desk of O.S Travel & Tours, a DTS-licensed, IATA-accredited agency in Blue Area, Islamabad. 10+ years, 12k+ travellers served.',
+  path: '/about',
+});
 
 const services = [
   { icon: Plane, title: 'Flight tickets', body: 'Domestic, international, Umrah and group tickets.', href: '/ticketing' },

@@ -125,6 +125,9 @@ export function MobileMenu() {
                 >
                   <WhatsAppIcon size={20} /> Chat on WhatsApp
                 </a>
+                <a href={`tel:${siteConfig.contact.hotline}`} className={styles.contactRow}>
+                  <Phone size={18} aria-hidden /> {siteConfig.contact.hotlineDisplay}
+                </a>
                 <a href={`tel:${siteConfig.contact.phone[0]}`} className={styles.contactRow}>
                   <Phone size={18} aria-hidden /> {siteConfig.contact.phone[0]}
                 </a>

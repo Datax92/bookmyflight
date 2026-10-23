@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import { Clock, Mail, MapPin, Phone } from 'lucide-react';
 import { PageHero } from '@/components/sections/PageHero';
 import { FaqSection } from '@/components/sections/FaqSection';
@@ -9,12 +10,12 @@ import { contactFaqs } from '@/lib/faqs';
 import { getWhatsAppUrl } from '@/lib/whatsapp';
 import styles from '@/components/sections/Page.module.css';
 
-export const metadata: Metadata = {
-  title: 'Contact BookMyFlight: Travel Agency in Blue Area, Islamabad | WhatsApp +92 333 5542877',
+export const metadata: Metadata = pageMetadata({
+  title: 'Contact Us: Call +92 332 5500377 | Blue Area, Islamabad',
   description:
-    'Contact BookMyFlight and O.S Travel & Tours for flight tickets, Umrah and visas. Office No. 3, Aaly Plaza, Blue Area, Islamabad. Call 051-2120700 or WhatsApp +92 333 5542877.',
-  alternates: { canonical: '/contact' },
-};
+    'Call +92 332 5500377 or WhatsApp +92 333 5542877 for flight tickets, Umrah and visas. Visit Aaly Plaza, Blue Area, Islamabad. Open Mon–Sat, 9 AM–6 PM.',
+  path: '/contact',
+});
 
 export default function ContactPage() {
   const { contact, address, hours } = siteConfig;
@@ -28,7 +29,7 @@ export default function ContactPage() {
       note: 'Fastest way to get a quote',
       external: true,
     },
-    { icon: <Phone size={24} aria-hidden />, title: 'Phone', value: contact.phone.join(' · '), href: `tel:${contact.phone[0]}`, note: 'Office landlines' },
+    { icon: <Phone size={24} aria-hidden />, title: 'Call us', value: contact.hotlineDisplay, href: `tel:${contact.hotline}`, note: `Office: ${contact.phone.join(' · ')}` },
     { icon: <Mail size={24} aria-hidden />, title: 'Email', value: contact.email, href: `mailto:${contact.email}`, note: 'For documents and invoices' },
     { icon: <Clock size={24} aria-hidden />, title: 'Office hours', value: `${hours.days}`, note: `${hours.weekdays} · Sunday closed` },
   ];

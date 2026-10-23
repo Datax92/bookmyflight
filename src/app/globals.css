@@ -542,6 +542,13 @@ button.bpk-card:hover::after,
     color: #fff;
     font-weight: 700;
   }
+  .mobile-whatsapp-bar { gap: 0.5rem; }
+  .mobile-whatsapp-bar a.mobile-call-btn {
+    flex: 0 0 auto;
+    width: auto;
+    padding: 0 1.25rem;
+    background: #0062e3;
+  }
   body { padding-bottom: 4rem; }
 }
 

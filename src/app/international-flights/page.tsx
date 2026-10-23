@@ -1,12 +1,14 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import { LandingPage, type LandingData } from '@/components/sections/LandingPage';
+import { flightRoutes, routeLabel } from '@/lib/routes';
 
-export const metadata: Metadata = {
-  title: 'International Flights from Pakistan: Routes, Airlines & Travel Rules | BookMyFlight',
+export const metadata: Metadata = pageMetadata({
+  title: 'International Flights from Pakistan: Airlines & Routes',
   description:
-    'International flights from Islamabad, Lahore and Karachi to the Gulf, Saudi Arabia, UK, Europe, Asia and North America. Airlines by region, documents and airport rules.',
-  alternates: { canonical: '/international-flights' },
-};
+    'International flights from Islamabad, Lahore and Karachi to the Gulf, Saudi Arabia, UK, Europe, Asia and North America. Airlines by region and travel rules.',
+  path: '/international-flights',
+});
 
 const data: LandingData = {
   hero: {
@@ -52,6 +54,11 @@ const data: LandingData = {
         ['First', 'Often 50 kg or 2–3 × 32 kg', 'Private suite on some airlines, premium lounges and dining'],
       ],
       note: 'Allowances differ by airline and fare type; your e-ticket shows the exact allowance.',
+    },
+    {
+      type: 'links',
+      title: 'Popular international routes',
+      items: flightRoutes.filter((r) => !r.domestic).map((r) => ({ label: `${routeLabel(r)} flights`, href: `/flights/${r.slug}` })),
     },
     {
       type: 'links',

@@ -1,14 +1,16 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import Image from 'next/image';
 import { PageHero } from '@/components/sections/PageHero';
 import { imageCredits } from '@/lib/image-credits';
 import styles from '@/components/sections/Page.module.css';
 
-export const metadata: Metadata = {
-  title: 'Photo Credits | BookMyFlight',
-  description: 'Credits and licences for Creative Commons photographs used on BookMyFlight.',
-  alternates: { canonical: '/credits' },
-};
+export const metadata: Metadata = pageMetadata({
+  title: 'Photo Credits',
+  description:
+    'Credits and licences for Creative Commons photographs used on BookMyFlight.',
+  path: '/credits',
+});
 
 export default function CreditsPage() {
   return (

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -20,13 +21,8 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const o = campaignOffers.find((x) => x.slug === slug);
-  if (!o) return { title: 'Offer not found | BookMyFlight' };
-  return {
-    title: `${o.title} | BookMyFlight`,
-    description: o.description,
-    alternates: { canonical: `/offers/${o.slug}` },
-    robots: { index: false, follow: true },
-  };
+  if (!o) return { title: 'Offer not found' };
+  return pageMetadata({ title: o.title, description: o.description, path: `/offers/${o.slug}`, noindex: true });
 }
 
 export default async function OfferPage({ params }: Props) {

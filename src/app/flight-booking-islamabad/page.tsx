@@ -1,13 +1,14 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import { LandingPage, type LandingData } from '@/components/sections/LandingPage';
 import { siteConfig } from '@/lib/config';
 
-export const metadata: Metadata = {
-  title: 'Flight Booking in Islamabad: Travel Agency in Blue Area | BookMyFlight',
+export const metadata: Metadata = pageMetadata({
+  title: 'Flight Booking in Islamabad: Blue Area Travel Agent',
   description:
-    'Air ticketing in Islamabad and Rawalpindi: visit O.S Travel & Tours in Aaly Plaza, Blue Area, or WhatsApp +92 333 5542877. International, domestic and Umrah flights from Islamabad Airport (ISB).',
-  alternates: { canonical: '/flight-booking-islamabad' },
-};
+    'Air tickets in Islamabad & Rawalpindi from O.S Travel & Tours, Aaly Plaza, Blue Area. International, domestic & Umrah flights. Call +92 332 5500377.',
+  path: '/flight-booking-islamabad',
+});
 
 const { address, contact, hours } = siteConfig;
 
@@ -25,7 +26,7 @@ const data: LandingData = {
       cols: 3,
       items: [
         { title: 'Office address', body: `O.S Travel & Tours, ${address.street}, ${address.area}, ${address.city}.`, href: '/contact', cta: 'Map & directions' },
-        { title: 'Phone & WhatsApp', body: `${contact.phone.join(' · ')} · WhatsApp ${contact.whatsappDisplay}`, whatsapp: 'Hello BookMyFlight Islamabad office, I need a flight quote.' },
+        { title: 'Phone & WhatsApp', body: `Call ${contact.hotlineDisplay} · ${contact.phone.join(' · ')} · WhatsApp ${contact.whatsappDisplay}`, whatsapp: 'Hello BookMyFlight Islamabad office, I need a flight quote.' },
         { title: 'Office hours', body: `${hours.days}, ${hours.weekdays}. Closed on Sundays.` },
       ],
     },

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { pageMetadata, YEAR } from '@/lib/seo';
 import Link from 'next/link';
 import { PageHero } from '@/components/sections/PageHero';
 import { FaqSection } from '@/components/sections/FaqSection';
@@ -9,12 +10,12 @@ import { seasonSummary } from '@/lib/airline-content';
 import { airlinesFaqs } from '@/lib/faqs';
 import styles from '@/components/sections/Page.module.css';
 
-export const metadata: Metadata = {
-  title: 'Airlines Flying from Pakistan: Refund, Reissue & Baggage Rules Compared | BookMyFlight',
+export const metadata: Metadata = pageMetadata({
+  title: `Airline Refund, Reissue & Baggage Rules ${YEAR}`,
   description:
-    'Compare 18 airlines flying from Pakistan: PIA, Airblue, AirSial, Fly Jinnah, Emirates, Qatar Airways, Saudia, Turkish and more. Fare types, baggage, refund and reissue policies and the cheapest months to fly.',
-  alternates: { canonical: '/airlines' },
-};
+    'Compare 18 airlines flying from Pakistan: PIA, Airblue, AirSial, Emirates, Qatar Airways, Saudia, Turkish & more. Baggage, refund and date-change rules in one place.',
+  path: '/airlines',
+});
 
 function AirlineCard({ a }: { a: AirlineBase }) {
   const d = getAirlineDetail(a.slug);

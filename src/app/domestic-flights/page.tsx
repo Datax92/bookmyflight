@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
+import { pageMetadata, YEAR } from '@/lib/seo';
 import { LandingPage, type LandingData } from '@/components/sections/LandingPage';
 
-export const metadata: Metadata = {
-  title: 'Domestic Flights in Pakistan: PIA, Airblue, AirSial & Fly Jinnah | BookMyFlight',
+export const metadata: Metadata = pageMetadata({
+  title: `Domestic Flights in Pakistan ${YEAR}: PIA, Airblue & More`,
   description:
-    'Book domestic flights across Pakistan: Islamabad, Karachi, Lahore, Peshawar, Quetta, Multan, Skardu and Gilgit on PIA, Airblue, AirSial and Fly Jinnah. Compare fares and baggage.',
-  alternates: { canonical: '/domestic-flights' },
-};
+    'Book domestic flights between Islamabad, Karachi, Lahore, Peshawar, Quetta, Skardu and Gilgit on PIA, Airblue, AirSial & Fly Jinnah. Call +92 332 5500377.',
+  path: '/domestic-flights',
+});
 
 const data: LandingData = {
   hero: {

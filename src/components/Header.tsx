@@ -109,6 +109,12 @@ export function Header() {
 
           <ul className={styles.secondaryNav}>
             <li>
+              <a href={`tel:${siteConfig.contact.hotline}`} className={styles.callLink}>
+                <Phone size={16} aria-hidden />
+                <span>{siteConfig.contact.hotlineDisplay}</span>
+              </a>
+            </li>
+            <li>
               <Link href="/contact" className={styles.helpLink}>
                 Help
               </Link>
@@ -132,6 +138,8 @@ export function Header() {
                   <div className={styles.popoverRow}>
                     <Phone size={16} />
                     <span>
+                      <a href={`tel:${siteConfig.contact.hotline}`}>{siteConfig.contact.hotlineDisplay}</a>
+                      {' · '}
                       <a href={`tel:${siteConfig.contact.phone[0]}`}>{siteConfig.contact.phone[0]}</a>
                       {' · '}
                       <a href={`tel:${siteConfig.contact.phone[1]}`}>{siteConfig.contact.phone[1]}</a>

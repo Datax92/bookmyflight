@@ -4,7 +4,7 @@
 import type { Faq } from '@/components/sections/FaqSection';
 import { findAirport } from './airports';
 import type { AirlineBase } from './airlines';
-import { seasonProfiles, type AirlineDetail } from './airline-details';
+import { seasonProfiles, type AirlineDetail, type SeasonProfile } from './airline-details';
 
 const MONTH_NAMES = [
   'January', 'February', 'March', 'April', 'May', 'June',
@@ -25,10 +25,14 @@ export function cityNames(codes: string[]) {
   return codes.map((c) => findAirport(c)?.city ?? c);
 }
 
-export function seasonSummary(d: AirlineDetail) {
-  const levels = seasonProfiles[d.season].levels;
+export function seasonMonths(season: SeasonProfile) {
+  const levels = seasonProfiles[season].levels;
   const pick = (lv: string) => levels.map((l, i) => (l === lv ? MONTH_NAMES[i] : null)).filter(Boolean) as string[];
   return { cheap: pick('low'), expensive: pick('high'), average: pick('mid') };
+}
+
+export function seasonSummary(d: AirlineDetail) {
+  return seasonMonths(d.season);
 }
 
 const hasSaudi = (d: AirlineDetail) => d.routes.some((r) => ['JED', 'MED'].includes(r.code));

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import Image from 'next/image';
 import Link from 'next/link';
 import { PageHero } from '@/components/sections/PageHero';
@@ -12,18 +13,12 @@ import { getWhatsAppUrl } from '@/lib/whatsapp';
 import styles from '@/components/sections/Page.module.css';
 import blog from '@/components/blog/Blog.module.css';
 
-export const metadata: Metadata = {
-  title: 'Travel Blog: Flight Guides, Airline Refund Rules & Umrah Tips for Pakistan | BookMyFlight',
+export const metadata: Metadata = pageMetadata({
+  title: 'Travel Blog: Flight, Refund & Umrah Guides for Pakistan',
   description:
-    'Guides for travellers from Pakistan: airline refund and reissue rules, cheapest months to fly, UK and Umrah flight tips, low-cost airline comparisons and travel checklists.',
-  alternates: { canonical: '/blog' },
-  openGraph: {
-    title: 'BookMyFlight Travel Blog',
-    description: 'Practical flight and travel guides for travellers from Pakistan.',
-    url: 'https://bookmyflight.pk/blog',
-    type: 'website',
-  },
-};
+    'Practical guides for travellers from Pakistan: airline refund and reissue rules, cheapest months to fly, Umrah flight tips, low-cost airlines and travel checklists.',
+  path: '/blog',
+});
 
 export default function BlogHubPage() {
   const [featured, ...rest] = blogPosts;

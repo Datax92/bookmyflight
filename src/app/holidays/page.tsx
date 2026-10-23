@@ -1,13 +1,14 @@
 import type { Metadata } from 'next';
+import { pageMetadata, YEAR } from '@/lib/seo';
 import { LandingPage, type LandingData } from '@/components/sections/LandingPage';
 import { destinations } from '@/lib/config';
 
-export const metadata: Metadata = {
-  title: 'Holiday Packages from Pakistan: Dubai, Baku, Istanbul, Malaysia & More | BookMyFlight',
+export const metadata: Metadata = pageMetadata({
+  title: `Holiday Packages from Pakistan ${YEAR}: Dubai, Baku & More`,
   description:
-    'Holiday packages from Pakistan with flights, hotels, visas and tours: Dubai, Istanbul, Baku, Kuala Lumpur, Bangkok, London, Paris and Doha. Custom family and honeymoon trips.',
-  alternates: { canonical: '/holidays' },
-};
+    'Holiday packages from Pakistan with flights, hotels, visa and tours: Dubai, Istanbul, Baku, Kuala Lumpur, Bangkok and more. Family and honeymoon trips tailored.',
+  path: '/holidays',
+});
 
 const data: LandingData = {
   hero: {

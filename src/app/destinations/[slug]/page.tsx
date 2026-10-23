@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { pageMetadata, YEAR } from '@/lib/seo';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -41,13 +42,14 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const d = destinations.find((x) => x.id === slug);
-  if (!d) return { title: 'Destination not found | BookMyFlight' };
-  return {
-    title: `Flights to ${d.name} from Pakistan: Airlines, Visa & Travel Guide | BookMyFlight`,
-    description: `${d.description} Flight time: ${d.flightTime}. Best time to visit: ${d.bestSeason}.`,
-    alternates: { canonical: `/destinations/${d.id}` },
-    openGraph: { title: `Flights to ${d.name} | BookMyFlight`, description: d.description, images: [{ url: d.image }] },
-  };
+  if (!d) return { title: 'Destination not found' };
+  return pageMetadata({
+    title: `Flights to ${d.name} from Pakistan ${YEAR}: Airlines & Visa`,
+    description: `Compare flights to ${d.name} on ${d.airlines.slice(0, 3).join(', ')} & more. Flight time, best season, visa and tips. Call +92 332 5500377 for today’s fare.`,
+    path: `/destinations/${d.id}`,
+    image: d.image,
+    imageAlt: `${d.name}, ${d.country}`,
+  });
 }
 
 export default async function DestinationPage({ params }: Props) {
