@@ -44,8 +44,8 @@ function InquiryForm({ lines }: { lines: string[] }) {
         </span>
         <h2 className="text-heading-3">Your request is ready in WhatsApp</h2>
         <p className="text-body">
-          Press send in WhatsApp and our ticketing team will reply with live fares during office hours (
-          {siteConfig.hours.days}, {siteConfig.hours.weekdays}).
+          Press send in WhatsApp and our ticketing team will reply with live fares. Online support is available
+          24/7.
         </p>
         <div className={styles.sentActions}>
           <a href={sentUrl} target="_blank" rel="noopener noreferrer" className="bpk-btn bpk-btn--whatsapp bpk-btn--large">

@@ -7,7 +7,7 @@ export const homeFaqs: Faq[] = [
   {
     question: 'How does BookMyFlight work?',
     answer:
-      'Enter where you are flying from, where you want to go, your dates and the number of travellers, then press Search. Your request goes straight to the air ticketing team at O.S Travel & Tours, who check live fares across the airline systems (Amadeus and Sabre GDS plus airline-direct inventory) and send you the cheapest suitable options on WhatsApp during office hours (Monday to Saturday, 9:00 AM – 6:00 PM).\n\nOnce you choose a flight, we hold the seat, confirm the fare rules with you and issue an official airline e-ticket.',
+      'Enter where you are flying from, where you want to go, your dates and the number of travellers, then press Search. Your request goes straight to the air ticketing team at O.S Travel & Tours, who check live fares across the airline systems (Amadeus and Sabre GDS plus airline-direct inventory) and send you the cheapest suitable options on WhatsApp. Online support is available 24/7.\n\nOnce you choose a flight, we hold the seat, confirm the fare rules with you and issue an official airline e-ticket.',
   },
   {
     question: 'How can I find the cheapest flights from Pakistan?',
@@ -314,7 +314,7 @@ export const partnersFaqs: Faq[] = [
   {
     question: 'Do you work with corporate clients and other travel agents?',
     answer:
-      'Yes. Businesses, schools and travel agents can contact our Islamabad office for group fares, corporate travel and ticketing support. Message us on WhatsApp or call during office hours.',
+      'Yes. Businesses, schools and travel agents can contact our Islamabad office for group fares, corporate travel and ticketing support. Message us on WhatsApp or call; online support is available 24/7.',
   },
   {
     question: 'Where is the O.S Travel & Tours office?',
@@ -362,7 +362,7 @@ export const blogFaqs: Faq[] = [
   {
     question: 'Can I ask a question about an article?',
     answer:
-      'Yes. Message the travel desk on WhatsApp with the article title and your question, and a consultant will reply during office hours.',
+      'Yes. Message the travel desk on WhatsApp with the article title and your question, and a consultant will reply. Online support is available 24/7.',
   },
   {
     question: 'Do you write about airline refund and reissue policies?',
@@ -452,11 +452,11 @@ export const contactFaqs: Faq[] = [
   {
     question: 'What is the fastest way to contact BookMyFlight?',
     answer:
-      'WhatsApp is fastest. Send your route, dates and number of travellers to +92 332 5500377 and our ticketing team will reply during office hours. To speak to someone straight away, call the same number.',
+      'WhatsApp is fastest. Send your route, dates and number of travellers to +92 332 5500377 and our ticketing team will reply. Online support runs 24/7, so you can also call the same number any time.',
   },
   {
     question: 'What are your office hours?',
-    answer: 'Monday to Saturday, 9:00 AM to 6:00 PM (Pakistan time). We are closed on Sundays and public holidays.',
+    answer: 'Online support on call and WhatsApp (+92 332 5500377) is available 24/7. The office in Blue Area, Islamabad is open Monday to Saturday, 9:00 AM to 6:00 PM (Pakistan time), and closed on Sundays and public holidays.',
   },
   {
     question: 'What are your phone numbers?',
@@ -475,7 +475,7 @@ export const contactFaqs: Faq[] = [
   {
     question: 'How quickly will I get a reply?',
     answer:
-      'We aim to reply to messages received during office hours on the same working day; messages sent after hours are answered on the next working day.',
+      'Online support is available 24/7, so you can call or WhatsApp +92 332 5500377 at any hour. Ticket issuing and payments at the office happen during office hours, Monday to Saturday, 9:00 AM to 6:00 PM.',
   },
   {
     question: 'Can I send passport copies on WhatsApp?',
@@ -490,7 +490,7 @@ export const contactFaqs: Faq[] = [
   {
     question: 'Do you offer 24/7 support?',
     answer:
-      'Our office runs Monday to Saturday. For urgent issues at the airport outside office hours, contact the airline directly using the number on your e-ticket, then inform us.',
+      'Yes. Online support on call and WhatsApp (+92 332 5500377) is available 24 hours a day, 7 days a week, including for urgent issues at the airport. The office itself is open Monday to Saturday, 9:00 AM to 6:00 PM.',
   },
   {
     question: 'Can overseas Pakistanis book through you?',

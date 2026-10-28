@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ChevronDown, ChevronRight, Clock, Mail, MapPin, Phone } from 'lucide-react';
+import { ChevronDown, ChevronRight, Clock, Headphones, Mail, MapPin, Phone } from 'lucide-react';
 import { navigation, siteConfig } from '@/lib/config';
 import { internationalAirlines, pakistaniAirlines } from '@/lib/airlines';
 import { getWhatsAppUrl } from '@/lib/whatsapp';
@@ -112,6 +112,7 @@ export function Header() {
               <a href={`tel:${siteConfig.contact.hotline}`} className={styles.callLink}>
                 <Phone size={16} aria-hidden />
                 <span>{siteConfig.contact.hotlineDisplay}</span>
+                <span className={styles.callBadge}>24/7</span>
               </a>
             </li>
             <li>
@@ -156,9 +157,15 @@ export function Header() {
                     <a href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a>
                   </div>
                   <div className={styles.popoverRow}>
+                    <Headphones size={16} />
+                    <span>
+                      {siteConfig.hours.online} · {siteConfig.hours.onlineNote}
+                    </span>
+                  </div>
+                  <div className={styles.popoverRow}>
                     <Clock size={16} />
                     <span>
-                      {siteConfig.hours.days}, {siteConfig.hours.weekdays}
+                      Office: {siteConfig.hours.days}, {siteConfig.hours.weekdays}
                     </span>
                   </div>
                   <div className={styles.popoverRow}>

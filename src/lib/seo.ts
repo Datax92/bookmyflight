@@ -81,6 +81,14 @@ export function pageMetadata({
   };
 }
 
+/** Online support (call and WhatsApp) answers round the clock; the office keeps its own hours. */
+const ALWAYS_OPEN = {
+  '@type': 'OpeningHoursSpecification',
+  dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+  opens: '00:00',
+  closes: '23:59',
+};
+
 /** Organisation, website and local travel agency entities, linked by @id so every page can reference them. */
 export function siteGraph() {
   const { contact, address, social, parent } = siteConfig;
@@ -92,6 +100,7 @@ export function siteGraph() {
       contactType: 'customer service',
       areaServed: 'PK',
       availableLanguage: ['English', 'Urdu'],
+      hoursAvailable: ALWAYS_OPEN,
     },
     {
       '@type': 'ContactPoint',
@@ -99,6 +108,7 @@ export function siteGraph() {
       contactType: 'reservations',
       areaServed: 'PK',
       availableLanguage: ['English', 'Urdu'],
+      hoursAvailable: ALWAYS_OPEN,
     },
     {
       '@type': 'ContactPoint',
@@ -107,6 +117,7 @@ export function siteGraph() {
       contactOption: 'WhatsApp',
       areaServed: 'PK',
       availableLanguage: ['English', 'Urdu'],
+      hoursAvailable: ALWAYS_OPEN,
     },
   ];
   const postalAddress = {

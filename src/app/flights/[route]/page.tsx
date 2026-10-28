@@ -366,7 +366,7 @@ export default async function RoutePage({ params }: Props) {
           <h2 className={styles.subTitle}>Get today’s {label} fare</h2>
           <p className="text-body" style={{ maxWidth: '44rem' }}>
             Tell us your dates and travellers. Our ticketing team compares {listJoin(directNames)} and replies with the best
-            fares, baggage and change rules. Office hours: {siteConfig.hours.days}, {siteConfig.hours.weekdays}.
+            fares, baggage and change rules. {siteConfig.hours.online} on call and WhatsApp.
           </p>
           <div className={styles.ctaRow}>
             <a href={`tel:${siteConfig.contact.hotline}`} className="bpk-btn bpk-btn--primary-on-dark bpk-btn--large">

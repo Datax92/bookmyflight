@@ -75,7 +75,7 @@ const data: LandingData = {
     { question: 'Can I choose direct flights only?', answer: 'Yes. Tick “Direct flights” under the search form and we will quote non-stop options where available.' },
     { question: 'What does “Add nearby airports” do?', answer: 'It tells our team to compare nearby airports too, for example Islamabad and Lahore, or Dubai and Sharjah, which can be cheaper.' },
     { question: 'Can I add a hotel to my flight?', answer: 'Yes. “Add a place to stay” is ticked by default; we include hotel options with your flight quote. Untick it if you only need flights.' },
-    { question: 'How long will a quote take?', answer: 'We aim to reply during office hours, Monday to Saturday, 9:00 AM to 6:00 PM. Complex multi-city or group requests can take longer.' },
+    { question: 'How long will a quote take?', answer: 'Online support is available 24/7 on call and WhatsApp, so most quotes come back quickly at any hour. Complex multi-city or group requests can take longer.' },
     { question: 'Are fares guaranteed once quoted?', answer: 'Fares are only guaranteed once the ticket is issued. Until then, airlines can change prices or availability.' },
     { question: 'Can I book for someone else?', answer: 'Yes. Share the traveller’s passport details and contact number so the airline can reach them about schedule changes.' },
   ],

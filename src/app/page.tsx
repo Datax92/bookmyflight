@@ -2,14 +2,14 @@ import type { Metadata } from 'next';
 import { pageMetadata } from '@/lib/seo';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Compass, Landmark, Stamp } from 'lucide-react';
+import { Compass, Headphones, Landmark, Stamp } from 'lucide-react';
 import { SearchWidget } from '@/components/search/SearchWidget';
 import { FaqSection } from '@/components/sections/FaqSection';
 import { AssociatedSites } from '@/components/home/AssociatedSites';
 import { InternalLinks, type LinkGroup } from '@/components/home/InternalLinks';
 import { WhatsAppIcon } from '@/components/ui/icons';
 import { airlines } from '@/lib/airlines';
-import { destinations } from '@/lib/config';
+import { destinations, siteConfig } from '@/lib/config';
 import { blogPosts } from '@/lib/blog-data';
 import { findAirport } from '@/lib/airports';
 import { routeHref } from '@/lib/routes';
@@ -89,6 +89,13 @@ export default function HomePage() {
       <section className={styles.hero}>
         <div className="bpk-container">
           <h1 className={`${styles.heroTitle} bmf-enter`}>Cheap flights from Pakistan. One simple search.</h1>
+          <p className={`${styles.heroSupport} bmf-enter`}>
+            <Headphones size={18} aria-hidden />
+            <span>
+              {siteConfig.hours.online}: call or WhatsApp{' '}
+              <a href={`tel:${siteConfig.contact.hotline}`}>{siteConfig.contact.hotlineDisplay}</a>
+            </span>
+          </p>
           <div className="bmf-enter bmf-enter-1">
             <SearchWidget />
           </div>

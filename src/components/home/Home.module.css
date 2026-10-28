@@ -15,6 +15,22 @@
   line-height: 2.5rem;
 }
 
+.heroSupport {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: -1.25rem 0 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5rem;
+}
+
+.heroSupport a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
 /* ---------- Page body stack ---------- */
 .body {
   position: relative;

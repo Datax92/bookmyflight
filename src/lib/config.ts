@@ -57,8 +57,11 @@ export const siteConfig = {
       'https://www.google.com/maps/place/O.S+Travel+%26+Tours/@33.7178385,73.0733661,17z',
   },
 
-  // Verified business hours
+  // Verified business hours. The office is open Mon–Sat; online support
+  // (call and WhatsApp on the hotline) runs round the clock.
   hours: {
+    online: '24/7 online support',
+    onlineNote: 'Call or WhatsApp any time, day or night',
     weekdays: '9:00 AM – 6:00 PM',
     saturday: '9:00 AM – 6:00 PM',
     sunday: 'Closed',

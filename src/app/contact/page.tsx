@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { pageMetadata } from '@/lib/seo';
-import { Clock, Mail, MapPin, Phone } from 'lucide-react';
+import { Headphones, Mail, MapPin, Phone } from 'lucide-react';
 import { PageHero } from '@/components/sections/PageHero';
 import { FaqSection } from '@/components/sections/FaqSection';
 import { ContactInquiryForm } from '@/components/ContactInquiryForm';
@@ -13,7 +13,7 @@ import styles from '@/components/sections/Page.module.css';
 export const metadata: Metadata = pageMetadata({
   title: 'Contact Us: Call +92 332 5500377 | Blue Area, Islamabad',
   description:
-    'Call or WhatsApp +92 332 5500377 for flight tickets, Umrah and visas. Visit Aaly Plaza, Blue Area, Islamabad. Open Mon–Sat, 9 AM–6 PM.',
+    'Call or WhatsApp +92 332 5500377 for flight tickets, Umrah and visas. 24/7 online support. Office in Aaly Plaza, Blue Area, Islamabad, Mon–Sat 9 AM–6 PM.',
   path: '/contact',
 });
 
@@ -31,7 +31,7 @@ export default function ContactPage() {
     },
     { icon: <Phone size={24} aria-hidden />, title: 'Call us', value: contact.hotlineDisplay, href: `tel:${contact.hotline}`, note: `Office: ${contact.phone.join(' · ')}` },
     { icon: <Mail size={24} aria-hidden />, title: 'Email', value: contact.email, href: `mailto:${contact.email}`, note: 'For documents and invoices' },
-    { icon: <Clock size={24} aria-hidden />, title: 'Office hours', value: `${hours.days}`, note: `${hours.weekdays} · Sunday closed` },
+    { icon: <Headphones size={24} aria-hidden />, title: 'Online support', value: '24/7 · call or WhatsApp', note: `Office: ${hours.days}, ${hours.weekdays} · Sunday closed` },
   ];
 
   return (

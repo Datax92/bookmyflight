@@ -20,7 +20,8 @@ export function GET() {
 - Office: ${contact.phone.join(', ')}
 - Email: ${contact.email}
 - Address: ${parent.name}, ${address.street}, ${address.area}, ${address.city}, ${address.country}
-- Hours: ${hours.days}, ${hours.weekdays} (Pakistan time); Sunday closed
+- Online support: 24/7 on call and WhatsApp (${contact.hotlineDisplay})
+- Office hours: ${hours.days}, ${hours.weekdays} (Pakistan time); Sunday closed
 - Bookings are made with a human consultant (phone or WhatsApp); there is no instant online checkout.
 - Airline refund, reissue and baggage rules on this site are summarised from each airline's official website. Fare-by-month charts show seasonal demand patterns, not live prices.
 

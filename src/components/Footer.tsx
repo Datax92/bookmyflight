@@ -129,6 +129,8 @@ export function Footer({ routeLinks = [] }: { routeLinks?: FooterLink[] }) {
           <address className={styles.nap}>
             <a href={`tel:${siteConfig.contact.hotline}`}>Call {siteConfig.contact.hotlineDisplay}</a>
             <span aria-hidden> · </span>
+            {siteConfig.hours.online}
+            <span aria-hidden> · </span>
             <a href={`tel:${siteConfig.contact.phone[0]}`}>{siteConfig.contact.phone[0]}</a>
             <span aria-hidden> · </span>
             <a href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a>

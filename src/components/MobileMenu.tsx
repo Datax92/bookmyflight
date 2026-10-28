@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ChevronDown, Clock, Mail, Menu, Phone, X } from 'lucide-react';
+import { ChevronDown, Clock, Headphones, Mail, Menu, Phone, X } from 'lucide-react';
 import { navigation, siteConfig } from '@/lib/config';
 import { airlines } from '@/lib/airlines';
 import { getWhatsAppUrl } from '@/lib/whatsapp';
@@ -135,7 +135,10 @@ export function MobileMenu() {
                   <Mail size={18} aria-hidden /> {siteConfig.contact.email}
                 </a>
                 <p className={styles.contactRow}>
-                  <Clock size={18} aria-hidden /> {siteConfig.hours.days}, {siteConfig.hours.weekdays}
+                  <Headphones size={18} aria-hidden /> {siteConfig.hours.online}
+                </p>
+                <p className={styles.contactRow}>
+                  <Clock size={18} aria-hidden /> Office: {siteConfig.hours.days}, {siteConfig.hours.weekdays}
                 </p>
               </div>
             </div>

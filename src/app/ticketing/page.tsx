@@ -207,8 +207,7 @@ export default function TicketingPage() {
         <section className={styles.panelDark}>
           <h2 className={styles.subTitle}>Need a ticket today?</h2>
           <p className="text-body" style={{ maxWidth: '44rem' }}>
-            Send your route, dates and passenger names on WhatsApp or call {siteConfig.contact.hotlineDisplay}. Office hours:{' '}
-            {siteConfig.hours.days}, {siteConfig.hours.weekdays}.
+            Send your route, dates and passenger names on WhatsApp or call {siteConfig.contact.hotlineDisplay}. {siteConfig.hours.online}.
           </p>
           <div className={styles.ctaRow}>
             <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="bpk-btn bpk-btn--whatsapp bpk-btn--large">
