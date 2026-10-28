@@ -115,7 +115,7 @@ export default async function RoutePage({ params }: Props) {
       : []),
     {
       question: `How do I book a ${label} ticket with BookMyFlight?`,
-      answer: `Call ${siteConfig.contact.hotlineDisplay} or WhatsApp ${siteConfig.contact.whatsappDisplay} with your dates and number of travellers, or use the search form above. Our O.S Travel & Tours ticketing team compares every airline on the route, explains the fare rules and issues your airline e-ticket after payment.`,
+      answer: `Call or WhatsApp ${siteConfig.contact.whatsappDisplay} with your dates and number of travellers, or use the search form above. Our O.S Travel & Tours ticketing team compares every airline on the route, explains the fare rules and issues your airline e-ticket after payment.`,
     },
     {
       question: 'Can I change or refund my ticket later?',

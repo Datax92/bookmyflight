@@ -13,7 +13,7 @@ import styles from '@/components/sections/Page.module.css';
 export const metadata: Metadata = pageMetadata({
   title: 'Contact Us: Call +92 332 5500377 | Blue Area, Islamabad',
   description:
-    'Call +92 332 5500377 or WhatsApp +92 333 5542877 for flight tickets, Umrah and visas. Visit Aaly Plaza, Blue Area, Islamabad. Open Mon–Sat, 9 AM–6 PM.',
+    'Call or WhatsApp +92 332 5500377 for flight tickets, Umrah and visas. Visit Aaly Plaza, Blue Area, Islamabad. Open Mon–Sat, 9 AM–6 PM.',
   path: '/contact',
 });
 

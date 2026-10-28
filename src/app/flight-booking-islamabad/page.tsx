@@ -26,7 +26,7 @@ const data: LandingData = {
       cols: 3,
       items: [
         { title: 'Office address', body: `O.S Travel & Tours, ${address.street}, ${address.area}, ${address.city}.`, href: '/contact', cta: 'Map & directions' },
-        { title: 'Phone & WhatsApp', body: `Call ${contact.hotlineDisplay} · ${contact.phone.join(' · ')} · WhatsApp ${contact.whatsappDisplay}`, whatsapp: 'Hello BookMyFlight Islamabad office, I need a flight quote.' },
+        { title: 'Phone & WhatsApp', body: `Call or WhatsApp ${contact.hotlineDisplay} · Office ${contact.phone.join(' · ')}`, whatsapp: 'Hello BookMyFlight Islamabad office, I need a flight quote.' },
         { title: 'Office hours', body: `${hours.days}, ${hours.weekdays}. Closed on Sundays.` },
       ],
     },

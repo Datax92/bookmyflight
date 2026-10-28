@@ -37,11 +37,11 @@ export const siteConfig = {
     // Main call number, shown first wherever a phone number appears
     hotline: '+923325500377',
     hotlineDisplay: '+92 332 5500377',
-    whatsapp: '+923335542877', // Verified WhatsApp from Facebook
-    whatsappDisplay: '+92 333 5542877',
+    whatsapp: '+923325500377', // Same number as the hotline: calls and WhatsApp
+    whatsappDisplay: '+92 332 5500377',
     whatsappSecondary: '+923345500277',
     phone: ['+92-51-2120700', '+92-51-2120701'],
-    mobile: '+92-333-5542877',
+    mobile: '+92-332-5500377',
     email: 'info@ostravels.com',
   },
 

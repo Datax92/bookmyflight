@@ -68,7 +68,7 @@ const data: LandingData = {
   ],
   faqTitle: 'Flight booking FAQs',
   faqs: [
-    { question: 'How do I book a flight through BookMyFlight?', answer: 'Use the search form call +92 332 5500377 or message +92 333 5542877 on WhatsApp. A consultant compares airlines and coordinates your ticketing.' },
+    { question: 'How do I book a flight through BookMyFlight?', answer: 'Use the search form, or call or WhatsApp +92 332 5500377. A consultant compares airlines and coordinates your ticketing.' },
     { question: 'Are payments secure?', answer: 'Payments, receipts and confirmations are handled by O.S Travel & Tours, an established agency in Blue Area, Islamabad. Tickets are issued only after payment, and we never ask for card details on WhatsApp.' },
     { question: 'Can you help with date changes and cancellations?', answer: 'Yes. We handle change requests, reissues and refund claims directly with the airline according to your fare rules.' },
     { question: 'Do you offer group bookings?', answer: 'Yes. For 10 or more passengers we request group fares, which often have flexible name submission and deposit-based payment.' },
